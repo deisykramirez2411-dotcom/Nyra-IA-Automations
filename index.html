@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Nyra · AI Automations</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/space-grotesk@latest/latin-400-normal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/space-grotesk@latest/latin-700-normal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-400-normal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-500-normal.css">
+<style>
+  :root{
+    --bg:#0B0E14;
+    --bg-2:#0f1420;
+    --cyan:#00F0FF;
+    --magenta:#FF2E9F;
+    --violet:#7B2FFF;
+    --text:#E7E9EE;
+    --muted:#9aa0ad;
+    --border:rgba(231,233,238,0.08);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+    line-height:1.6;
+  }
+  h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-0.02em}
+
+  #bgCanvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+  .glow-blob{position:fixed;border-radius:50%;filter:blur(120px);opacity:0.35;z-index:0;pointer-events:none}
+  .blob-1{width:500px;height:500px;background:var(--cyan);top:-150px;left:-150px;opacity:0.18}
+  .blob-2{width:450px;height:450px;background:var(--violet);top:40%;right:-150px;opacity:0.22}
+  .blob-3{width:400px;height:400px;background:var(--magenta);bottom:-100px;left:30%;opacity:0.15}
+
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    padding:18px 6%;
+    display:flex;justify-content:space-between;align-items:center;
+    backdrop-filter:blur(14px);
+    background:rgba(11,14,20,0.6);
+    border-bottom:1px solid var(--border);
+  }
+  .logo{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:1.6rem;font-weight:700;
+    color:var(--text);
+    display:flex;align-items:center;gap:10px;
+    cursor:pointer;
+  }
+  .logo-mark{
+    width:34px;height:34px;
+    border-radius:9px;
+    background:linear-gradient(135deg,var(--cyan) 0%,var(--violet) 50%,var(--magenta) 100%);
+    position:relative;
+    box-shadow:0 0 20px rgba(0,240,255,0.6),0 0 30px rgba(123,47,255,0.4);
+    animation:logoGlow 3s ease-in-out infinite;
+  }
+  @keyframes logoGlow{
+    0%,100%{box-shadow:0 0 20px rgba(0,240,255,0.6),0 0 30px rgba(123,47,255,0.4)}
+    50%{box-shadow:0 0 25px rgba(255,46,159,0.7),0 0 40px rgba(0,240,255,0.5)}
+  }
+  .logo-mark::after{content:'';position:absolute;inset:6px;border-radius:4px;background:var(--bg)}
+  .logo-mark::before{content:'';position:absolute;inset:10px;border-radius:2px;background:linear-gradient(135deg,var(--cyan),var(--magenta));box-shadow:0 0 10px var(--cyan)}
+  .logo-text{display:flex;flex-direction:column;line-height:1}
+  .logo-text .name{background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .logo-text .sub{font-size:0.55rem;font-family:'Inter',sans-serif;font-weight:500;letter-spacing:0.2em;color:var(--magenta);text-transform:uppercase;margin-top:2px}
+  .nav-links{display:flex;gap:32px;list-style:none}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:0.92rem;font-weight:500;transition:color 0.3s;cursor:pointer}
+  .nav-links a:hover{color:var(--cyan)}
+  .nav-actions{display:flex;gap:12px;align-items:center}
+  .lang-toggle{
+    padding:8px 14px;
+    background:transparent;
+    border:1px solid var(--border);
+    color:var(--text);
+    border-radius:999px;
+    font-size:0.82rem;
+    font-weight:500;
+    cursor:pointer;
+    transition:all 0.3s;
+    display:flex;align-items:center;gap:6px;
+  }
+  .lang-toggle:hover{border-color:var(--cyan);color:var(--cyan)}
+  .nav-cta{
+    padding:10px 22px;
+    background:transparent;
+    border:1px solid var(--cyan);
+    color:var(--cyan);
+    border-radius:999px;
+    font-size:0.88rem;font-weight:500;
+    cursor:pointer;text-decoration:none;
+    transition:all 0.3s;
+  }
+  .nav-cta:hover{background:var(--cyan);color:var(--bg);box-shadow:0 0 25px rgba(0,240,255,0.6)}
+  .menu-toggle{display:none;background:none;border:none;color:var(--text);font-size:1.5rem;cursor:pointer}
+
+  section{position:relative;z-index:2;padding:120px 6%}
+  .container{max-width:1200px;margin:0 auto}
+
+  .hero{min-height:100vh;display:flex;align-items:center;padding-top:140px}
+  .hero-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:60px;align-items:center;width:100%}
+  .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--border);border-radius:999px;font-size:0.82rem;color:var(--muted);margin-bottom:24px;background:rgba(0,240,255,0.04)}
+  .badge .dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan);animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+  .hero h1{font-size:clamp(2.4rem,5vw,4rem);line-height:1.05;margin-bottom:24px}
+  .hero h1 .highlight{background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent;position:relative}
+  .hero p{font-size:1.1rem;color:var(--muted);margin-bottom:36px;max-width:540px}
+  .hero-buttons{display:flex;gap:16px;flex-wrap:wrap}
+  .btn-primary{padding:14px 30px;background:var(--cyan);color:var(--bg);border:none;border-radius:999px;font-weight:600;font-size:0.95rem;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:all 0.3s;box-shadow:0 0 30px rgba(0,240,255,0.3)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 50px rgba(0,240,255,0.6)}
+  .btn-secondary{padding:14px 30px;background:transparent;color:var(--text);border:1px solid var(--border);border-radius:999px;font-weight:500;font-size:0.95rem;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:all 0.3s}
+  .btn-secondary:hover{border-color:var(--cyan);color:var(--cyan)}
+
+  .hero-visual{position:relative;aspect-ratio:1;max-width:480px;margin-left:auto;border-radius:24px;overflow:hidden}
+  .hero-visual img{width:100%;height:100%;object-fit:cover;border-radius:24px;filter:brightness(0.9) contrast(1.1)}
+  .hero-visual::before{content:'';position:absolute;inset:0;border-radius:24px;background:linear-gradient(135deg,rgba(0,240,255,0.15),rgba(123,47,255,0.15));z-index:1;pointer-events:none}
+  .hero-visual::after{content:'';position:absolute;inset:0;border-radius:24px;box-shadow:0 0 60px rgba(0,240,255,0.3),0 0 100px rgba(123,47,255,0.2);z-index:0;pointer-events:none}
+
+  .section-head{text-align:center;margin-bottom:70px}
+  .section-label{display:inline-block;color:var(--cyan);font-size:0.85rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:14px}
+  .section-title{font-size:clamp(2rem,4vw,3rem);line-height:1.1;margin-bottom:18px}
+  .section-subtitle{color:var(--muted);font-size:1.05rem;max-width:640px;margin:0 auto}
+
+  .problem{background:linear-gradient(180deg,transparent,rgba(255,46,159,0.03),transparent)}
+  .problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  .problem-list{list-style:none;display:flex;flex-direction:column;gap:20px}
+  .problem-list li{display:flex;gap:18px;padding:22px;background:rgba(15,20,32,0.5);border:1px solid var(--border);border-radius:14px;transition:all 0.3s}
+  .problem-list li:hover{border-color:rgba(255,46,159,0.4);transform:translateX(6px);box-shadow:0 0 30px rgba(255,46,159,0.1)}
+  .problem-icon{flex-shrink:0;width:44px;height:44px;border-radius:10px;background:rgba(255,46,159,0.1);border:1px solid rgba(255,46,159,0.3);display:flex;align-items:center;justify-content:center;color:var(--magenta);font-size:1.2rem}
+  .problem-text h4{font-size:1.05rem;margin-bottom:4px}
+  .problem-text p{color:var(--muted);font-size:0.92rem}
+
+  .solution{background:linear-gradient(180deg,transparent,rgba(0,240,255,0.04),transparent)}
+  .solution-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:40px}
+  .solution-img{border-radius:20px;overflow:hidden;position:relative;aspect-ratio:4/3}
+  .solution-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
+  .solution-img:hover img{transform:scale(1.05)}
+  .solution-img::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,240,255,0.2),rgba(123,47,255,0.2));z-index:1;pointer-events:none}
+  .solution-img::after{content:'';position:absolute;inset:0;box-shadow:inset 0 0 60px rgba(0,240,255,0.3);z-index:2;pointer-events:none}
+
+  .solution-card{background:rgba(15,20,32,0.6);backdrop-filter:blur(14px);border:1px solid var(--border);border-radius:24px;padding:40px;position:relative;overflow:hidden}
+  .solution-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent)}
+  .solution-flow{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .flow-step{text-align:center;position:relative;padding:20px}
+  .flow-num{width:56px;height:56px;margin:0 auto 16px;border-radius:50%;background:rgba(0,240,255,0.08);border:1px solid rgba(0,240,255,0.4);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:1.3rem;font-weight:700;color:var(--cyan);box-shadow:0 0 20px rgba(0,240,255,0.2)}
+
+  .services{background:linear-gradient(180deg,transparent,rgba(123,47,255,0.04),transparent)}
+  .services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+  .service-card{padding:36px;background:rgba(15,20,32,0.5);border:1px solid var(--border);border-radius:20px;position:relative;overflow:hidden;transition:all 0.4s;cursor:default}
+  .service-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--cyan),var(--violet));transform:scaleX(0);transform-origin:left;transition:transform 0.4s}
+  .service-card:hover{border-color:rgba(0,240,255,0.3);transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,240,255,0.1)}
+  .service-card:hover::before{transform:scaleX(1)}
+  .service-icon{width:60px;height:60px;border-radius:14px;background:linear-gradient(135deg,rgba(0,240,255,0.15),rgba(123,47,255,0.15));border:1px solid rgba(0,240,255,0.3);display:flex;align-items:center;justify-content:center;margin-bottom:22px;font-size:1.8rem;color:var(--cyan);transition:all 0.4s}
+  .service-card:hover .service-icon{box-shadow:0 0 25px rgba(0,240,255,0.4);transform:scale(1.05)}
+  .service-card h3{font-size:1.3rem;margin-bottom:12px}
+  .service-card p{color:var(--muted);font-size:0.95rem}
+  .service-card .tag{display:inline-block;margin-top:16px;padding:4px 12px;background:rgba(0,240,255,0.08);border:1px solid rgba(0,240,255,0.2);border-radius:999px;font-size:0.78rem;color:var(--cyan)}
+
+  .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  .why-points{display:flex;flex-direction:column;gap:24px}
+  .why-point{display:flex;gap:18px;padding:24px;background:rgba(15,20,32,0.5);border:1px solid var(--border);border-radius:16px;transition:all 0.3s}
+  .why-point:hover{border-color:rgba(123,47,255,0.4);box-shadow:0 0 30px rgba(123,47,255,0.1)}
+  .why-check{flex-shrink:0;width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:flex;align-items:center;justify-content:center;color:var(--bg);font-weight:700;box-shadow:0 0 20px rgba(123,47,255,0.4)}
+  .why-point h4{font-size:1.05rem;margin-bottom:4px}
+  .why-point p{color:var(--muted);font-size:0.92rem}
+
+  .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .stat{padding:28px;background:rgba(15,20,32,0.6);border:1px solid var(--border);border-radius:16px;text-align:center;position:relative;overflow:hidden}
+  .stat::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at top right,rgba(0,240,255,0.08),transparent 60%)}
+  .stat-num{font-family:'Space Grotesk',sans-serif;font-size:2.6rem;font-weight:700;background:linear-gradient(135deg,var(--cyan),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1;margin-bottom:8px;position:relative}
+  .stat-label{color:var(--muted);font-size:0.88rem;position:relative}
+
+  /* CONTACTO */
+  .contact{background:linear-gradient(180deg,transparent,rgba(0,240,255,0.04),transparent)}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:40px}
+  .contact-info{display:flex;flex-direction:column;gap:20px}
+  .contact-card{
+    padding:28px;
+    background:rgba(15,20,32,0.6);
+    border:1px solid var(--border);
+    border-radius:18px;
+    display:flex;
+    align-items:center;
+    gap:20px;
+    text-decoration:none;
+    color:var(--text);
+    transition:all 0.3s;
+  }
+  .contact-card:hover{
+    border-color:rgba(0,240,255,0.4);
+    transform:translateY(-4px);
+    box-shadow:0 15px 40px rgba(0,240,255,0.15);
+  }
+  .contact-card-icon{
+    flex-shrink:0;
+    width:54px;height:54px;
+    border-radius:14px;
+    background:linear-gradient(135deg,rgba(0,240,255,0.15),rgba(123,47,255,0.15));
+    border:1px solid rgba(0,240,255,0.3);
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.5rem;
+  }
+  .contact-card-icon.whatsapp{background:linear-gradient(135deg,rgba(37,211,102,0.15),rgba(0,240,255,0.1));border-color:rgba(37,211,102,0.4)}
+  .contact-card-icon.whatsapp span{color:#25D366}
+  .contact-card-text .label{font-size:0.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px}
+  .contact-card-text .value{font-family:'Space Grotesk',sans-serif;font-size:1.1rem;font-weight:600;color:var(--cyan)}
+  .contact-card-text .value.whatsapp{color:#25D366}
+
+  .cta-section{padding:80px 6%}
+  .cta-box{max-width:1000px;margin:0 auto;padding:70px 50px;background:linear-gradient(135deg,rgba(0,240,255,0.08),rgba(123,47,255,0.08));border:1px solid rgba(0,240,255,0.2);border-radius:28px;text-align:center;position:relative;overflow:hidden}
+  .cta-box::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 0deg,transparent,rgba(0,240,255,0.1),transparent 30%);animation:rotate 10s linear infinite}
+  @keyframes rotate{to{transform:rotate(360deg)}}
+  .cta-box > *{position:relative;z-index:2}
+  .cta-box h2{font-size:clamp(1.8rem,3.5vw,2.6rem);margin-bottom:16px}
+  .cta-box p{color:var(--muted);margin-bottom:32px;font-size:1.05rem}
+
+  /* FORM PAGE */
+  .form-page{
+    position:fixed;
+    inset:0;
+    z-index:200;
+    background:var(--bg);
+    overflow-y:auto;
+    display:none;
+    animation:fadeIn 0.4s ease;
+  }
+  .form-page.active{display:block}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .form-page-inner{
+    min-height:100vh;
+    padding:120px 6% 60px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+  }
+  .form-close{
+    position:fixed;
+    top:24px;right:24px;
+    width:44px;height:44px;
+    border-radius:50%;
+    background:rgba(15,20,32,0.8);
+    border:1px solid var(--border);
+    color:var(--text);
+    font-size:1.4rem;
+    cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    transition:all 0.3s;
+    z-index:201;
+  }
+  .form-close:hover{border-color:var(--cyan);color:var(--cyan)}
+  .form-container{
+    width:100%;
+    max-width:600px;
+    background:rgba(15,20,32,0.6);
+    backdrop-filter:blur(14px);
+    border:1px solid var(--border);
+    border-radius:24px;
+    padding:50px;
+    position:relative;
+    overflow:hidden;
+  }
+  .form-container::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--violet),var(--magenta))}
+  .form-container h2{font-size:1.8rem;margin-bottom:10px;text-align:center}
+  .form-container .form-sub{color:var(--muted);text-align:center;margin-bottom:30px}
+  .form-group{margin-bottom:20px}
+  .form-group label{display:block;font-size:0.85rem;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.08em}
+  .form-group input,
+  .form-group textarea{
+    width:100%;
+    padding:14px 16px;
+    background:rgba(11,14,20,0.6);
+    border:1px solid var(--border);
+    border-radius:12px;
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    font-size:0.95rem;
+    transition:all 0.3s;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus{
+    outline:none;
+    border-color:var(--cyan);
+    box-shadow:0 0 0 3px rgba(0,240,255,0.15);
+  }
+  .form-group textarea{resize:vertical;min-height:120px}
+  .form-submit{
+    width:100%;
+    padding:16px;
+    background:var(--cyan);
+    color:var(--bg);
+    border:none;
+    border-radius:999px;
+    font-weight:600;
+    font-size:1rem;
+    cursor:pointer;
+    transition:all 0.3s;
+    box-shadow:0 0 30px rgba(0,240,255,0.3);
+    margin-top:10px;
+  }
+  .form-submit:hover{transform:translateY(-2px);box-shadow:0 0 50px rgba(0,240,255,0.6)}
+  .form-success{
+    display:none;
+    text-align:center;
+    padding:30px 0;
+  }
+  .form-success.show{display:block}
+  .form-success .check{
+    width:70px;height:70px;
+    margin:0 auto 20px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--cyan),var(--violet));
+    display:flex;align-items:center;justify-content:center;
+    font-size:2rem;
+    color:var(--bg);
+    box-shadow:0 0 40px rgba(0,240,255,0.5);
+  }
+
+  footer{padding:50px 6% 30px;border-top:1px solid var(--border);position:relative;z-index:2}
+  .footer-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:40px}
+  .footer-about p{color:var(--muted);font-size:0.92rem;margin-top:16px;max-width:360px}
+  .footer-col h5{font-family:'Space Grotesk',sans-serif;font-size:0.9rem;margin-bottom:16px;color:var(--cyan);text-transform:uppercase;letter-spacing:0.1em}
+  .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+  .footer-col a{color:var(--muted);text-decoration:none;font-size:0.92rem;transition:color 0.3s;cursor:pointer}
+  .footer-col a:hover{color:var(--cyan)}
+  .footer-bottom{max-width:1200px;margin:0 auto;padding-top:24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;color:var(--muted);font-size:0.85rem;flex-wrap:wrap;gap:12px}
+
+  .reveal{opacity:0;transform:translateY(30px);transition:all 0.8s}
+  .reveal.visible{opacity:1;transform:translateY(0)}
+
+  @media(max-width:900px){
+    .nav-links{display:none}
+    .menu-toggle{display:block}
+    .hero-grid,.problem-grid,.why-grid,.solution-grid,.contact-grid{grid-template-columns:1fr;gap:40px}
+    .hero-visual{margin:0 auto}
+    .services-grid{grid-template-columns:1fr}
+    .solution-flow{grid-template-columns:1fr 1fr;gap:30px}
+    .solution-card{padding:40px 24px}
+    .form-container{padding:35px 25px}
+    .footer-grid{grid-template-columns:1fr;gap:30px}
+    section{padding:80px 6%}
+  }
+  @media(max-width:500px){
+    .solution-flow{grid-template-columns:1fr}
+    .stats-grid{grid-template-columns:1fr}
+    .logo-text .sub{font-size:0.5rem;letter-spacing:0.15em}
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bgCanvas"></canvas>
+<div class="glow-blob blob-1"></div>
+<div class="glow-blob blob-2"></div>
+<div class="glow-blob blob-3"></div>
+
+<nav>
+  <div class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <div class="logo-mark"></div>
+    <div class="logo-text">
+      <span class="name">Nyra</span>
+      <span class="sub" data-i18n="logoSub">AI AUTOMATIONS</span>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a onclick="scrollToSection('problema')" data-i18n="navProblem">Problema</a></li>
+    <li><a onclick="scrollToSection('solucion')" data-i18n="navSolution">Solución</a></li>
+    <li><a onclick="scrollToSection('servicios')" data-i18n="navServices">Servicios</a></li>
+    <li><a onclick="scrollToSection('porque')" data-i18n="navWhy">Por qué Nyra</a></li>
+    <li><a onclick="scrollToSection('contacto')" data-i18n="navContact">Contacto</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="lang-toggle" id="langToggle">🌐 <span id="langLabel">EN</span></button>
+    <a class="nav-cta" onclick="scrollToSection('contacto')" data-i18n="navCta">Contactar</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="reveal">
+        <div class="badge"><span class="dot"></span> <span data-i18n="heroBadge">Automatización · IA · Data</span></div>
+        <h1 data-i18n="heroTitle">Transforma tus procesos manuales en <span class="highlight">flujo inteligente</span>.</h1>
+        <p data-i18n="heroDesc">En Nyra automatizamos las tareas que consumen el tiempo de tu equipo con Python e inteligencia artificial, conectando todo a dashboards en Power BI para que decisiones se tomen con datos, no con suposiciones.</p>
+        <div class="hero-buttons">
+          <a class="btn-primary" onclick="openForm()" data-i18n="heroCta1">Agenda un diagnóstico →</a>
+          <a class="btn-secondary" onclick="scrollToSection('servicios')" data-i18n="heroCta2">Ver servicios</a>
+        </div>
+      </div>
+      <div class="hero-visual reveal">
+        <img src="https://image.qwenlm.ai/public_source/a2d5a26f-8574-45ee-82a4-087f010ae089/149447cbc-af3a-40c4-bf9a-b1726a2e406b.png" alt="Robot programando">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="problem" id="problema">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-label" data-i18n="problemLabel">El problema</span>
+      <h2 class="section-title" data-i18n="problemTitle">Tu equipo pierde horas en lo que ya podría estar automatizado</h2>
+      <p class="section-subtitle" data-i18n="problemSub">Ese tiempo no se traduce en crecimiento — se va en operación manual que frena la toma de decisiones.</p>
+    </div>
+    <div class="problem-grid">
+      <ul class="problem-list reveal">
+        <li>
+          <div class="problem-icon">⏱</div>
+          <div class="problem-text">
+            <h4 data-i18n="p1t">Reportes armados a mano</h4>
+            <p data-i18n="p1d">Horas copiando datos entre hojas y sistemas cada semana.</p>
+          </div>
+        </li>
+        <li>
+          <div class="problem-icon">📊</div>
+          <div class="problem-text">
+            <h4 data-i18n="p2t">Conciliaciones en Excel</h4>
+            <p data-i18n="p2d">Procesos frágiles, propensos a errores y difíciles de auditar.</p>
+          </div>
+        </li>
+        <li>
+          <div class="problem-icon">📞</div>
+          <div class="problem-text">
+            <h4 data-i18n="p3t">Seguimiento manual de ventas</h4>
+            <p data-i18n="p3d">Oportunidades que se pierden por falta de visibilidad en tiempo real.</p>
+          </div>
+        </li>
+        <li>
+          <div class="problem-icon">🧩</div>
+          <div class="problem-text">
+            <h4 data-i18n="p4t">Decisiones por suposición</h4>
+            <p data-i18n="p4d">Sin datos consolidados, la dirección opera con intuición, no con evidencia.</p>
+          </div>
+        </li>
+      </ul>
+      <div class="problem-visual reveal" style="text-align:center">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(4rem,8vw,7rem);font-weight:700;background:linear-gradient(135deg,var(--magenta),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 60px rgba(255,46,159,0.4);line-height:1" data-i18n="problemBig">-40h</div>
+        <div style="color:var(--muted);font-size:1.1rem;margin-top:16px" data-i18n="problemSmall">semanales en promedio</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="solution" id="solucion">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-label" data-i18n="solutionLabel">La solución</span>
+      <h2 class="section-title" data-i18n="solutionTitle">Automatización + IA + datos en tiempo real</h2>
+      <p class="section-subtitle" data-i18n="solutionSub">Identificamos los procesos manuales que más tiempo consumen y los convertimos en flujos inteligentes conectados a dashboards claros.</p>
+    </div>
+    <div class="solution-grid">
+      <div class="solution-img reveal">
+        <img src="https://image.qwenlm.ai/public_source/a2d5a26f-8574-45ee-82a4-087f010ae089/134627d28-8b82-43f7-a6c1-806ca970bfaa.png" alt="Dashboard IA">
+      </div>
+      <div class="solution-card reveal">
+        <div class="solution-flow">
+          <div class="flow-step">
+            <div class="flow-num">01</div>
+            <h4 data-i18n="f1t">Diagnóstico</h4>
+            <p data-i18n="f1d">Mapeamos procesos y cuellos de botella manuales.</p>
+          </div>
+          <div class="flow-step">
+            <div class="flow-num">02</div>
+            <h4 data-i18n="f2t">Automatización</h4>
+            <p data-i18n="f2d">Scripts en Python que eliminan tareas repetitivas.</p>
+          </div>
+          <div class="flow-step">
+            <div class="flow-num">03</div>
+            <h4 data-i18n="f3t">Integración IA</h4>
+            <p data-i18n="f3d">Modelos conectados a los flujos ya automatizados.</p>
+          </div>
+          <div class="flow-step">
+            <div class="flow-num">04</div>
+            <h4 data-i18n="f4t">Dashboards</h4>
+            <p data-i18n="f4d">Power BI con información disponible al instante.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="servicios">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-label" data-i18n="servicesLabel">Servicios</span>
+      <h2 class="section-title" data-i18n="servicesTitle">Lo que hacemos por tu empresa</h2>
+      <p class="section-subtitle" data-i18n="servicesSub">Soluciones a la medida del proceso real de tu negocio, no plantillas genéricas.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">🔍</div>
+        <h3 data-i18n="s1t">Diagnóstico de procesos</h3>
+        <p data-i18n="s1d">Identificamos los cuellos de botella manuales y priorizamos por impacto y tiempo ahorrado.</p>
+        <span class="tag" data-i18n="s1tag">Análisis</span>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">⚡</div>
+        <h3 data-i18n="s2t">Automatización con Python</h3>
+        <p data-i18n="s2d">Scripts y flujos que eliminan tareas repetitivas y reducen errores humanos.</p>
+        <span class="tag" data-i18n="s2tag">Desarrollo</span>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">📈</div>
+        <h3 data-i18n="s3t">Dashboards en Power BI</h3>
+        <p data-i18n="s3d">Reportes visuales en tiempo real para seguimiento operativo y comercial.</p>
+        <span class="tag" data-i18n="s3tag">Data</span>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🧠</div>
+        <h3 data-i18n="s4t">IA aplicada</h3>
+        <p data-i18n="s4d">Modelos y asistentes de IA conectados a los procesos ya automatizados.</p>
+        <span class="tag" data-i18n="s4tag">Inteligencia</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="why" id="porque">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-label" data-i18n="whyLabel">Por qué Nyra</span>
+      <h2 class="section-title" data-i18n="whyTitle">Un solo equipo, una sola visión</h2>
+      <p class="section-subtitle" data-i18n="whySub">Combinamos ingeniería de software, análisis de datos e inteligencia artificial — no tercerizamos entre distintos proveedores.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-points reveal">
+        <div class="why-point">
+          <div class="why-check">✓</div>
+          <div>
+            <h4 data-i18n="w1t">Una sola persona de contacto</h4>
+            <p data-i18n="w1d">Comunicación directa, sin intermediarios ni proveedores dispersos.</p>
+          </div>
+        </div>
+        <div class="why-point">
+          <div class="why-check">✓</div>
+          <div>
+            <h4 data-i18n="w2t">Implementación rápida</h4>
+            <p data-i18n="w2d">Metodología ágil que entrega valor desde las primeras semanas.</p>
+          </div>
+        </div>
+        <div class="why-point">
+          <div class="why-check">✓</div>
+          <div>
+            <h4 data-i18n="w3t">Solución a la medida</h4>
+            <p data-i18n="w3d">Hecha para el proceso real de tu empresa, no una plantilla genérica.</p>
+          </div>
+        </div>
+        <div class="why-point">
+          <div class="why-check">✓</div>
+          <div>
+            <h4 data-i18n="w4t">Equipo integral</h4>
+            <p data-i18n="w4d">Ingeniería, datos e IA en el mismo equipo, sin fricciones.</p>
+          </div>
+        </div>
+      </div>
+      <div class="stats-grid reveal">
+        <div class="stat">
+          <div class="stat-num">+120h</div>
+          <div class="stat-label" data-i18n="stat1">ahorradas al mes</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">94%</div>
+          <div class="stat-label" data-i18n="stat2">menos errores</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">24/7</div>
+          <div class="stat-label" data-i18n="stat3">procesos activos</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">1:1</div>
+          <div class="stat-label" data-i18n="stat4">contacto directo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="contact" id="contacto">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-label" data-i18n="contactLabel">Contacto</span>
+      <h2 class="section-title" data-i18n="contactTitle">Hablemos de tu proyecto</h2>
+      <p class="section-subtitle" data-i18n="contactSub">Elige el canal que prefieras. Respondemos en menos de 24 horas.</p>
+    </div>
+    <div class="contact-grid">
+      <a href="https://wa.me/573142430618?text=Hola%20Nyra%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20sus%20servicios%20de%20automatizaci%C3%B3n." target="_blank" class="contact-card reveal">
+        <div class="contact-card-icon whatsapp"><span>💬</span></div>
+        <div class="contact-card-text">
+          <div class="label" data-i18n="contactWhatsapp">WhatsApp</div>
+          <div class="value whatsapp">+57 314 243 0618</div>
+        </div>
+      </a>
+      <a href="mailto:deisykramirez2411@gmail.com" class="contact-card reveal">
+        <div class="contact-card-icon">✉️</div>
+        <div class="contact-card-text">
+          <div class="label" data-i18n="contactEmail">Email</div>
+          <div class="value">deisykramirez2411@gmail.com</div>
+        </div>
+      </a>
+      <a class="contact-card reveal" onclick="openForm()" style="cursor:pointer">
+        <div class="contact-card-icon">📝</div>
+        <div class="contact-card-text">
+          <div class="label" data-i18n="contactFormLabel">Formulario</div>
+          <div class="value" data-i18n="contactFormValue">Escríbenos un mensaje →</div>
+        </div>
+      </a>
+      <a href="tel:+573142430618" class="contact-card reveal">
+        <div class="contact-card-icon">📱</div>
+        <div class="contact-card-text">
+          <div class="label" data-i18n="contactPhone">Teléfono</div>
+          <div class="value">+57 314 243 0618</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-box reveal">
+    <h2 data-i18n="ctaTitle">¿Listo para liberar el tiempo de tu equipo?</h2>
+    <p data-i18n="ctaDesc">Agenda un diagnóstico gratuito y descubre cuánto puedes automatizar.</p>
+    <a class="btn-primary" onclick="openForm()" data-i18n="ctaBtn">Escríbenos ahora →</a>
+  </div>
+</section>
+
+<!-- FORM PAGE -->
+<div class="form-page" id="formPage">
+  <button class="form-close" onclick="closeForm()">✕</button>
+  <div class="form-page-inner">
+    <div class="form-container">
+      <h2 data-i18n="formTitle">Envíanos un mensaje</h2>
+      <p class="form-sub" data-i18n="formSub">Cuéntanos sobre tu proyecto y te responderemos pronto.</p>
+      <form id="contactForm" action="https://formsubmit.co/deisykramirez2411@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="Nuevo mensaje desde Nyra">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="box">
+        <input type="text" name="_honey" style="display:none">
+        <div class="form-group">
+          <label data-i18n="formName">Nombre</label>
+          <input type="text" name="nombre" required placeholder="Tu nombre completo">
+        </div>
+        <div class="form-group">
+          <label data-i18n="formPhone">Número de teléfono</label>
+          <input type="tel" name="telefono" required placeholder="+57 300 000 0000">
+        </div>
+        <div class="form-group">
+          <label data-i18n="formSubject">Asunto</label>
+          <input type="text" name="asunto" required placeholder="¿En qué podemos ayudarte?">
+        </div>
+        <div class="form-group">
+          <label data-i18n="formMessage">Mensaje</label>
+          <textarea name="mensaje" required placeholder="Cuéntanos sobre tu proyecto..."></textarea>
+        </div>
+        <button type="submit" class="form-submit" data-i18n="formSubmit">Enviar mensaje →</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-about">
+      <div class="logo">
+        <div class="logo-mark"></div>
+        <div class="logo-text">
+          <span class="name">Nyra</span>
+          <span class="sub" data-i18n="logoSub">AI AUTOMATIONS</span>
+        </div>
+      </div>
+      <p data-i18n="footerAbout">Automatización inteligente con Python, IA y Power BI. Transformamos procesos manuales en flujos que generan valor.</p>
+    </div>
+    <div class="footer-col">
+      <h5 data-i18n="footerServices">Servicios</h5>
+      <ul>
+        <li><a onclick="scrollToSection('servicios')" data-i18n="s1t">Diagnóstico</a></li>
+        <li><a onclick="scrollToSection('servicios')" data-i18n="s2t">Automatización</a></li>
+        <li><a onclick="scrollToSection('servicios')" data-i18n="s3t">Dashboards</a></li>
+        <li><a onclick="scrollToSection('servicios')" data-i18n="s4t">IA aplicada</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5 data-i18n="footerContact">Contacto</h5>
+      <ul>
+        <li><a href="mailto:deisykramirez2411@gmail.com">deisykramirez2411@gmail.com</a></li>
+        <li><a href="https://wa.me/573142430618" target="_blank">+57 314 243 0618</a></li>
+        <li><a onclick="scrollToSection('contacto')" data-i18n="navContact">Contacto</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 Nyra · IA Automatizaciones</div>
+    <div data-i18n="footerTag">Ingeniería de Sistemas · Desarrollo de Software · IA aplicada</div>
+  </div>
+</footer>
+
+<script>
+const translations = {
+  es: {
+    logoSub: "IA AUTOMATIZACIONES",
+    navProblem: "Problema",
+    navSolution: "Solución",
+    navServices: "Servicios",
+    navWhy: "Por qué Nyra",
+    navContact: "Contacto",
+    navCta: "Contactar",
+    heroBadge: "Automatización · IA · Data",
+    heroTitle: 'Transforma tus procesos manuales en <span class="highlight">flujo inteligente</span>.',
+    heroDesc: "En Nyra automatizamos las tareas que consumen el tiempo de tu equipo con Python e inteligencia artificial, conectando todo a dashboards en Power BI para que decisiones se tomen con datos, no con suposiciones.",
+    heroCta1: "Agenda un diagnóstico →",
+    heroCta2: "Ver servicios",
+    problemLabel: "El problema",
+    problemTitle: "Tu equipo pierde horas en lo que ya podría estar automatizado",
+    problemSub: "Ese tiempo no se traduce en crecimiento — se va en operación manual que frena la toma de decisiones.",
+    p1t: "Reportes armados a mano",
+    p1d: "Horas copiando datos entre hojas y sistemas cada semana.",
+    p2t: "Conciliaciones en Excel",
+    p2d: "Procesos frágiles, propensos a errores y difíciles de auditar.",
+    p3t: "Seguimiento manual de ventas",
+    p3d: "Oportunidades que se pierden por falta de visibilidad en tiempo real.",
+    p4t: "Decisiones por suposición",
+    p4d: "Sin datos consolidados, la dirección opera con intuición, no con evidencia.",
+    problemBig: "-40h",
+    problemSmall: "semanales en promedio",
+    solutionLabel: "La solución",
+    solutionTitle: "Automatización + IA + datos en tiempo real",
+    solutionSub: "Identificamos los procesos manuales que más tiempo consumen y los convertimos en flujos inteligentes conectados a dashboards claros.",
+    f1t: "Diagnóstico",
+    f1d: "Mapeamos procesos y cuellos de botella manuales.",
+    f2t: "Automatización",
+    f2d: "Scripts en Python que eliminan tareas repetitivas.",
+    f3t: "Integración IA",
+    f3d: "Modelos conectados a los flujos ya automatizados.",
+    f4t: "Dashboards",
+    f4d: "Power BI con información disponible al instante.",
+    servicesLabel: "Servicios",
+    servicesTitle: "Lo que hacemos por tu empresa",
+    servicesSub: "Soluciones a la medida del proceso real de tu negocio, no plantillas genéricas.",
+    s1t: "Diagnóstico de procesos",
+    s1d: "Identificamos los cuellos de botella manuales y priorizamos por impacto y tiempo ahorrado.",
+    s1tag: "Análisis",
+    s2t: "Automatización con Python",
+    s2d: "Scripts y flujos que eliminan tareas repetitivas y reducen errores humanos.",
+    s2tag: "Desarrollo",
+    s3t: "Dashboards en Power BI",
+    s3d: "Reportes visuales en tiempo real para seguimiento operativo y comercial.",
+    s3tag: "Data",
+    s4t: "IA aplicada",
+    s4d: "Modelos y asistentes de IA conectados a los procesos ya automatizados.",
+    s4tag: "Inteligencia",
+    whyLabel: "Por qué Nyra",
+    whyTitle: "Un solo equipo, una sola visión",
+    whySub: "Combinamos ingeniería de software, análisis de datos e inteligencia artificial — no tercerizamos entre distintos proveedores.",
+    w1t: "Una sola persona de contacto",
+    w1d: "Comunicación directa, sin intermediarios ni proveedores dispersos.",
+    w2t: "Implementación rápida",
+    w2d: "Metodología ágil que entrega valor desde las primeras semanas.",
+    w3t: "Solución a la medida",
+    w3d: "Hecha para el proceso real de tu empresa, no una plantilla genérica.",
+    w4t: "Equipo integral",
+    w4d: "Ingeniería, datos e IA en el mismo equipo, sin fricciones.",
+    stat1: "ahorradas al mes",
+    stat2: "menos errores",
+    stat3: "procesos activos",
+    stat4: "contacto directo",
+    contactLabel: "Contacto",
+    contactTitle: "Hablemos de tu proyecto",
+    contactSub: "Elige el canal que prefieras. Respondemos en menos de 24 horas.",
+    contactWhatsapp: "WhatsApp",
+    contactEmail: "Email",
+    contactFormLabel: "Formulario",
+    contactFormValue: "Escríbenos un mensaje →",
+    contactPhone: "Teléfono",
+    ctaTitle: "¿Listo para liberar el tiempo de tu equipo?",
+    ctaDesc: "Agenda un diagnóstico gratuito y descubre cuánto puedes automatizar.",
+    ctaBtn: "Escríbenos ahora →",
+    formTitle: "Envíanos un mensaje",
+    formSub: "Cuéntanos sobre tu proyecto y te responderemos pronto.",
+    formName: "Nombre",
+    formPhone: "Número de teléfono",
+    formSubject: "Asunto",
+    formMessage: "Mensaje",
+    formSubmit: "Enviar mensaje →",
+    footerAbout: "Automatización inteligente con Python, IA y Power BI. Transformamos procesos manuales en flujos que generan valor.",
+    footerServices: "Servicios",
+    footerContact: "Contacto",
+    footerTag: "Ingeniería de Sistemas · Desarrollo de Software · IA aplicada"
+  },
+  en: {
+    logoSub: "AI AUTOMATIONS",
+    navProblem: "Problem",
+    navSolution: "Solution",
+    navServices: "Services",
+    navWhy: "Why Nyra",
+    navContact: "Contact",
+    navCta: "Contact",
+    heroBadge: "Automation · AI · Data",
+    heroTitle: 'Turn your manual processes into <span class="highlight">intelligent flow</span>.',
+    heroDesc: "At Nyra we automate the tasks that consume your team's time with Python and artificial intelligence, connecting everything to Power BI dashboards so decisions are made with data, not assumptions.",
+    heroCta1: "Book a diagnosis →",
+    heroCta2: "View services",
+    problemLabel: "The problem",
+    problemTitle: "Your team loses hours on what could already be automated",
+    problemSub: "That time doesn't translate into growth — it goes into manual operations that slow down decision-making.",
+    p1t: "Manual reports",
+    p1d: "Hours copying data between spreadsheets and systems every week.",
+    p2t: "Excel reconciliations",
+    p2d: "Fragile processes, prone to errors and hard to audit.",
+    p3t: "Manual sales tracking",
+    p3d: "Opportunities lost due to lack of real-time visibility.",
+    p4t: "Decisions by guesswork",
+    p4d: "Without consolidated data, leadership operates on intuition, not evidence.",
+    problemBig: "-40h",
+    problemSmall: "weekly on average",
+    solutionLabel: "The solution",
+    solutionTitle: "Automation + AI + real-time data",
+    solutionSub: "We identify the most time-consuming manual processes and turn them into intelligent flows connected to clear dashboards.",
+    f1t: "Diagnosis",
+    f1d: "We map processes and manual bottlenecks.",
+    f2t: "Automation",
+    f2d: "Python scripts that eliminate repetitive tasks.",
+    f3t: "AI Integration",
+    f3d: "Models connected to already automated flows.",
+    f4t: "Dashboards",
+    f4d: "Power BI with information available instantly.",
+    servicesLabel: "Services",
+    servicesTitle: "What we do for your company",
+    servicesSub: "Solutions tailored to the real process of your business, not generic templates.",
+    s1t: "Process diagnosis",
+    s1d: "We identify manual bottlenecks and prioritize by impact and time saved.",
+    s1tag: "Analysis",
+    s2t: "Python automation",
+    s2d: "Scripts and flows that eliminate repetitive tasks and reduce human errors.",
+    s2tag: "Development",
+    s3t: "Power BI dashboards",
+    s3d: "Real-time visual reports for operational and commercial tracking.",
+    s3tag: "Data",
+    s4t: "Applied AI",
+    s4d: "AI models and assistants connected to already automated processes.",
+    s4tag: "Intelligence",
+    whyLabel: "Why Nyra",
+    whyTitle: "One team, one vision",
+    whySub: "We combine software engineering, data analysis and artificial intelligence — we don't outsource to different vendors.",
+    w1t: "One single point of contact",
+    w1d: "Direct communication, no intermediaries or scattered vendors.",
+    w2t: "Fast implementation",
+    w2d: "Agile methodology that delivers value from the first weeks.",
+    w3t: "Tailored solution",
+    w3d: "Built for the real process of your company, not a generic template.",
+    w4t: "Full-stack team",
+    w4d: "Engineering, data and AI in the same team, no friction.",
+    stat1: "saved per month",
+    stat2: "fewer errors",
+    stat3: "active processes",
+    stat4: "direct contact",
+    contactLabel: "Contact",
+    contactTitle: "Let's talk about your project",
+    contactSub: "Choose your preferred channel. We reply in less than 24 hours.",
+    contactWhatsapp: "WhatsApp",
+    contactEmail: "Email",
+    contactFormLabel: "Form",
+    contactFormValue: "Send us a message →",
+    contactPhone: "Phone",
+    ctaTitle: "Ready to free up your team's time?",
+    ctaDesc: "Book a free diagnosis and discover how much you can automate.",
+    ctaBtn: "Write to us now →",
+    formTitle: "Send us a message",
+    formSub: "Tell us about your project and we'll get back to you soon.",
+    formName: "Name",
+    formPhone: "Phone number",
+    formSubject: "Subject",
+    formMessage: "Message",
+    formSubmit: "Send message →",
+    footerAbout: "Intelligent automation with Python, AI and Power BI. We transform manual processes into flows that generate value.",
+    footerServices: "Services",
+    footerContact: "Contact",
+    footerTag: "Systems Engineering · Software Development · Applied AI"
+  }
+};
+
+let currentLang = 'es';
+const langToggle = document.getElementById('langToggle');
+const langLabel = document.getElementById('langLabel');
+
+langToggle.addEventListener('click', ()=>{
+  currentLang = currentLang === 'es' ? 'en' : 'es';
+  langLabel.textContent = currentLang === 'es' ? 'EN' : 'ES';
+  document.documentElement.lang = currentLang;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    if(translations[currentLang][key]){
+      el.innerHTML = translations[currentLang][key];
+    }
+  });
+});
+
+function scrollToSection(id){
+  const el = document.getElementById(id);
+  if(el){
+    const y = el.getBoundingClientRect().top + window.pageYOffset - 80;
+    window.scrollTo({top:y, behavior:'smooth'});
+  }
+}
+
+const formPage = document.getElementById('formPage');
+function openForm(){
+  formPage.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  formPage.scrollTo(0,0);
+}
+function closeForm(){
+  formPage.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'Escape' && formPage.classList.contains('active')) closeForm();
+});
+
+const canvas = document.getElementById('bgCanvas');
+const ctx = canvas.getContext('2d');
+let w, h, particles = [];
+function resize(){w = canvas.width = window.innerWidth;h = canvas.height = window.innerHeight}
+resize();
+window.addEventListener('resize', resize);
+
+class Particle{
+  constructor(){
+    this.x = Math.random()*w;
+    this.y = Math.random()*h;
+    this.vx = (Math.random()-0.5)*0.3;
+    this.vy = (Math.random()-0.5)*0.3;
+    this.r = Math.random()*1.5+0.5;
+    const colors = ['0,240,255','123,47,255','255,46,159'];
+    this.color = colors[Math.floor(Math.random()*colors.length)];
+  }
+  update(){
+    this.x += this.vx;
+    this.y += this.vy;
+    if(this.x<0||this.x>w) this.vx*=-1;
+    if(this.y<0||this.y>h) this.vy*=-1;
+  }
+  draw(){
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+    ctx.fillStyle = `rgba(${this.color},0.8)`;
+    ctx.shadowBlur = 8;
+    ctx.shadowColor = `rgba(${this.color},0.8)`;
+    ctx.fill();
+    ctx.shadowBlur = 0;
+  }
+}
+for(let i=0;i<70;i++) particles.push(new Particle());
+
+function connect(){
+  for(let i=0;i<particles.length;i++){
+    for(let j=i+1;j<particles.length;j++){
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx*dx+dy*dy);
+      if(dist<140){
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        const alpha = (1 - dist/140)*0.15;
+        ctx.strokeStyle = `rgba(0,240,255,${alpha})`;
+        ctx.lineWidth = 0.6;
+        ctx.stroke();
+      }
+    }
+  }
+}
+
+function animate(){
+  ctx.clearRect(0,0,w,h);
+  particles.forEach(p=>{p.update();p.draw()});
+  connect();
+  requestAnimationFrame(animate);
+}
+animate();
+
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible')}});
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
+
+</body>
+</html>
