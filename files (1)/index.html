@@ -338,6 +338,24 @@
     66.67%, 100% { opacity:0; transform:translateY(8px); }
   }
 
+  .packages{background:transparent;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+  .packages .section-label{color:var(--magenta);background:rgba(255,46,159,0.08);border-color:rgba(255,46,159,0.28);box-shadow:0 6px 20px rgba(255,46,159,0.1)}
+  .packages-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .package-card{padding:36px 30px;background:rgba(15,20,32,0.6);border:1px solid var(--border);border-radius:20px;position:relative;overflow:hidden;transition:all 0.4s;display:flex;flex-direction:column}
+  .package-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--cyan),var(--violet),var(--magenta))}
+  .package-card:hover{transform:translateY(-6px);border-color:rgba(0,240,255,0.35);box-shadow:0 20px 50px rgba(0,240,255,0.1)}
+  .package-icon{width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,rgba(0,240,255,0.15),rgba(123,47,255,0.2));border:1px solid rgba(0,240,255,0.3);display:flex;align-items:center;justify-content:center;font-size:1.7rem;margin-bottom:22px}
+  .package-card h3{font-size:1.25rem;margin-bottom:10px}
+  .package-card p.package-desc{color:var(--muted);font-size:0.92rem;margin-bottom:22px}
+  .package-features{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:28px;flex-grow:1}
+  .package-features li{display:flex;align-items:flex-start;gap:10px;font-size:0.9rem;color:#c7cdd9}
+  .package-features li::before{content:'✓';flex-shrink:0;color:var(--cyan);font-weight:700}
+  .package-cta{align-self:flex-start;padding:11px 24px;background:transparent;border:1px solid var(--cyan);color:var(--cyan);border-radius:999px;font-size:0.85rem;font-weight:600;cursor:pointer;text-decoration:none;transition:all 0.3s}
+  .package-cta:hover{background:var(--cyan);color:var(--bg)}
+  @media(max-width:900px){
+    .packages-grid{grid-template-columns:1fr}
+  }
+
   .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
   .why-points{display:flex;flex-direction:column;gap:24px}
   .why-point{display:flex;gap:18px;padding:24px;background:rgba(15,20,32,0.5);border:1px solid var(--border);border-radius:16px;transition:all 0.3s}
@@ -739,6 +757,54 @@
   </div>
 </section>
 
+<section class="packages" id="planes">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-label" data-i18n="packagesLabel">Nuestras líneas de servicio</span>
+      <h2 class="section-title" data-i18n="packagesTitle">Software, automatización y hosting</h2>
+      <p class="section-subtitle" data-i18n="packagesSub">Tres frentes que puedes contratar por separado o combinados, según lo que tu empresa necesite hoy.</p>
+    </div>
+    <div class="packages-grid">
+      <div class="package-card reveal">
+        <div class="package-icon">💻</div>
+        <h3 data-i18n="pkgSoftT">Desarrollo de software</h3>
+        <p class="package-desc" data-i18n="pkgSoftD">Software a la medida para el proceso real de tu empresa, no una plantilla genérica.</p>
+        <ul class="package-features">
+          <li data-i18n="pkgSoftF1">Sitios web y landing pages</li>
+          <li data-i18n="pkgSoftF2">Aplicaciones web a medida</li>
+          <li data-i18n="pkgSoftF3">Integraciones y APIs</li>
+          <li data-i18n="pkgSoftF4">Mantenimiento continuo</li>
+        </ul>
+        <a class="package-cta" href="desarrollo-software.html" data-i18n="pkgCta">Solicitar información →</a>
+      </div>
+      <div class="package-card reveal">
+        <div class="package-icon">⚡</div>
+        <h3 data-i18n="pkgAiT">Automatizaciones con IA</h3>
+        <p class="package-desc" data-i18n="pkgAiD">Flujos y agentes inteligentes que eliminan el trabajo manual repetitivo, operando solos 24/7.</p>
+        <ul class="package-features">
+          <li data-i18n="pkgAiF1">Diagnóstico de procesos</li>
+          <li data-i18n="pkgAiF2">Automatización de flujos</li>
+          <li data-i18n="pkgAiF3">Agentes y asistentes IA</li>
+          <li data-i18n="pkgAiF4">Integración de sistemas</li>
+        </ul>
+        <a class="package-cta" href="automatizaciones-ia.html" data-i18n="pkgCta">Solicitar información →</a>
+      </div>
+      <div class="package-card reveal">
+        <div class="package-icon">☁️</div>
+        <h3 data-i18n="pkgHostT">Alojamiento (hosting)</h3>
+        <p class="package-desc" data-i18n="pkgHostD">Tu sitio o sistema siempre disponible, seguro y funcionando sin que te preocupes por la parte técnica.</p>
+        <ul class="package-features">
+          <li data-i18n="pkgHostF1">Hosting y despliegue</li>
+          <li data-i18n="pkgHostF2">SSL y dominio configurado</li>
+          <li data-i18n="pkgHostF3">Monitoreo de disponibilidad</li>
+          <li data-i18n="pkgHostF4">Backups y soporte ante fallos</li>
+        </ul>
+        <a class="package-cta" href="hosting.html" data-i18n="pkgCta">Solicitar información →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="why" id="porque">
   <div class="container">
     <div class="section-head reveal">
@@ -1023,6 +1089,28 @@ const translations = {
     s8t: "Reportes automáticos",
     s8d: "Actualización programada y envío automático de informes a quien los necesita.",
     s8tag: "Data",
+    packagesLabel: "Nuestras líneas de servicio",
+    packagesTitle: "Software, automatización y hosting",
+    packagesSub: "Tres frentes que puedes contratar por separado o combinados, según lo que tu empresa necesite hoy.",
+    pkgSoftT: "Desarrollo de software",
+    pkgSoftD: "Software a la medida para el proceso real de tu empresa, no una plantilla genérica.",
+    pkgSoftF1: "Sitios web y landing pages",
+    pkgSoftF2: "Aplicaciones web a medida",
+    pkgSoftF3: "Integraciones y APIs",
+    pkgSoftF4: "Mantenimiento continuo",
+    pkgAiT: "Automatizaciones con IA",
+    pkgAiD: "Flujos y agentes inteligentes que eliminan el trabajo manual repetitivo, operando solos 24/7.",
+    pkgAiF1: "Diagnóstico de procesos",
+    pkgAiF2: "Automatización de flujos",
+    pkgAiF3: "Agentes y asistentes IA",
+    pkgAiF4: "Integración de sistemas",
+    pkgHostT: "Alojamiento (hosting)",
+    pkgHostD: "Tu sitio o sistema siempre disponible, seguro y funcionando sin que te preocupes por la parte técnica.",
+    pkgHostF1: "Hosting y despliegue",
+    pkgHostF2: "SSL y dominio configurado",
+    pkgHostF3: "Monitoreo de disponibilidad",
+    pkgHostF4: "Backups y soporte ante fallos",
+    pkgCta: "Solicitar información →",
     whyLabel: "Por qué Nyra Tech",
     whyTitle: "Un solo equipo, una sola visión",
     whySub: "Combinamos automatización, análisis de datos e inteligencia artificial — no tercerizamos entre distintos proveedores.",
@@ -1146,6 +1234,28 @@ const translations = {
     s8t: "Automated reports",
     s8d: "Scheduled refresh and automatic delivery of reports to whoever needs them.",
     s8tag: "Data",
+    packagesLabel: "Our service lines",
+    packagesTitle: "Software, automation and hosting",
+    packagesSub: "Three areas you can hire separately or combined, depending on what your company needs today.",
+    pkgSoftT: "Software development",
+    pkgSoftD: "Custom software built for your company's real process, not a generic template.",
+    pkgSoftF1: "Websites and landing pages",
+    pkgSoftF2: "Custom web applications",
+    pkgSoftF3: "Integrations and APIs",
+    pkgSoftF4: "Ongoing maintenance",
+    pkgAiT: "AI automations",
+    pkgAiD: "Intelligent flows and agents that remove repetitive manual work, running on their own 24/7.",
+    pkgAiF1: "Process diagnosis",
+    pkgAiF2: "Workflow automation",
+    pkgAiF3: "AI agents and assistants",
+    pkgAiF4: "Systems integration",
+    pkgHostT: "Hosting",
+    pkgHostD: "Your site or system always available, secure and running, without worrying about the technical side.",
+    pkgHostF1: "Hosting and deployment",
+    pkgHostF2: "SSL and domain setup",
+    pkgHostF3: "Uptime monitoring",
+    pkgHostF4: "Backups and failure support",
+    pkgCta: "Request information →",
     whyLabel: "Why Nyra Tech",
     whyTitle: "One team, one vision",
     whySub: "We combine automation, data analysis and artificial intelligence — we don't outsource to different vendors.",
@@ -1242,22 +1352,23 @@ interestSelect.addEventListener('change', ()=>{
   }
 });
 
+const servicePages = {
+  software: 'desarrollo-software.html',
+  ai: 'automatizaciones-ia.html',
+  hosting: 'hosting.html'
+};
+function goToServicePage(value){
+  if(servicePages[value]){
+    window.location.href = servicePages[value];
+  }
+}
+
 function scrollToSection(id){
   const el = document.getElementById(id);
   if(el){
     const y = el.getBoundingClientRect().top + window.pageYOffset - 80;
     window.scrollTo({top:y, behavior:'smooth'});
   }
-}
-
-function goToServicePage(service){
-  const servicePages = {
-    software: 'desarrollo-software.html',
-    ai: 'automatizaciones-ia.html',
-    hosting: 'hosting.html'
-  };
-  const page = servicePages[service];
-  if(page) window.location.href = page;
 }
 
 const formPage = document.getElementById('formPage');

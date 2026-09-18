@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Automatizaciones con IA · Nyra Tech</title>
+<meta name="description" content="Automatización de procesos con inteligencia artificial: flujos, agentes y asistentes que operan 24/7.">
+<link rel="icon" type="image/jpeg" href="LogoFavicon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/space-grotesk@latest/latin-400-normal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/space-grotesk@latest/latin-700-normal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-400-normal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-500-normal.css">
+<style>
+:root{
+  --bg:#0B0E14;
+  --bg-2:#0f1420;
+  --cyan:#00F0FF;
+  --magenta:#FF2E9F;
+  --violet:#7B2FFF;
+  --text:#E7E9EE;
+  --muted:#9aa0ad;
+  --border:rgba(231,233,238,0.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden;line-height:1.6}
+h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-0.02em}
+
+.glow-blob{position:fixed;border-radius:50%;filter:blur(120px);opacity:0.35;z-index:0;pointer-events:none}
+.blob-1{width:500px;height:500px;background:var(--cyan);top:-150px;left:-150px;opacity:0.18}
+.blob-2{width:450px;height:450px;background:var(--violet);top:40%;right:-150px;opacity:0.22}
+.blob-3{width:400px;height:400px;background:var(--magenta);bottom:-100px;left:30%;opacity:0.15}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 6%;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(14px);background:rgba(255,255,255,0.96);border-bottom:1px solid rgba(15,23,42,0.08);box-shadow:0 1px 0 rgba(15,23,42,0.04)}
+.logo{display:flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none}
+.brand-logo{display:block;height:56px;width:auto;max-width:200px;object-fit:contain;filter:drop-shadow(0 0 18px rgba(0,240,255,0.20))}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{color:#111827;text-decoration:none;font-size:0.9rem;font-weight:600;transition:color 0.3s;cursor:pointer}
+.nav-links a:hover{color:#A030FF}
+.nav-cta{padding:10px 22px;background:#A030FF;border:1px solid #A030FF;color:#fff;border-radius:999px;font-size:0.86rem;font-weight:600;cursor:pointer;text-decoration:none;transition:all 0.3s;box-shadow:0 0 18px rgba(160,48,255,0.25)}
+.nav-cta:hover{background:#8d2ef0;box-shadow:0 0 25px rgba(160,48,255,0.35)}
+
+section{position:relative;z-index:2;padding:100px 6%}
+.container{max-width:1100px;margin:0 auto}
+
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:0.85rem;color:var(--muted);margin-bottom:26px}
+.breadcrumb a{color:var(--cyan);text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+
+.svc-hero{min-height:64vh;display:flex;align-items:center;padding-top:150px}
+.svc-hero-icon{width:74px;height:74px;border-radius:18px;background:linear-gradient(135deg,rgba(0,240,255,0.18),rgba(123,47,255,0.22));border:1px solid rgba(0,240,255,0.35);display:flex;align-items:center;justify-content:center;font-size:2.2rem;margin-bottom:26px;box-shadow:0 10px 30px rgba(0,240,255,0.12)}
+.svc-hero h1{font-size:clamp(2.2rem,4.6vw,3.4rem);line-height:1.08;margin-bottom:20px;max-width:760px}
+.svc-hero p{font-size:1.08rem;color:var(--muted);max-width:640px;margin-bottom:32px}
+.svc-hero-buttons{display:flex;gap:16px;flex-wrap:wrap}
+
+.btn-primary{padding:14px 30px;background:var(--cyan);color:var(--bg);border:none;border-radius:999px;font-weight:600;font-size:0.95rem;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:all 0.3s;box-shadow:0 0 30px rgba(0,240,255,0.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 50px rgba(0,240,255,0.6)}
+.btn-secondary{padding:14px 30px;background:transparent;color:var(--text);border:1px solid var(--border);border-radius:999px;font-weight:500;font-size:0.95rem;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:all 0.3s}
+.btn-secondary:hover{border-color:var(--cyan);color:var(--cyan)}
+
+.section-head{margin-bottom:50px;max-width:760px}
+.section-label{display:inline-flex;align-items:center;padding:7px 13px;border:1px solid rgba(0,240,255,0.32);border-radius:999px;background:rgba(0,240,255,0.08);color:var(--cyan);font-size:0.9rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px}
+.section-title{font-size:clamp(1.8rem,3.6vw,2.6rem);line-height:1.12;margin-bottom:14px}
+.section-subtitle{color:var(--muted);font-size:1.02rem}
+
+.svc-overview{border-top:1px solid var(--border)}
+.svc-overview p{color:#c7cdd9;font-size:1.05rem;max-width:820px}
+
+.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.feature-card{padding:30px;background:rgba(15,20,32,0.6);border:1px solid var(--border);border-radius:18px;transition:all 0.3s}
+.feature-card:hover{border-color:rgba(0,240,255,0.35);transform:translateY(-4px);box-shadow:0 16px 36px rgba(0,240,255,0.08)}
+.feature-icon{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,rgba(0,240,255,0.15),rgba(123,47,255,0.2));border:1px solid rgba(0,240,255,0.3);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:18px}
+.feature-card h3{font-size:1.08rem;margin-bottom:8px}
+.feature-card p{color:var(--muted);font-size:0.9rem}
+
+.svc-process{background:linear-gradient(180deg,rgba(11,14,20,0.98),rgba(17,22,35,0.98),rgba(11,14,20,0.98));border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;position:relative}
+.process-step{padding:26px 22px;border:1px solid var(--border);border-radius:16px;background:rgba(255,255,255,0.035)}
+.process-num{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,rgba(0,240,255,0.18),rgba(123,47,255,0.22));border:1px solid rgba(0,240,255,0.42);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--cyan);margin-bottom:16px}
+.process-step h4{font-size:1.02rem;margin-bottom:6px}
+.process-step p{color:#aeb7c7;font-size:0.86rem}
+
+.benefits-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.benefits-list li{display:flex;gap:14px;padding:20px;background:rgba(15,20,32,0.5);border:1px solid var(--border);border-radius:14px}
+.benefit-check{flex-shrink:0;width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:flex;align-items:center;justify-content:center;color:var(--bg);font-weight:700}
+.benefits-list p{color:#c7cdd9;font-size:0.94rem}
+
+.cta-box{max-width:1000px;margin:0 auto;padding:60px 44px;background:linear-gradient(135deg,rgba(0,240,255,0.08),rgba(123,47,255,0.08));border:1px solid rgba(0,240,255,0.2);border-radius:26px;text-align:center}
+.cta-box h2{font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:14px}
+.cta-box p{color:var(--muted);margin-bottom:28px}
+
+.svc-contact{border-top:1px solid var(--border)}
+.form-container{width:100%;max-width:620px;margin:0 auto;background:rgba(15,20,32,0.6);backdrop-filter:blur(14px);border:1px solid var(--border);border-radius:24px;padding:44px;position:relative;overflow:hidden}
+.form-container::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--violet),var(--magenta))}
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-size:0.82rem;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.08em}
+.form-group input,.form-group textarea{width:100%;padding:13px 16px;background:rgba(11,14,20,0.6);border:1px solid var(--border);border-radius:12px;color:var(--text);font-family:'Inter',sans-serif;font-size:0.94rem}
+.form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(0,240,255,0.15)}
+.form-group textarea{resize:vertical;min-height:140px}
+.form-submit{width:100%;padding:15px;background:var(--cyan);color:var(--bg);border:none;border-radius:999px;font-weight:600;font-size:0.98rem;cursor:pointer;transition:all 0.3s;box-shadow:0 0 30px rgba(0,240,255,0.3)}
+.form-submit:hover{transform:translateY(-2px);box-shadow:0 0 50px rgba(0,240,255,0.6)}
+
+.other-services{border-top:1px solid var(--border)}
+.other-services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.other-service-card{display:flex;align-items:center;gap:16px;padding:22px;background:rgba(15,20,32,0.55);border:1px solid var(--border);border-radius:16px;text-decoration:none;color:var(--text);transition:all 0.3s}
+.other-service-card:hover{border-color:rgba(0,240,255,0.35);transform:translateY(-3px)}
+.other-service-icon{width:44px;height:44px;border-radius:11px;background:linear-gradient(135deg,rgba(0,240,255,0.15),rgba(123,47,255,0.2));display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+.other-service-card h4{font-size:1rem;margin-bottom:3px}
+.other-service-card p{color:var(--muted);font-size:0.85rem}
+
+footer{padding:44px 6% 26px;border-top:1px solid var(--border);position:relative;z-index:2}
+.footer-bottom{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;color:var(--muted);font-size:0.85rem;flex-wrap:wrap;gap:12px}
+.footer-bottom a{color:var(--muted);text-decoration:none}
+.footer-bottom a:hover{color:var(--cyan)}
+
+.reveal{opacity:0;transform:translateY(24px);transition:all 0.7s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:900px){
+  nav{padding:12px 4%}
+  .brand-logo{height:44px;max-width:150px}
+  .nav-links{display:none}
+  .feature-grid{grid-template-columns:1fr}
+  .process-steps{grid-template-columns:1fr 1fr}
+  .benefits-list{grid-template-columns:1fr}
+  .other-services-grid{grid-template-columns:1fr}
+  section{padding:70px 6%}
+  .svc-hero{padding-top:130px}
+}
+@media(max-width:520px){
+  .process-steps{grid-template-columns:1fr}
+  .form-container{padding:30px 22px}
+}
+
+</style>
+</head>
+<body>
+
+<div class="glow-blob blob-1"></div>
+<div class="glow-blob blob-2"></div>
+<div class="glow-blob blob-3"></div>
+
+<nav>
+  <a class="logo" href="index.html">
+    <img class="brand-logo" src="logo.png" alt="Nyra Tech logo" />
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#problema">Problema</a></li>
+    <li><a href="index.html#solucion">Solución</a></li>
+    <li><a href="index.html#servicios">Servicios</a></li>
+    <li><a href="index.html#porque">Por qué Nyra Tech</a></li>
+    <li><a href="index.html#contacto">Contacto</a></li>
+  </ul>
+  <a class="nav-cta" href="#contacto-servicio">Contactar</a>
+</nav>
+
+<section class="svc-hero">
+  <div class="container">
+    <div class="breadcrumb reveal"><a href="index.html">Inicio</a> › <a href="index.html#servicios">Servicios</a> › <span>Automatizaciones con IA</span></div>
+    <div class="reveal">
+      <div class="svc-hero-icon">⚡</div>
+      <h1>Automatizaciones con Inteligencia Artificial</h1>
+      <p>Eliminamos el trabajo manual repetitivo con flujos y agentes inteligentes que operan solos, 24/7 — para que tu equipo dedique su tiempo a lo que realmente agrega valor.</p>
+      <div class="svc-hero-buttons">
+        <a class="btn-primary" href="#contacto-servicio">Solicitar información →</a>
+        <a class="btn-secondary" href="index.html#servicios">Ver todos los servicios</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="svc-overview">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-label">Qué hacemos</span>
+      <h2 class="section-title">Procesos que se ejecutan solos</h2>
+    </div>
+    <p class="reveal">Identificamos las tareas manuales que más tiempo consumen en tu empresa —reportes, conciliaciones, seguimiento de ventas, correos— y las convertimos en flujos automatizados conectados a agentes de inteligencia artificial. El resultado: procesos que corren sin intervención humana, con menos errores y disponibles las 24 horas.</p>
+  </div>
+</section>
+
+<section class="svc-features">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-label">Qué incluye</span>
+      <h2 class="section-title">Servicios dentro de esta línea</h2>
+      <p class="section-subtitle">Puedes empezar por un diagnóstico o directamente automatizar un proceso puntual.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon">🔍</div>
+        <h3>Diagnóstico de procesos</h3>
+        <p>Identificamos los cuellos de botella manuales y priorizamos por impacto y tiempo ahorrado.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">⚡</div>
+        <h3>Automatización de flujos</h3>
+        <p>Correos, reportes, cargues y conciliaciones que se ejecutan solos, sin intervención manual.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🧠</div>
+        <h3>Agentes y asistentes IA</h3>
+        <p>Asistentes que responden, clasifican y ejecutan tareas dentro de tus procesos ya automatizados.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🔗</div>
+        <h3>Integración de sistemas</h3>
+        <p>Conectamos tus herramientas actuales para que la información fluya sin copiar y pegar.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">📄</div>
+        <h3>Procesamiento de documentos</h3>
+        <p>Clasificación, extracción y validación automática de información en documentos y formularios.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🔔</div>
+        <h3>Notificaciones inteligentes</h3>
+        <p>Alertas y avisos automáticos a quien los necesita, en el momento en que ocurren.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="svc-process">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-label">Cómo trabajamos</span>
+      <h2 class="section-title">De proceso manual a flujo inteligente</h2>
+    </div>
+    <div class="process-steps">
+      <div class="process-step reveal">
+        <div class="process-num">01</div>
+        <h4>Diagnóstico</h4>
+        <p>Mapeamos procesos y cuellos de botella manuales.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="process-num">02</div>
+        <h4>Automatización</h4>
+        <p>Flujos inteligentes que eliminan tareas repetitivas.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="process-num">03</div>
+        <h4>Integración IA</h4>
+        <p>Modelos y agentes conectados a los flujos ya automatizados.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="process-num">04</div>
+        <h4>Seguimiento</h4>
+        <p>Panel centralizado para monitorear avances y alertas clave.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="svc-benefits">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-label">Por qué con Nyra Tech</span>
+      <h2 class="section-title">Ventajas de automatizar con nosotros</h2>
+    </div>
+    <ul class="benefits-list">
+      <li class="reveal"><div class="benefit-check">✓</div><p>Ahorra en promedio +120 horas al mes de trabajo manual.</p></li>
+      <li class="reveal"><div class="benefit-check">✓</div><p>Reduce hasta un 94% los errores por procesos manuales.</p></li>
+      <li class="reveal"><div class="benefit-check">✓</div><p>Procesos activos 24/7, sin depender de horarios de oficina.</p></li>
+      <li class="reveal"><div class="benefit-check">✓</div><p>Implementación ágil con valor desde las primeras semanas.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="svc-contact" id="contacto-servicio">
+  <div class="container">
+    <div class="section-head reveal" style="margin:0 auto 40px;text-align:center">
+      <span class="section-label">Contacto</span>
+      <h2 class="section-title">Cuéntanos qué quieres automatizar</h2>
+      <p class="section-subtitle">Te responderemos en menos de 24 horas.</p>
+    </div>
+    <div class="form-container reveal">
+      <input type="hidden" id="svcInterestValue" value="Automatizaciones con IA">
+      <form id="svcContactForm" action="https://formsubmit.co/nyratech.ia@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="SOLICITUD - Automatizaciones con IA">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="box">
+        <input type="text" name="_honey" style="display:none">
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" name="nombre" required placeholder="Tu nombre completo">
+        </div>
+        <div class="form-group">
+          <label>Correo electrónico</label>
+          <input type="email" name="correo" required placeholder="Tu correo electrónico">
+        </div>
+        <div class="form-group">
+          <label>Número de teléfono</label>
+          <input type="tel" name="telefono" required placeholder="+57 300 000 0000">
+        </div>
+        <div class="form-group">
+          <label>Mensaje</label>
+          <textarea name="mensaje" required placeholder="Cuéntanos qué proceso quieres automatizar..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Enviar mensaje →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="other-services">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-label">Otras líneas</span>
+      <h2 class="section-title">También podría interesarte</h2>
+    </div>
+    <div class="other-services-grid">
+      <a class="other-service-card reveal" href="desarrollo-software.html">
+        <div class="other-service-icon">💻</div>
+        <div><h4>Desarrollo de software</h4><p>Sitios, apps e integraciones a la medida.</p></div>
+      </a>
+      <a class="other-service-card reveal" href="hosting.html">
+        <div class="other-service-icon">☁️</div>
+        <div><h4>Alojamiento (hosting)</h4><p>Tu sitio o sistema siempre disponible y seguro.</p></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-bottom">
+    <div>© 2026 Nyra Tech · IA Automatizaciones</div>
+    <div><a href="index.html">Volver al inicio</a></div>
+  </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible')}});
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  const form = document.getElementById('svcContactForm');
+  const otherInterest = document.getElementById('svcInterestValue');
+  if(form && otherInterest){
+    const hidden = document.createElement('input');
+    hidden.type = 'hidden';
+    hidden.name = 'interes';
+    hidden.value = otherInterest.value;
+    form.appendChild(hidden);
+  }
+});
+
+</script>
+</body>
+</html>
