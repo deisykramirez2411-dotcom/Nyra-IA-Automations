@@ -244,6 +244,9 @@
   .service-card h3{font-size:1.3rem;margin-bottom:12px;color:#111827}
   .service-card p{color:#475467;font-size:0.95rem}
   .service-card .tag{display:inline-block;margin-top:16px;padding:5px 12px;background:rgba(160,48,255,0.1);border:1px solid rgba(160,48,255,0.28);border-radius:999px;font-size:0.78rem;font-weight:700;color:#7B2FFF}
+  .service-card .service-link{display:inline-flex;align-items:center;gap:8px;margin-top:24px;color:#7B2FFF;font-size:0.9rem;font-weight:700;text-decoration:none;transition:gap 0.25s,color 0.25s}
+  .service-card .service-link:hover{gap:12px;color:#A030FF}
+  .service-card .service-link:focus-visible{outline:3px solid rgba(160,48,255,0.25);outline-offset:4px;border-radius:4px}
 
   .mt-wa-wrap{
     position:fixed;
@@ -667,74 +670,25 @@
       </select>
     </div>
 
-    <!-- LÍNEA 1: AUTOMATIZACIONES IA -->
-    <div class="pillar ia">
-      <div class="pillar-head reveal">
-        <span class="pillar-chip">⚡ <span data-i18n="pillarIaTitle">Automatizaciones con IA</span></span>
-        <span class="pillar-line"></span>
-      </div>
-      <p class="pillar-desc reveal" data-i18n="pillarIaDesc">Eliminamos el trabajo manual repetitivo con flujos y agentes inteligentes que operan solos, 24/7.</p>
-      <div class="services-grid">
-        <div class="service-card reveal">
-          <div class="service-icon">🔍</div>
-          <h3 data-i18n="s1t">Diagnóstico de procesos</h3>
-          <p data-i18n="s1d">Identificamos los cuellos de botella manuales y priorizamos por impacto y tiempo ahorrado.</p>
-          <span class="tag" data-i18n="s1tag">Análisis</span>
-        </div>
-        <div class="service-card reveal">
-          <div class="service-icon">⚡</div>
-          <h3 data-i18n="s2t">Automatización de flujos</h3>
-          <p data-i18n="s2d">Procesos que se ejecutan solos: correos, reportes, cargues y conciliaciones sin intervención manual.</p>
-          <span class="tag" data-i18n="s2tag">Automatización</span>
-        </div>
-        <div class="service-card reveal">
-          <div class="service-icon">🧠</div>
-          <h3 data-i18n="s4t">Agentes y asistentes IA</h3>
-          <p data-i18n="s4d">Asistentes que responden, clasifican y ejecutan tareas dentro de tus procesos ya automatizados.</p>
-          <span class="tag" data-i18n="s4tag">Inteligencia</span>
-        </div>
-        <div class="service-card reveal">
-          <div class="service-icon">🔗</div>
-          <h3 data-i18n="s5t">Integración de sistemas</h3>
-          <p data-i18n="s5d">Conectamos tus herramientas actuales para que la información fluya sin copiar y pegar.</p>
-          <span class="tag" data-i18n="s5tag">Integración</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- LÍNEA 2: POWER BI -->
-    <div class="pillar bi">
-      <div class="pillar-head reveal">
-        <span class="pillar-chip">📊 <span data-i18n="pillarBiTitle">Business Intelligence</span></span>
-        <span class="pillar-line"></span>
-      </div>
-      <p class="pillar-desc reveal" data-i18n="pillarBiDesc">Convertimos tus datos dispersos en tableros claros para decidir con evidencia y no con suposiciones.</p>
-      <div class="services-grid">
-        <div class="service-card reveal">
-          <div class="service-icon">📈</div>
-          <h3 data-i18n="s3t">Dashboards en Power BI</h3>
-          <p data-i18n="s3d">Reportes visuales en tiempo real para seguimiento operativo y comercial.</p>
-          <span class="tag" data-i18n="s3tag">Data</span>
-        </div>
-        <div class="service-card reveal">
-          <div class="service-icon">🗂️</div>
-          <h3 data-i18n="s6t">Modelado de datos</h3>
-          <p data-i18n="s6d">Unificamos fuentes, limpiamos la información y construimos un modelo confiable y auditable.</p>
-          <span class="tag" data-i18n="s6tag">Modelado</span>
-        </div>
-        <div class="service-card reveal">
-          <div class="service-icon">🎯</div>
-          <h3 data-i18n="s7t">Indicadores y KPIs</h3>
-          <p data-i18n="s7d">Definimos las métricas que realmente importan para tu operación y tu área comercial.</p>
-          <span class="tag" data-i18n="s7tag">Métricas</span>
-        </div>
-        <div class="service-card reveal">
-          <div class="service-icon">🔄</div>
-          <h3 data-i18n="s8t">Reportes automáticos</h3>
-          <p data-i18n="s8d">Actualización programada y envío automático de informes a quien los necesita.</p>
-          <span class="tag" data-i18n="s8tag">Data</span>
-        </div>
-      </div>
+    <div class="services-grid">
+      <article class="service-card reveal">
+        <div class="service-icon">💻</div>
+        <h3 data-i18n="pkgSoftT">Desarrollo de software</h3>
+        <p data-i18n="pkgSoftD">Convierte una idea o un proceso complicado en una herramienta digital clara, rápida y hecha para tu negocio.</p>
+        <a class="service-link" href="desarrollo-software.html" data-i18n="serviceMore">Ver servicio →</a>
+      </article>
+      <article class="service-card reveal">
+        <div class="service-icon">⚡</div>
+        <h3 data-i18n="pkgAiT">Automatizaciones con IA</h3>
+        <p data-i18n="pkgAiD">Libera a tu equipo de tareas repetitivas con flujos y asistentes inteligentes que trabajan por ti 24/7.</p>
+        <a class="service-link" href="automatizaciones-ia.html" data-i18n="serviceMore">Ver servicio →</a>
+      </article>
+      <article class="service-card reveal">
+        <div class="service-icon">☁️</div>
+        <h3 data-i18n="pkgHostT">Alojamiento seguro</h3>
+        <p data-i18n="pkgHostD">Mantén tu sitio o sistema disponible, protegido y con buen rendimiento sin cargar a tu equipo con la parte técnica.</p>
+        <a class="service-link" href="hosting.html" data-i18n="serviceMore">Ver servicio →</a>
+      </article>
     </div>
   </div>
 </section>
@@ -990,11 +944,18 @@ const translations = {
     servicesLabel: "Servicios",
     servicesTitle: "Lo que hacemos por tu empresa",
     servicesSub: "Dos líneas de trabajo independientes que también funcionan muy bien juntas.",
+    serviceMore: "Ver servicio →",
     serviceTypeLabel: "Selecciona un servicio",
     serviceTypePlaceholder: "Selecciona un servicio",
     serviceSoftware: "Desarrollo de software",
     serviceAi: "Automatizaciones con IA",
     serviceHosting: "Alojamiento (hosting)",
+    pkgSoftT: "Desarrollo de software",
+    pkgSoftD: "Convierte una idea o un proceso complicado en una herramienta digital clara, rápida y hecha para tu negocio.",
+    pkgAiT: "Automatizaciones con IA",
+    pkgAiD: "Libera a tu equipo de tareas repetitivas con flujos y asistentes inteligentes que trabajan por ti 24/7.",
+    pkgHostT: "Alojamiento seguro",
+    pkgHostD: "Mantén tu sitio o sistema disponible, protegido y con buen rendimiento sin cargar a tu equipo con la parte técnica.",
     pillarIaTitle: "Automatizaciones con IA",
     pillarIaDesc: "Eliminamos el trabajo manual repetitivo con flujos y agentes inteligentes que operan solos, 24/7.",
     pillarBiTitle: "Business Intelligence · Power BI",
@@ -1113,11 +1074,18 @@ const translations = {
     servicesLabel: "Services",
     servicesTitle: "What we do for your company",
     servicesSub: "Two independent lines of work that also work very well together.",
+    serviceMore: "View service →",
     serviceTypeLabel: "Select a service",
     serviceTypePlaceholder: "Select a service",
     serviceSoftware: "Software development",
     serviceAi: "AI automations",
     serviceHosting: "Hosting",
+    pkgSoftT: "Software development",
+    pkgSoftD: "Turn an idea or a complicated process into a clear, fast digital tool made for your business.",
+    pkgAiT: "AI automations",
+    pkgAiD: "Free your team from repetitive tasks with intelligent flows and assistants that work for you 24/7.",
+    pkgHostT: "Secure hosting",
+    pkgHostD: "Keep your website or system available, protected and performing well without burdening your team with the technical side.",
     pillarIaTitle: "AI Automations",
     pillarIaDesc: "We remove repetitive manual work with intelligent flows and agents that run on their own, 24/7.",
     pillarBiTitle: "Business Intelligence · Power BI",

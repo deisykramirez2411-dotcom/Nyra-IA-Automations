@@ -66,12 +66,16 @@ section{position:relative;z-index:2;padding:100px 6%}
 .svc-overview{border-top:1px solid var(--border)}
 .svc-overview p{color:#c7cdd9;font-size:1.05rem;max-width:820px}
 
-.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.feature-card{padding:30px;background:rgba(15,20,32,0.6);border:1px solid var(--border);border-radius:18px;transition:all 0.3s}
-.feature-card:hover{border-color:rgba(0,240,255,0.35);transform:translateY(-4px);box-shadow:0 16px 36px rgba(0,240,255,0.08)}
-.feature-icon{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,rgba(0,240,255,0.15),rgba(123,47,255,0.2));border:1px solid rgba(0,240,255,0.3);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:18px}
-.feature-card h3{font-size:1.08rem;margin-bottom:8px}
-.feature-card p{color:var(--muted);font-size:0.9rem}
+.feature-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.feature-card{padding:36px;background:linear-gradient(145deg,#ffffff 0%,#f7f4ff 100%);border:1px solid rgba(160,48,255,0.18);border-radius:20px;position:relative;overflow:hidden;transition:all 0.4s;box-shadow:0 8px 24px rgba(15,23,42,0.06)}
+.feature-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:4px;background:linear-gradient(90deg,#00B8D4,#A030FF);transition:transform 0.4s;transform-origin:left}
+.feature-card:hover{border-color:rgba(160,48,255,0.45);transform:translateY(-6px);box-shadow:0 20px 45px rgba(160,48,255,0.16)}
+.feature-card:hover::before{transform:scaleX(0.55)}
+.feature-icon{width:60px;height:60px;border-radius:14px;background:linear-gradient(135deg,#A030FF,#6050FF);border:0;display:flex;align-items:center;justify-content:center;margin-bottom:22px;font-size:1.8rem;box-shadow:0 10px 20px rgba(96,80,255,0.22);transition:all 0.4s}
+.feature-card:hover .feature-icon{box-shadow:0 0 28px rgba(160,48,255,0.42);transform:scale(1.05) rotate(-3deg)}
+.feature-card h3{font-size:1.3rem;margin-bottom:12px;color:#111827}
+.feature-card p{color:#475467;font-size:0.95rem}
+.feature-card .tag{display:inline-block;margin-top:16px;padding:5px 12px;background:rgba(160,48,255,0.1);border:1px solid rgba(160,48,255,0.28);border-radius:999px;font-size:0.78rem;font-weight:700;color:#7B2FFF}
 
 .svc-process{background:linear-gradient(180deg,rgba(11,14,20,0.98),rgba(17,22,35,0.98),rgba(11,14,20,0.98));border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
 .process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;position:relative}
@@ -191,31 +195,25 @@ footer{padding:44px 6% 26px;border-top:1px solid var(--border);position:relative
         <div class="feature-icon">🔍</div>
         <h3>Diagnóstico de procesos</h3>
         <p>Identificamos los cuellos de botella manuales y priorizamos por impacto y tiempo ahorrado.</p>
+        <span class="tag">Análisis</span>
       </div>
       <div class="feature-card reveal">
         <div class="feature-icon">⚡</div>
         <h3>Automatización de flujos</h3>
-        <p>Correos, reportes, cargues y conciliaciones que se ejecutan solos, sin intervención manual.</p>
+        <p>Procesos que se ejecutan solos: correos, reportes, cargues y conciliaciones sin intervención manual.</p>
+        <span class="tag">Automatización</span>
       </div>
       <div class="feature-card reveal">
         <div class="feature-icon">🧠</div>
         <h3>Agentes y asistentes IA</h3>
         <p>Asistentes que responden, clasifican y ejecutan tareas dentro de tus procesos ya automatizados.</p>
+        <span class="tag">Inteligencia</span>
       </div>
       <div class="feature-card reveal">
         <div class="feature-icon">🔗</div>
         <h3>Integración de sistemas</h3>
         <p>Conectamos tus herramientas actuales para que la información fluya sin copiar y pegar.</p>
-      </div>
-      <div class="feature-card reveal">
-        <div class="feature-icon">📄</div>
-        <h3>Procesamiento de documentos</h3>
-        <p>Clasificación, extracción y validación automática de información en documentos y formularios.</p>
-      </div>
-      <div class="feature-card reveal">
-        <div class="feature-icon">🔔</div>
-        <h3>Notificaciones inteligentes</h3>
-        <p>Alertas y avisos automáticos a quien los necesita, en el momento en que ocurren.</p>
+        <span class="tag">Integración</span>
       </div>
     </div>
   </div>
