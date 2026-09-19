@@ -26,6 +26,7 @@ html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden;line-height:1.6}
 h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-0.02em}
 
+#bgCanvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.9}
 .glow-blob{position:fixed;border-radius:50%;filter:blur(120px);opacity:0.35;z-index:0;pointer-events:none}
 .blob-1{width:500px;height:500px;background:var(--cyan);top:-150px;left:-150px;opacity:0.18}
 .blob-2{width:450px;height:450px;background:var(--violet);top:40%;right:-150px;opacity:0.22}
@@ -52,6 +53,14 @@ section{position:relative;z-index:2;padding:100px 6%}
 .svc-hero h1{font-size:clamp(2.2rem,4.6vw,3.4rem);line-height:1.08;margin-bottom:20px;max-width:760px}
 .svc-hero p{font-size:1.08rem;color:var(--muted);max-width:640px;margin-bottom:32px}
 .svc-hero-buttons{display:flex;gap:16px;flex-wrap:wrap}
+.mt-wa-wrap{position:fixed;right:24px;bottom:24px;z-index:999;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.mt-wa-bubble{position:relative;display:inline-flex;align-items:center;justify-content:center;width:72px;height:72px;border-radius:50%;background:transparent;box-shadow:0 0 0 4px rgba(96,80,255,0.2),0 14px 30px rgba(37,211,102,0.35);transition:transform 0.25s ease,box-shadow 0.25s ease,filter 0.25s ease}
+.mt-wa-bubble::before{content:"";position:absolute;inset:0;border-radius:50%;background:linear-gradient(135deg,#fff,#20C9FF);border:6px solid #6050FF;z-index:-1}
+.mt-wa-bubble:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 18px 36px rgba(37,211,102,0.45);filter:brightness(1.05)}
+.mt-wa-bubble img{width:68px;height:68px;object-fit:contain;display:block;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.15))}
+.mt-wa-tooltip{position:absolute;right:0;bottom:78px;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#fff 0%,#f7f3ff 100%);color:#111827;padding:10px 16px 10px 13px;border:1px solid rgba(160,48,255,0.22);border-left:4px solid #A030FF;border-radius:14px;font-size:0.84rem;font-weight:700;white-space:nowrap;box-shadow:0 12px 28px rgba(15,23,42,0.18);animation:mtWaShow 30s ease-in-out infinite}
+.mt-wa-tooltip::before{content:"";width:8px;height:8px;border-radius:50%;background:#25D366;box-shadow:0 0 0 4px rgba(37,211,102,0.14)}
+@keyframes mtWaShow{0%,33.33%{opacity:0;transform:translateY(8px)}33.34%,66.66%{opacity:1;transform:translateY(0)}66.67%,100%{opacity:0;transform:translateY(8px)}}
 
 .btn-primary{padding:14px 30px;background:var(--cyan);color:var(--bg);border:none;border-radius:999px;font-weight:600;font-size:0.95rem;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:all 0.3s;box-shadow:0 0 30px rgba(0,240,255,0.3)}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 50px rgba(0,240,255,0.6)}
@@ -140,11 +149,20 @@ footer{padding:44px 6% 26px;border-top:1px solid var(--border);position:relative
 <div class="glow-blob blob-2"></div>
 <div class="glow-blob blob-3"></div>
 
+<canvas id="bgCanvas" aria-hidden="true"></canvas>
+<div class="mt-wa-wrap">
+  <a class="mt-wa-bubble" href="https://wa.me/573043704576" target="_blank" rel="noopener" aria-label="Escribirnos por WhatsApp">
+    <span class="mt-wa-tooltip">Hablemos</span>
+    <img src="BotonWhat.png" alt="WhatsApp" />
+  </a>
+</div>
+
 <nav>
   <a class="logo" href="index.html">
     <img class="brand-logo" src="logo.png" alt="Nyra Tech logo" />
   </a>
   <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
     <li><a href="index.html#problema">Problema</a></li>
     <li><a href="index.html#solucion">Solución</a></li>
     <li><a href="index.html#servicios">Servicios</a></li>
@@ -330,6 +348,74 @@ footer{padding:44px 6% 26px;border-top:1px solid var(--border);position:relative
 </footer>
 
 <script>
+const canvas = document.getElementById('bgCanvas');
+const ctx = canvas.getContext('2d');
+let canvasWidth;
+let canvasHeight;
+const particles = [];
+
+function resizeCanvas(){
+  canvasWidth = canvas.width = window.innerWidth;
+  canvasHeight = canvas.height = window.innerHeight;
+}
+
+class Particle{
+  constructor(){
+    this.x = Math.random() * canvasWidth;
+    this.y = Math.random() * canvasHeight;
+    this.vx = (Math.random() - 0.5) * 0.3;
+    this.vy = (Math.random() - 0.5) * 0.3;
+    this.radius = Math.random() * 1.5 + 0.5;
+    const colors = ['0,240,255','123,47,255','255,46,159'];
+    this.color = colors[Math.floor(Math.random() * colors.length)];
+  }
+  update(){
+    this.x += this.vx;
+    this.y += this.vy;
+    if(this.x < 0 || this.x > canvasWidth) this.vx *= -1;
+    if(this.y < 0 || this.y > canvasHeight) this.vy *= -1;
+  }
+  draw(){
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.radius,0,Math.PI * 2);
+    ctx.fillStyle = `rgba(${this.color},0.8)`;
+    ctx.shadowBlur = 8;
+    ctx.shadowColor = `rgba(${this.color},0.8)`;
+    ctx.fill();
+    ctx.shadowBlur = 0;
+  }
+}
+
+function connectParticles(){
+  for(let i = 0; i < particles.length; i++){
+    for(let j = i + 1; j < particles.length; j++){
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      if(distance < 140){
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(0,240,255,${(1 - distance / 140) * 0.15})`;
+        ctx.lineWidth = 0.6;
+        ctx.stroke();
+      }
+    }
+  }
+}
+
+function animateBackground(){
+  ctx.clearRect(0,0,canvasWidth,canvasHeight);
+  particles.forEach(particle=>{particle.update();particle.draw()});
+  connectParticles();
+  requestAnimationFrame(animateBackground);
+}
+
+resizeCanvas();
+window.addEventListener('resize',resizeCanvas);
+for(let i = 0; i < 70; i++) particles.push(new Particle());
+animateBackground();
+
 const observer = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible')}});
 },{threshold:0.1});
