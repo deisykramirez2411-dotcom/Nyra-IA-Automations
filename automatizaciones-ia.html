@@ -49,8 +49,9 @@ section{position:relative;z-index:2;padding:100px 6%}
 .breadcrumb a:hover{text-decoration:underline}
 
 .svc-hero{min-height:64vh;display:flex;align-items:center;padding-top:150px}
-.svc-hero-icon{width:74px;height:74px;border-radius:18px;background:linear-gradient(135deg,rgba(0,240,255,0.18),rgba(123,47,255,0.22));border:1px solid rgba(0,240,255,0.35);display:flex;align-items:center;justify-content:center;font-size:2.2rem;margin-bottom:26px;box-shadow:0 10px 30px rgba(0,240,255,0.12)}
-.svc-hero h1{font-size:clamp(2.2rem,4.6vw,3.4rem);line-height:1.08;margin-bottom:20px;max-width:760px}
+.svc-hero-title{display:flex;align-items:center;gap:22px;margin-bottom:24px}
+.svc-hero-icon{width:74px;height:74px;flex:0 0 74px;border-radius:18px;background:linear-gradient(135deg,rgba(0,240,255,0.18),rgba(123,47,255,0.22));border:1px solid rgba(0,240,255,0.35);display:flex;align-items:center;justify-content:center;font-size:2.2rem;box-shadow:0 10px 30px rgba(0,240,255,0.12)}
+.svc-hero h1{font-size:clamp(2.2rem,4.6vw,3.4rem);line-height:1.08;margin:0;max-width:760px}
 .svc-hero p{font-size:1.08rem;color:var(--muted);max-width:640px;margin-bottom:32px}
 .svc-hero-buttons{display:flex;gap:16px;flex-wrap:wrap}
 .mt-wa-wrap{position:fixed;right:24px;bottom:24px;z-index:999;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
@@ -72,8 +73,31 @@ section{position:relative;z-index:2;padding:100px 6%}
 .section-title{font-size:clamp(1.8rem,3.6vw,2.6rem);line-height:1.12;margin-bottom:14px}
 .section-subtitle{color:var(--muted);font-size:1.02rem}
 
-.svc-overview{border-top:1px solid var(--border)}
-.svc-overview p{color:#c7cdd9;font-size:1.05rem;max-width:820px}
+.svc-overview{background:#ffffff;color:#101828;border-top:1px solid rgba(10,14,24,0.08);border-bottom:1px solid rgba(10,14,24,0.08)}
+.svc-overview .section-title{color:#101828}
+.svc-overview p{color:#475467;font-size:1.05rem;max-width:820px}
+.overview-layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,0.65fr);gap:70px;align-items:center}
+.overview-copy{position:relative;padding-left:34px}
+.overview-copy::before{content:'';position:absolute;left:0;top:4px;bottom:4px;width:3px;background:linear-gradient(180deg,#00B8D4,#A030FF,#FF2E9F);border-radius:3px}
+.overview-copy p{font-size:clamp(1.05rem,1.6vw,1.22rem);line-height:1.8;max-width:760px}
+.overview-copy strong{color:#101828;font-weight:700}
+.overview-cta{display:inline-flex;align-items:center;gap:10px;margin-top:28px;color:#7B2FFF;font-size:0.94rem;font-weight:700;text-decoration:none;transition:gap 0.25s,color 0.25s}
+.overview-cta:hover{gap:15px;color:#A030FF}
+.overview-signal{display:grid;gap:12px}
+.signal-item{padding:20px 22px;border:1px solid rgba(160,48,255,0.18);border-radius:16px;background:linear-gradient(145deg,#fff,#f7f4ff);position:relative;overflow:hidden;transition:transform 0.3s,border-color 0.3s,box-shadow 0.3s}
+.signal-item:hover{transform:translateX(-6px);border-color:rgba(160,48,255,0.45);box-shadow:0 14px 30px rgba(160,48,255,0.12)}
+.signal-value{display:block;color:#7B2FFF;font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;line-height:1;margin-bottom:7px}
+.signal-label{color:#475467;font-size:0.84rem}
+.svc-overview{background:linear-gradient(135deg,rgba(0,240,255,0.035),transparent 42%);color:var(--text);border-top:1px solid var(--border);border-bottom:0}
+.svc-overview .section-title{color:var(--text)}
+.overview-copy p{color:#c7cdd9}
+.overview-copy strong{color:var(--text);font-weight:600}
+.overview-cta{color:var(--cyan)}
+.overview-cta:hover{color:#fff}
+.signal-item{border-color:rgba(0,240,255,0.16);background:rgba(15,20,32,0.58);box-shadow:none}
+.signal-item:hover{border-color:rgba(0,240,255,0.42);background:rgba(0,240,255,0.07);box-shadow:none}
+.signal-value{color:var(--cyan)}
+.signal-label{color:#aeb7c7}
 
 .feature-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
 .feature-card{padding:36px;background:linear-gradient(145deg,#ffffff 0%,#f7f4ff 100%);border:1px solid rgba(160,48,255,0.18);border-radius:20px;position:relative;overflow:hidden;transition:all 0.4s;box-shadow:0 8px 24px rgba(15,23,42,0.06)}
@@ -86,12 +110,23 @@ section{position:relative;z-index:2;padding:100px 6%}
 .feature-card p{color:#475467;font-size:0.95rem}
 .feature-card .tag{display:inline-block;margin-top:16px;padding:5px 12px;background:rgba(160,48,255,0.1);border:1px solid rgba(160,48,255,0.28);border-radius:999px;font-size:0.78rem;font-weight:700;color:#7B2FFF}
 
-.svc-process{background:linear-gradient(180deg,rgba(11,14,20,0.98),rgba(17,22,35,0.98),rgba(11,14,20,0.98));border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-.process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;position:relative}
-.process-step{padding:26px 22px;border:1px solid var(--border);border-radius:16px;background:rgba(255,255,255,0.035)}
-.process-num{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,rgba(0,240,255,0.18),rgba(123,47,255,0.22));border:1px solid rgba(0,240,255,0.42);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--cyan);margin-bottom:16px}
-.process-step h4{font-size:1.02rem;margin-bottom:6px}
-.process-step p{color:#aeb7c7;font-size:0.86rem}
+.svc-process{background:linear-gradient(180deg,rgba(11,14,20,0.98),rgba(17,22,35,0.98),rgba(11,14,20,0.98));border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;isolation:isolate}
+.svc-process::before{content:'';position:absolute;top:-42%;left:-16%;width:760px;height:760px;border-radius:50%;background:repeating-conic-gradient(from 20deg,rgba(0,240,255,0.16) 0deg,rgba(123,47,255,0.16) 18deg,rgba(255,46,159,0.1) 36deg,transparent 54deg);-webkit-mask:radial-gradient(circle,transparent 34%,#000 36%,#000 40%,transparent 42%,transparent 53%,#000 55%,#000 59%,transparent 61%);mask:radial-gradient(circle,transparent 34%,#000 36%,#000 40%,transparent 42%,transparent 53%,#000 55%,#000 59%,transparent 61%);filter:blur(3px);opacity:0.78;animation:processSpiral 30s linear infinite;pointer-events:none;z-index:-1}
+.svc-process::after{content:'';position:absolute;right:-220px;bottom:-360px;width:720px;height:720px;border-radius:50%;background:repeating-conic-gradient(from 100deg,rgba(123,47,255,0.15) 0deg,rgba(0,240,255,0.12) 22deg,transparent 48deg);-webkit-mask:radial-gradient(circle,transparent 35%,#000 37%,#000 42%,transparent 44%,transparent 56%,#000 58%,#000 63%,transparent 65%);mask:radial-gradient(circle,transparent 35%,#000 37%,#000 42%,transparent 44%,transparent 56%,#000 58%,#000 63%,transparent 65%);filter:blur(4px);opacity:0.65;animation:processSpiralReverse 36s linear infinite;pointer-events:none;z-index:-1}
+@keyframes processSpiral{to{transform:rotate(360deg)}}
+@keyframes processSpiralReverse{to{transform:rotate(-360deg)}}
+.svc-process > .container{position:relative;z-index:1}
+.process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;position:relative;align-items:start}
+.process-steps::before{content:'';position:absolute;left:9%;right:9%;top:54px;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),var(--violet),var(--magenta),transparent);opacity:0.55}
+.process-step{min-height:215px;padding:24px 22px;border:1px solid rgba(231,233,238,0.11);border-radius:18px;background:linear-gradient(160deg,rgba(255,255,255,0.07),rgba(255,255,255,0.025));position:relative;transition:transform 0.35s,border-color 0.35s,box-shadow 0.35s,background 0.35s}
+.process-step:nth-child(2){margin-top:34px}.process-step:nth-child(3){margin-top:68px}.process-step:nth-child(4){margin-top:102px}
+.process-step::after{content:'';position:absolute;left:22px;right:22px;bottom:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--violet));transform:scaleX(0.35);transform-origin:left;transition:transform 0.35s}
+.process-step:hover,.process-step:focus-within{transform:translateY(-8px);border-color:rgba(0,240,255,0.44);background:linear-gradient(160deg,rgba(0,240,255,0.1),rgba(123,47,255,0.07));box-shadow:0 20px 45px rgba(0,240,255,0.1)}
+.process-step:hover::after,.process-step:focus-within::after{transform:scaleX(1)}
+.process-num{width:58px;height:58px;border-radius:50%;background:var(--bg-2);border:1px solid rgba(0,240,255,0.5);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:1.1rem;font-weight:700;color:var(--cyan);margin-bottom:24px;position:relative;z-index:1;box-shadow:0 0 0 7px rgba(0,240,255,0.055)}
+.process-step:nth-child(2) .process-num{color:#72a7ff;border-color:rgba(114,167,255,0.55)}.process-step:nth-child(3) .process-num{color:#b18bff;border-color:rgba(177,139,255,0.55)}.process-step:nth-child(4) .process-num{color:var(--magenta);border-color:rgba(255,46,159,0.55)}
+.process-label{display:block;margin-bottom:7px;color:var(--cyan);font-size:0.68rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase}.process-step:nth-child(2) .process-label{color:#72a7ff}.process-step:nth-child(3) .process-label{color:#b18bff}.process-step:nth-child(4) .process-label{color:var(--magenta)}
+.process-step h4{font-size:1.12rem;margin-bottom:8px}.process-step p{color:#aeb7c7;font-size:0.88rem;line-height:1.6}
 
 .benefits-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .benefits-list li{display:flex;gap:14px;padding:20px;background:rgba(15,20,32,0.5);border:1px solid var(--border);border-radius:14px}
@@ -134,14 +169,21 @@ footer{padding:44px 6% 26px;border-top:1px solid var(--border);position:relative
   .brand-logo{height:44px;max-width:150px}
   .nav-links{display:none}
   .feature-grid{grid-template-columns:1fr}
+  .overview-layout{grid-template-columns:1fr;gap:40px}
   .process-steps{grid-template-columns:1fr 1fr}
+  .process-steps::before{display:none}
+  .process-step:nth-child(n){margin-top:0}
   .benefits-list{grid-template-columns:1fr}
   .other-services-grid{grid-template-columns:1fr}
   section{padding:70px 6%}
   .svc-hero{padding-top:130px}
+  .svc-hero-title{align-items:flex-start}
 }
 @media(max-width:520px){
+  .svc-hero-title{flex-direction:column;gap:18px}
+  .svc-hero h1{font-size:clamp(2rem,9vw,2.7rem)}
   .process-steps{grid-template-columns:1fr}
+  .process-step{min-height:0}
   .form-container{padding:30px 22px}
 }
 
@@ -180,8 +222,10 @@ footer{padding:44px 6% 26px;border-top:1px solid var(--border);position:relative
   <div class="container">
     <div class="breadcrumb reveal"><a href="index.html">Inicio</a> › <a href="index.html#servicios">Servicios</a> › <span>Automatizaciones con IA</span></div>
     <div class="reveal">
-      <div class="svc-hero-icon">⚡</div>
-      <h1>Automatizaciones con Inteligencia Artificial</h1>
+      <div class="svc-hero-title">
+        <div class="svc-hero-icon">⚡</div>
+        <h1>Automatizaciones con Inteligencia Artificial</h1>
+      </div>
       <p>Eliminamos el trabajo manual repetitivo con flujos y agentes inteligentes que operan solos, 24/7 — para que tu equipo dedique su tiempo a lo que realmente agrega valor.</p>
       <div class="svc-hero-buttons">
         <a class="btn-primary" href="#contacto-servicio">Solicitar información →</a>
@@ -193,11 +237,21 @@ footer{padding:44px 6% 26px;border-top:1px solid var(--border);position:relative
 
 <section class="svc-overview">
   <div class="container">
-    <div class="section-head reveal">
-      <span class="section-label">Qué hacemos</span>
-      <h2 class="section-title">Procesos que se ejecutan solos</h2>
+    <div class="overview-layout">
+      <div class="overview-copy reveal">
+        <div class="section-head" style="margin-bottom:24px">
+          <span class="section-label">Qué hacemos</span>
+          <h2 class="section-title">Procesos que se ejecutan solos</h2>
+        </div>
+        <p><strong>Identificamos las tareas manuales que más tiempo consumen en tu empresa</strong> —reportes, conciliaciones, seguimiento de ventas, correos— y las convertimos en flujos automatizados conectados a agentes de inteligencia artificial. El resultado: procesos que corren sin intervención humana, con menos errores y disponibles las 24 horas.</p>
+        <a class="overview-cta" href="#contacto-servicio">Descubre qué puedes automatizar <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="overview-signal reveal" aria-label="Beneficios de automatizar con inteligencia artificial">
+        <div class="signal-item"><span class="signal-value">24/7</span><span class="signal-label">Procesos activos incluso cuando tu equipo descansa.</span></div>
+        <div class="signal-item"><span class="signal-value">Menos errores</span><span class="signal-label">Flujos consistentes y trazables de principio a fin.</span></div>
+        <div class="signal-item"><span class="signal-value">Más tiempo</span><span class="signal-label">Tu equipo enfocado en decisiones y tareas de valor.</span></div>
+      </div>
     </div>
-    <p class="reveal">Identificamos las tareas manuales que más tiempo consumen en tu empresa —reportes, conciliaciones, seguimiento de ventas, correos— y las convertimos en flujos automatizados conectados a agentes de inteligencia artificial. El resultado: procesos que corren sin intervención humana, con menos errores y disponibles las 24 horas.</p>
   </div>
 </section>
 
@@ -246,21 +300,25 @@ footer{padding:44px 6% 26px;border-top:1px solid var(--border);position:relative
     <div class="process-steps">
       <div class="process-step reveal">
         <div class="process-num">01</div>
+          <span class="process-label">Detectar</span>
         <h4>Diagnóstico</h4>
         <p>Mapeamos procesos y cuellos de botella manuales.</p>
       </div>
       <div class="process-step reveal">
         <div class="process-num">02</div>
+          <span class="process-label">Automatizar</span>
         <h4>Automatización</h4>
         <p>Flujos inteligentes que eliminan tareas repetitivas.</p>
       </div>
       <div class="process-step reveal">
         <div class="process-num">03</div>
+          <span class="process-label">Conectar</span>
         <h4>Integración IA</h4>
         <p>Modelos y agentes conectados a los flujos ya automatizados.</p>
       </div>
       <div class="process-step reveal">
         <div class="process-num">04</div>
+          <span class="process-label">Optimizar</span>
         <h4>Seguimiento</h4>
         <p>Panel centralizado para monitorear avances y alertas clave.</p>
       </div>
