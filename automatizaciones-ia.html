@@ -450,7 +450,6 @@ footer{padding:44px 6% 26px;border-top:1px solid var(--border);position:relative
       <input type="hidden" id="svcInterestValue" value="Automatizaciones con IA">
       <form id="svcContactForm" action="https://formsubmit.co/contacto@nyratech.tech" method="POST">
         <input type="hidden" name="_subject" value="SOLICITUD - Automatizaciones con IA">
-        <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_template" value="box">
         <input type="text" name="_honey" style="display:none">
         <div class="form-group">
@@ -635,9 +634,11 @@ serviceForm.addEventListener('submit', async (event)=>{
   submitButton.textContent = 'Enviando...';
 
   try{
+    const formData = new FormData(serviceForm);
+    formData.set('_replyto', formData.get('correo'));
     const response = await fetch(serviceForm.action.replace('https://formsubmit.co/','https://formsubmit.co/ajax/'),{
       method:'POST',
-      body:new FormData(serviceForm),
+      body:formData,
       headers:{Accept:'application/json'}
     });
     if(!response.ok) throw new Error('No se pudo enviar el formulario');

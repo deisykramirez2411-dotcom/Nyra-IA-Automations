@@ -913,7 +913,6 @@
       <p class="form-sub" data-i18n="formSub">Cuéntanos sobre tu proyecto y te responderemos pronto.</p>
       <form id="contactForm" action="https://formsubmit.co/contacto@nyratech.tech" method="POST">
         <input type="hidden" name="_subject" value="SOLICITUD DE COTIZACION-INFORMACION">
-        <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_template" value="box">
         <input type="text" name="_honey" style="display:none">
 
@@ -1406,9 +1405,11 @@ contactForm.addEventListener('submit', async (event)=>{
   submitButton.textContent = 'Enviando...';
 
   try{
+    const formData = new FormData(contactForm);
+    formData.set('_replyto', formData.get('correo'));
     const response = await fetch(contactForm.action.replace('https://formsubmit.co/','https://formsubmit.co/ajax/'),{
       method:'POST',
-      body:new FormData(contactForm),
+      body:formData,
       headers:{Accept:'application/json'}
     });
     if(!response.ok) throw new Error('No se pudo enviar el formulario');
