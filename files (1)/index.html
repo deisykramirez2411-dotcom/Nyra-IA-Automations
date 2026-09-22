@@ -109,7 +109,8 @@
     box-shadow:0 0 18px rgba(160,48,255,0.25);
   }
   .nav-cta:hover{background:#8d2ef0;color:#fff;box-shadow:0 0 25px rgba(160,48,255,0.35)}
-  .menu-toggle{display:none;background:none;border:none;color:var(--text);font-size:1.5rem;cursor:pointer}
+  .menu-toggle{display:none;background:none;border:1px solid rgba(17,24,39,0.15);border-radius:8px;color:#111827;font-size:1.35rem;line-height:1;padding:7px 9px;cursor:pointer}
+  .menu-toggle:focus-visible{outline:3px solid rgba(123,47,255,0.3);outline-offset:3px}
 
   section{position:relative;z-index:2;padding:120px 6%}
   .container{max-width:1200px;margin:0 auto}
@@ -509,6 +510,9 @@
     .nav-cta{padding:8px 13px;font-size:0.78rem;white-space:nowrap}
     .nav-links{display:none}
     .menu-toggle{display:block}
+    .nav-links.is-open{position:absolute;top:100%;left:4%;right:4%;display:flex;flex-direction:column;gap:0;padding:10px 0;background:rgba(255,255,255,0.98);border:1px solid rgba(15,23,42,0.08);border-radius:0 0 14px 14px;box-shadow:0 14px 30px rgba(15,23,42,0.14)}
+    .nav-links.is-open li{width:100%}
+    .nav-links.is-open a{display:block;padding:12px 18px}
     .hero-grid,.problem-grid,.why-grid,.solution-grid,.contact-grid{grid-template-columns:1fr;gap:40px}
     .hero-visual{margin:0 auto}
     .solution-img{grid-column:1;grid-row:auto;min-height:300px}
@@ -544,7 +548,7 @@
   <div class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
     <img class="brand-logo" src="logo.png" alt="Nyra Tech logo" />
   </div>
-  <ul class="nav-links">
+  <ul class="nav-links" id="mainNavLinks">
     <li><a onclick="scrollToSection('problema')" data-i18n="navProblem">Problema</a></li>
     <li><a onclick="scrollToSection('solucion')" data-i18n="navSolution">Solución</a></li>
     <li><a onclick="scrollToSection('servicios')" data-i18n="navServices">Servicios</a></li>
@@ -554,6 +558,7 @@
   <div class="nav-actions">
     <button class="lang-toggle" id="langToggle">🌐 <span id="langLabel">EN</span></button>
     <a class="nav-cta" onclick="scrollToSection('contacto')" data-i18n="navCta">Contactar</a>
+    <button class="menu-toggle" id="menuToggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mainNavLinks">☰</button>
   </div>
 </nav>
 
@@ -1311,9 +1316,36 @@ const translations = {
 let currentLang = 'es';
 const langToggle = document.getElementById('langToggle');
 const langLabel = document.getElementById('langLabel');
+const menuToggle = document.getElementById('menuToggle');
+const mainNavLinks = document.getElementById('mainNavLinks');
 const problemSection = document.getElementById('problema');
 const servicesSection = document.getElementById('servicios');
 problemSection.parentNode.insertBefore(servicesSection, problemSection);
+
+menuToggle.addEventListener('click', ()=>{
+  const isOpen = mainNavLinks.classList.toggle('is-open');
+  menuToggle.setAttribute('aria-expanded', String(isOpen));
+  menuToggle.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
+  menuToggle.textContent = isOpen ? '×' : '☰';
+});
+
+mainNavLinks.querySelectorAll('a').forEach((link)=>{
+  link.addEventListener('click', ()=>{
+    mainNavLinks.classList.remove('is-open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    menuToggle.setAttribute('aria-label', 'Abrir menú');
+    menuToggle.textContent = '☰';
+  });
+});
+
+document.addEventListener('click', (event)=>{
+  if(!event.target.closest('nav') && mainNavLinks.classList.contains('is-open')){
+    mainNavLinks.classList.remove('is-open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    menuToggle.setAttribute('aria-label', 'Abrir menú');
+    menuToggle.textContent = '☰';
+  }
+});
 
 langToggle.addEventListener('click', ()=>{
   currentLang = currentLang === 'es' ? 'en' : 'es';
