@@ -199,6 +199,14 @@ footer{padding:44px 6% 26px;border-top:1px solid var(--border);position:relative
 .social-link:hover{transform:translateY(-3px);border-color:var(--cyan);color:var(--cyan);background:rgba(0,240,255,0.08)}
 .social-link svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .social-link.disabled{opacity:0.45;cursor:not-allowed}.social-link.disabled:hover{transform:none;border-color:var(--border);color:var(--muted);background:transparent}
+.form-status{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:24px;background:rgba(7,11,17,0.62);backdrop-filter:blur(8px)}
+.form-status[hidden]{display:none}
+.form-status-card{position:relative;width:min(100%,460px);padding:42px 34px 34px;background:#fff;border:1px solid rgba(123,47,255,0.22);border-radius:24px;text-align:center;color:#101828;box-shadow:0 24px 70px rgba(0,0,0,0.3)}
+.form-status-close{position:absolute;top:12px;right:14px;border:0;background:transparent;color:#64748b;font-size:1.7rem;line-height:1;cursor:pointer}
+.form-status-icon{width:58px;height:58px;margin:0 auto 18px;border-radius:50%;display:grid;place-items:center;background:#00F0FF;color:#0B0E14;font-size:1.8rem;font-weight:700;box-shadow:0 0 28px rgba(0,240,255,0.45)}
+.form-status-card h2{margin-bottom:10px;font-size:1.5rem}
+.form-status-card p{color:#475467;margin-bottom:24px}
+.form-status-button{padding:11px 24px;border:0;border-radius:999px;background:#A030FF;color:#fff;font-weight:700;cursor:pointer}
 
 .reveal{opacity:0;transform:translateY(24px);transition:all 0.7s}
 .reveal.visible{opacity:1;transform:translateY(0)}
@@ -250,6 +258,16 @@ footer{padding:44px 6% 26px;border-top:1px solid var(--border);position:relative
     <span class="mt-wa-tooltip">Hola 👋, ¿en qué podemos ayudarte?</span>
     <img src="BotonWhat.png" alt="WhatsApp" />
   </a>
+</div>
+
+<div class="form-status" id="formStatus" role="dialog" aria-modal="true" aria-labelledby="formStatusTitle" hidden>
+  <div class="form-status-card">
+    <button class="form-status-close" type="button" aria-label="Cerrar mensaje">×</button>
+    <div class="form-status-icon" aria-hidden="true">✓</div>
+    <h2 id="formStatusTitle">Tu solicitud ha sido enviada con éxito</h2>
+    <p>Tendrás una pronta respuesta. Gracias por contactar con Nyra Tech.</p>
+    <button class="form-status-button" type="button">Entendido</button>
+  </div>
 </div>
 
 <nav>
@@ -596,6 +614,44 @@ document.addEventListener('DOMContentLoaded', ()=>{
   }
 });
 
+const serviceForm = document.getElementById('svcContactForm');
+const formStatus = document.getElementById('formStatus');
+const formStatusClose = formStatus.querySelector('.form-status-close');
+const formStatusButton = formStatus.querySelector('.form-status-button');
+
+function closeFormStatus(){
+  formStatus.hidden = true;
+  document.body.style.overflow = '';
+}
+
+formStatusClose.addEventListener('click', closeFormStatus);
+formStatusButton.addEventListener('click', closeFormStatus);
+
+serviceForm.addEventListener('submit', async (event)=>{
+  event.preventDefault();
+  const submitButton = serviceForm.querySelector('[type="submit"]');
+  const originalLabel = submitButton.textContent;
+  submitButton.disabled = true;
+  submitButton.textContent = 'Enviando...';
+
+  try{
+    const response = await fetch(serviceForm.action.replace('https://formsubmit.co/','https://formsubmit.co/ajax/'),{
+      method:'POST',
+      body:new FormData(serviceForm),
+      headers:{Accept:'application/json'}
+    });
+    if(!response.ok) throw new Error('No se pudo enviar el formulario');
+    serviceForm.reset();
+    formStatus.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }catch(error){
+    alert('No fue posible enviar tu solicitud. Inténtalo nuevamente.');
+  }finally{
+    submitButton.disabled = false;
+    submitButton.textContent = originalLabel;
+  }
+});
+
 const langToggle = document.getElementById('langToggle');
 const langLabel = document.getElementById('langLabel');
 const menuToggle = document.getElementById('menuToggle');
@@ -628,6 +684,10 @@ document.addEventListener('click', (event)=>{
     menuToggle.setAttribute('aria-label', 'Abrir menú');
     menuToggle.textContent = '☰';
   }
+});
+
+document.addEventListener('keydown', (event)=>{
+  if(event.key === 'Escape' && !formStatus.hidden) closeFormStatus();
 });
 
 </script>
