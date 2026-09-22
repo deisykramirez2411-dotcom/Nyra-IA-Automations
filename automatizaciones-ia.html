@@ -38,6 +38,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 6%;display:flex
 .nav-links{display:flex;gap:28px;list-style:none}
 .nav-links a{color:#111827;text-decoration:none;font-size:0.9rem;font-weight:600;transition:color 0.3s;cursor:pointer}
 .nav-links a:hover{color:#A030FF}
+.nav-services-item{position:relative}
+.nav-services-menu{position:absolute;top:calc(100% + 4px);left:50%;width:250px;padding:8px;background:rgba(255,255,255,0.98);border:1px solid rgba(123,47,255,0.18);border-radius:12px;box-shadow:0 18px 36px rgba(15,23,42,0.16);opacity:0;visibility:hidden;pointer-events:none;transform:translate(-50%,8px);transition:opacity 0.2s ease,transform 0.2s ease,visibility 0.2s ease;z-index:5}
+.nav-services-item:hover .nav-services-menu,.nav-services-item:focus-within .nav-services-menu{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,0)}
+.nav-services-menu a{display:block;padding:11px 13px;border-radius:8px;color:#111827;font-size:0.84rem;text-decoration:none;white-space:nowrap}
+.nav-services-menu a:hover{background:rgba(123,47,255,0.08);color:#7B2FFF}
 .nav-cta{padding:10px 22px;background:#A030FF;border:1px solid #A030FF;color:#fff;border-radius:999px;font-size:0.86rem;font-weight:600;cursor:pointer;text-decoration:none;transition:all 0.3s;box-shadow:0 0 18px rgba(160,48,255,0.25)}
 .nav-cta:hover{background:#8d2ef0;box-shadow:0 0 25px rgba(160,48,255,0.35)}
 .nav-actions{display:flex;align-items:center;gap:10px}
@@ -77,31 +82,24 @@ section{position:relative;z-index:2;padding:100px 6%}
 .section-title{font-size:clamp(1.8rem,3.6vw,2.6rem);line-height:1.12;margin-bottom:14px}
 .section-subtitle{color:var(--muted);font-size:1.02rem}
 
-.svc-overview{background:#ffffff;color:#101828;border-top:1px solid rgba(10,14,24,0.08);border-bottom:1px solid rgba(10,14,24,0.08)}
+.svc-overview{position:relative;overflow:hidden;background:#ffffff;color:#101828;border-top:1px solid rgba(10,14,24,0.08);border-bottom:1px solid rgba(10,14,24,0.08)}
+.svc-overview::before{content:"";position:absolute;right:-180px;top:28px;bottom:28px;width:48%;background:linear-gradient(rgba(255,255,255,0.28),rgba(255,255,255,0.28)),url('imgfondoflujo.png') center/cover no-repeat;border-radius:50%;box-shadow:inset 0 0 80px rgba(0,0,0,0.10),0 28px 58px rgba(15,23,42,0.08);opacity:0.88}
 .svc-overview .section-title{color:#101828}
+.svc-overview .section-label{color:#7B2FFF;border-color:rgba(123,47,255,0.32);background:rgba(123,47,255,0.08)}
 .svc-overview p{color:#475467;font-size:1.05rem;max-width:820px}
-.overview-layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,0.65fr);gap:70px;align-items:center}
+.overview-layout{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,0.65fr);gap:70px;align-items:center;margin-left:-36px;width:calc(100% + 36px)}
 .overview-copy{position:relative;padding-left:34px}
 .overview-copy::before{content:'';position:absolute;left:0;top:4px;bottom:4px;width:3px;background:linear-gradient(180deg,#00B8D4,#A030FF,#FF2E9F);border-radius:3px}
-.overview-copy p{font-size:clamp(1.05rem,1.6vw,1.22rem);line-height:1.8;max-width:760px}
-.overview-copy strong{color:#101828;font-weight:700}
+.overview-copy p{font-size:clamp(1.05rem,1.6vw,1.22rem);line-height:1.8;max-width:760px;color:#334155}
+.overview-copy strong{color:#0f172a;font-weight:700;text-shadow:0 0 12px rgba(0,240,255,0.7)}
+.overview-detail{color:#1f2937;text-shadow:0 0 12px rgba(255,46,159,0.7)}
 .overview-cta{display:inline-flex;align-items:center;gap:10px;margin-top:28px;color:#7B2FFF;font-size:0.94rem;font-weight:700;text-decoration:none;transition:gap 0.25s,color 0.25s}
 .overview-cta:hover{gap:15px;color:#A030FF}
 .overview-signal{display:grid;gap:12px}
-.signal-item{padding:20px 22px;border:1px solid rgba(160,48,255,0.18);border-radius:16px;background:linear-gradient(145deg,#fff,#f7f4ff);position:relative;overflow:hidden;transition:transform 0.3s,border-color 0.3s,box-shadow 0.3s}
+.signal-item{padding:20px 22px;border:1px solid rgba(160,48,255,0.18);border-radius:16px;background:linear-gradient(145deg,#fff,#f7f4ff);position:relative;overflow:hidden;text-align:center;transition:transform 0.3s,border-color 0.3s,box-shadow 0.3s}
 .signal-item:hover{transform:translateX(-6px);border-color:rgba(160,48,255,0.45);box-shadow:0 14px 30px rgba(160,48,255,0.12)}
-.signal-value{display:block;color:#7B2FFF;font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;line-height:1;margin-bottom:7px}
-.signal-label{color:#475467;font-size:0.84rem}
-.svc-overview{background:linear-gradient(135deg,rgba(0,240,255,0.035),transparent 42%);color:var(--text);border-top:1px solid var(--border);border-bottom:0}
-.svc-overview .section-title{color:var(--text)}
-.overview-copy p{color:#c7cdd9}
-.overview-copy strong{color:var(--text);font-weight:600}
-.overview-cta{color:var(--cyan)}
-.overview-cta:hover{color:#fff}
-.signal-item{border-color:rgba(0,240,255,0.16);background:rgba(15,20,32,0.58);box-shadow:none}
-.signal-item:hover{border-color:rgba(0,240,255,0.42);background:rgba(0,240,255,0.07);box-shadow:none}
-.signal-value{color:var(--cyan)}
-.signal-label{color:#aeb7c7}
+.signal-value{display:block;color:#7B2FFF;font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;line-height:1;margin-bottom:7px;text-align:center}
+.signal-label{display:block;color:#1f2937;font-size:0.84rem}
 
 .feature-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
 .feature-card{padding:36px;background:linear-gradient(145deg,#ffffff 0%,#f7f4ff 100%);border:1px solid rgba(160,48,255,0.18);border-radius:20px;position:relative;overflow:hidden;transition:all 0.4s;box-shadow:0 8px 24px rgba(15,23,42,0.06)}
@@ -113,6 +111,11 @@ section{position:relative;z-index:2;padding:100px 6%}
 .feature-card h3{font-size:1.3rem;margin-bottom:12px;color:#111827}
 .feature-card p{color:#475467;font-size:0.95rem}
 .feature-card .tag{display:inline-block;margin-top:16px;padding:5px 12px;background:rgba(160,48,255,0.1);border:1px solid rgba(160,48,255,0.28);border-radius:999px;font-size:0.78rem;font-weight:700;color:#7B2FFF}
+.svc-features .section-head,.solution .section-head,.svc-benefits .section-head{text-align:center;margin-left:auto;margin-right:auto}
+.svc-features .section-subtitle,.solution .section-subtitle,.svc-benefits .section-subtitle{margin-left:auto;margin-right:auto}
+
+.svc-benefits{position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(7,11,17,0.78),rgba(7,11,17,0.82)),url('imgfondoflujo.png') center/cover no-repeat;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.svc-benefits > .container{position:relative;z-index:1}
 
 .svc-process{background:linear-gradient(180deg,rgba(11,14,20,0.98),rgba(17,22,35,0.98),rgba(11,14,20,0.98));border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;isolation:isolate}
 .svc-process::before{content:'';position:absolute;top:-42%;left:-16%;width:760px;height:760px;border-radius:50%;background:repeating-conic-gradient(from 20deg,rgba(0,240,255,0.16) 0deg,rgba(123,47,255,0.16) 18deg,rgba(255,46,159,0.1) 36deg,transparent 54deg);-webkit-mask:radial-gradient(circle,transparent 34%,#000 36%,#000 40%,transparent 42%,transparent 53%,#000 55%,#000 59%,transparent 61%);mask:radial-gradient(circle,transparent 34%,#000 36%,#000 40%,transparent 42%,transparent 53%,#000 55%,#000 59%,transparent 61%);filter:blur(3px);opacity:0.78;animation:processSpiral 30s linear infinite;pointer-events:none;z-index:-1}
@@ -120,6 +123,27 @@ section{position:relative;z-index:2;padding:100px 6%}
 @keyframes processSpiral{to{transform:rotate(360deg)}}
 @keyframes processSpiralReverse{to{transform:rotate(-360deg)}}
 .svc-process > .container{position:relative;z-index:1}
+.solution{background:linear-gradient(180deg,rgba(11,14,20,0.98),rgba(17,22,35,0.98),rgba(11,14,20,0.98));overflow:hidden;isolation:isolate}
+.solution > .container{position:relative;z-index:1}
+.solution .section-head{max-width:760px}
+.solution .section-title{max-width:760px}
+.solution .section-subtitle{color:#b7bfce}
+.solution-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,0.85fr);gap:16px;align-items:stretch;margin-top:46px}
+.solution-img{width:100%;min-width:0;border-radius:24px;overflow:hidden;position:relative;aspect-ratio:4/3;min-height:420px;border:1px solid rgba(0,240,255,0.25);box-shadow:0 24px 70px rgba(0,0,0,0.35),0 0 45px rgba(0,240,255,0.1);isolation:isolate}
+.solution-img img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.05) contrast(1.04)}
+.solution-img::after{content:'';position:absolute;inset:0;background:linear-gradient(145deg,rgba(0,240,255,0.12),transparent 42%,rgba(123,47,255,0.28));box-shadow:inset 0 0 70px rgba(0,0,0,0.35);pointer-events:none}
+.solution-card{width:100%;min-width:0;background:rgba(15,20,32,0.72);backdrop-filter:blur(14px);border:1px solid rgba(231,233,238,0.11);border-radius:24px;padding:28px;position:relative;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,0.24)}
+.solution-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--cyan),var(--violet),var(--magenta))}
+.solution-flow{display:grid;grid-template-columns:1fr 1fr;gap:14px;position:relative}
+.solution-flow::before{content:'';position:absolute;top:48px;left:13%;right:13%;height:1px;background:linear-gradient(90deg,rgba(0,240,255,0.05),rgba(0,240,255,0.35),rgba(123,47,255,0.35),rgba(0,240,255,0.05));z-index:0}
+.flow-step{text-align:left;position:relative;padding:24px 20px 22px;border:1px solid rgba(231,233,238,0.08);border-radius:16px;background:rgba(255,255,255,0.035);transition:transform 0.3s,border-color 0.3s,background 0.3s;z-index:1}
+.flow-step:hover{transform:translateY(-4px);border-color:rgba(0,240,255,0.35);background:rgba(0,240,255,0.06)}
+.flow-step:last-child{grid-column:1 / -1;background:linear-gradient(135deg,rgba(123,47,255,0.14),rgba(0,240,255,0.06));border-color:rgba(123,47,255,0.3)}
+.flow-num{width:48px;height:48px;margin:0 0 18px;border-radius:14px;background:linear-gradient(135deg,rgba(0,240,255,0.18),rgba(123,47,255,0.22));border:1px solid rgba(0,240,255,0.42);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:1.05rem;font-weight:700;color:var(--cyan);box-shadow:0 8px 22px rgba(0,240,255,0.12)}
+.flow-step:last-child .flow-num{background:linear-gradient(135deg,#A030FF,#6050FF);border-color:#A030FF;color:#fff;box-shadow:0 8px 24px rgba(160,48,255,0.28)}
+.flow-step h4{font-size:1.05rem;margin-bottom:7px;color:#f4f7fb}.flow-step p{color:#aeb7c7;font-size:0.88rem;line-height:1.55}
+@media(max-width:900px){.solution-grid{grid-template-columns:1fr}.solution-img{min-height:300px}.solution-flow{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.solution-flow{grid-template-columns:1fr}}
 .process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;position:relative;align-items:start}
 .process-steps::before{content:'';position:absolute;left:9%;right:9%;top:54px;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),var(--violet),var(--magenta),transparent);opacity:0.55}
 .process-step{min-height:215px;padding:24px 22px;border:1px solid rgba(231,233,238,0.11);border-radius:18px;background:linear-gradient(160deg,rgba(255,255,255,0.07),rgba(255,255,255,0.025));position:relative;transition:transform 0.35s,border-color 0.35s,box-shadow 0.35s,background 0.35s}
@@ -132,8 +156,8 @@ section{position:relative;z-index:2;padding:100px 6%}
 .process-label{display:block;margin-bottom:7px;color:var(--cyan);font-size:0.68rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase}.process-step:nth-child(2) .process-label{color:#72a7ff}.process-step:nth-child(3) .process-label{color:#b18bff}.process-step:nth-child(4) .process-label{color:var(--magenta)}
 .process-step h4{font-size:1.12rem;margin-bottom:8px}.process-step p{color:#aeb7c7;font-size:0.88rem;line-height:1.6}
 
-.benefits-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.benefits-list li{display:flex;gap:14px;padding:20px;background:rgba(15,20,32,0.5);border:1px solid var(--border);border-radius:14px}
+.benefits-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:20px;position:relative;z-index:1}
+.benefits-list li{display:flex;gap:14px;padding:20px;background:rgba(15,20,32,0.58);border:1px solid rgba(231,233,238,0.12);border-radius:14px;backdrop-filter:blur(5px)}
 .benefit-check{flex-shrink:0;width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:flex;align-items:center;justify-content:center;color:var(--bg);font-weight:700}
 .benefits-list p{color:#c7cdd9;font-size:0.94rem}
 
@@ -190,8 +214,10 @@ footer{padding:44px 6% 26px;border-top:1px solid var(--border);position:relative
   .nav-links.is-open{position:absolute;top:100%;left:4%;right:4%;display:flex;flex-direction:column;gap:0;padding:10px 0;background:rgba(255,255,255,0.98);border:1px solid rgba(15,23,42,0.08);border-radius:0 0 14px 14px;box-shadow:0 14px 30px rgba(15,23,42,0.14)}
   .nav-links.is-open li{width:100%}
   .nav-links.is-open a{display:block;padding:12px 18px}
+  .nav-links.is-open .nav-services-menu{position:static;width:auto;margin:0 12px 8px;padding:0 0 0 10px;border:0;border-left:2px solid rgba(123,47,255,0.25);border-radius:0;box-shadow:none;opacity:1;visibility:visible;pointer-events:auto;transform:none;background:transparent}
+  .nav-links.is-open .nav-services-menu a{padding:9px 12px;font-size:0.82rem}
   .feature-grid{grid-template-columns:1fr}
-  .overview-layout{grid-template-columns:1fr;gap:40px}
+  .overview-layout{grid-template-columns:1fr;gap:40px;margin-left:0;width:100%}
   .process-steps{grid-template-columns:1fr 1fr}
   .process-steps::before{display:none}
   .process-step:nth-child(n){margin-top:0}
@@ -232,9 +258,14 @@ footer{padding:44px 6% 26px;border-top:1px solid var(--border);position:relative
   </a>
   <ul class="nav-links" id="mainNavLinks">
     <li><a href="index.html">Inicio</a></li>
-    <li><a href="index.html#problema">Problema</a></li>
-    <li><a href="index.html#solucion">Solución</a></li>
-    <li><a href="index.html#servicios">Servicios</a></li>
+    <li class="nav-services-item">
+      <a href="index.html#servicios">Servicios</a>
+      <div class="nav-services-menu" aria-label="Servicios">
+        <a href="desarrollo-software.html">Desarrollo de software</a>
+        <a href="automatizaciones-ia.html">Automatizaciones con IA</a>
+        <a href="hosting.html">Alojamiento (hosting)</a>
+      </div>
+    </li>
     <li><a href="index.html#porque">Por qué Nyra Tech</a></li>
     <li><a href="index.html#contacto">Contacto</a></li>
   </ul>
@@ -270,7 +301,7 @@ footer{padding:44px 6% 26px;border-top:1px solid var(--border);position:relative
           <span class="section-label">Qué hacemos</span>
           <h2 class="section-title">Procesos que se ejecutan solos</h2>
         </div>
-        <p><strong>Identificamos las tareas manuales que más tiempo consumen en tu empresa</strong> —reportes, conciliaciones, seguimiento de ventas, correos— y las convertimos en flujos automatizados conectados a agentes de inteligencia artificial. El resultado: procesos que corren sin intervención humana, con menos errores y disponibles las 24 horas.</p>
+        <p><strong>Identificamos las tareas manuales que más tiempo consumen en tu empresa</strong><span class="overview-detail"> —reportes, conciliaciones, seguimiento de ventas, correos— y las convertimos en flujos automatizados conectados a agentes de inteligencia artificial. El resultado: procesos que corren sin intervención humana, con menos errores y disponibles las 24 horas.</span></p>
         <a class="overview-cta" href="#contacto-servicio">Descubre qué puedes automatizar <span aria-hidden="true">→</span></a>
       </div>
       <div class="overview-signal reveal" aria-label="Beneficios de automatizar con inteligencia artificial">
@@ -282,7 +313,7 @@ footer{padding:44px 6% 26px;border-top:1px solid var(--border);position:relative
   </div>
 </section>
 
-<section class="svc-features">
+<!--<section class="svc-features">
   <div class="container">
     <div class="section-head reveal">
       <span class="section-label">Qué incluye</span>
@@ -316,9 +347,9 @@ footer{padding:44px 6% 26px;border-top:1px solid var(--border);position:relative
       </div>
     </div>
   </div>
-</section>
+</section>-->
 
-<section class="svc-process">
+<!--<section class="svc-process">
   <div class="container">
     <div class="section-head reveal">
       <span class="section-label">Cómo trabajamos</span>
@@ -348,6 +379,28 @@ footer{padding:44px 6% 26px;border-top:1px solid var(--border);position:relative
           <span class="process-label">Optimizar</span>
         <h4>Seguimiento</h4>
         <p>Panel centralizado para monitorear avances y alertas clave.</p>
+      </div>
+    </div>
+  </div>
+</section>-->
+
+<section class="solution" id="solucion">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-label">Cómo trabajamos</span>
+      <h2 class="section-title">Automatización + IA + datos en tiempo real</h2>
+      <p class="section-subtitle">Identificamos los procesos manuales que más tiempo consumen y los convertimos en flujos inteligentes conectados a dashboards claros.</p>
+    </div>
+    <div class="solution-grid">
+      <div class="solution-img reveal"><img src="FlujoInteligente.jpeg" alt="Flujo inteligente"></div>
+      <div class="solution-card reveal">
+        <div class="solution-flow">
+          <div class="flow-step"><div class="flow-num">01</div><h4>Diagnóstico</h4><p>Mapeamos procesos y cuellos de botella manuales.</p></div>
+          <div class="flow-step"><div class="flow-num">02</div><h4>Automatización</h4><p>Flujos inteligentes que eliminan tareas repetitivas.</p></div>
+          <div class="flow-step"><div class="flow-num">03</div><h4>Integración IA</h4><p>Modelos y agentes conectados a los flujos ya automatizados.</p></div>
+          <div class="flow-step"><div class="flow-num">04</div><h4>Dashboards</h4><p>Power BI con información disponible al instante.</p></div>
+          <div class="flow-step"><div class="flow-num">05</div><h4>Plataforma de seguimiento</h4><p>Monitorea avances, métricas y alertas clave desde un panel centralizado.</p></div>
+        </div>
       </div>
     </div>
   </div>

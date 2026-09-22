@@ -38,6 +38,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 6%;display:flex
 .nav-links{display:flex;gap:28px;list-style:none}
 .nav-links a{color:#111827;text-decoration:none;font-size:0.9rem;font-weight:600;transition:color 0.3s;cursor:pointer}
 .nav-links a:hover{color:#A030FF}
+.nav-services-item{position:relative}
+.nav-services-menu{position:absolute;top:calc(100% + 4px);left:50%;width:250px;padding:8px;background:rgba(255,255,255,0.98);border:1px solid rgba(123,47,255,0.18);border-radius:12px;box-shadow:0 18px 36px rgba(15,23,42,0.16);opacity:0;visibility:hidden;pointer-events:none;transform:translate(-50%,8px);transition:opacity 0.2s ease,transform 0.2s ease,visibility 0.2s ease;z-index:5}
+.nav-services-item:hover .nav-services-menu,.nav-services-item:focus-within .nav-services-menu{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,0)}
+.nav-services-menu a{display:block;padding:11px 13px;border-radius:8px;color:#111827;font-size:0.84rem;text-decoration:none;white-space:nowrap}
+.nav-services-menu a:hover{background:rgba(123,47,255,0.08);color:#7B2FFF}
 .nav-cta{padding:10px 22px;background:#A030FF;border:1px solid #A030FF;color:#fff;border-radius:999px;font-size:0.86rem;font-weight:600;cursor:pointer;text-decoration:none;transition:all 0.3s;box-shadow:0 0 18px rgba(160,48,255,0.25)}
 .nav-cta:hover{background:#8d2ef0;box-shadow:0 0 25px rgba(160,48,255,0.35)}
 .nav-actions{display:flex;align-items:center;gap:10px}
@@ -186,6 +191,8 @@ footer{padding:44px 6% 26px;border-top:1px solid var(--border);position:relative
   .nav-links.is-open{position:absolute;top:100%;left:4%;right:4%;display:flex;flex-direction:column;gap:0;padding:10px 0;background:rgba(255,255,255,0.98);border:1px solid rgba(15,23,42,0.08);border-radius:0 0 14px 14px;box-shadow:0 14px 30px rgba(15,23,42,0.14)}
   .nav-links.is-open li{width:100%}
   .nav-links.is-open a{display:block;padding:12px 18px}
+  .nav-links.is-open .nav-services-menu{position:static;width:auto;margin:0 12px 8px;padding:0 0 0 10px;border:0;border-left:2px solid rgba(123,47,255,0.25);border-radius:0;box-shadow:none;opacity:1;visibility:visible;pointer-events:auto;transform:none;background:transparent}
+  .nav-links.is-open .nav-services-menu a{padding:9px 12px;font-size:0.82rem}
   .feature-grid{grid-template-columns:1fr}
   .overview-layout{grid-template-columns:1fr;gap:40px}
   .process-steps{grid-template-columns:1fr 1fr}
@@ -228,9 +235,14 @@ footer{padding:44px 6% 26px;border-top:1px solid var(--border);position:relative
   </a>
   <ul class="nav-links" id="mainNavLinks">
     <li><a href="index.html">Inicio</a></li>
-    <li><a href="index.html#problema">Problema</a></li>
-    <li><a href="index.html#solucion">Solución</a></li>
-    <li><a href="index.html#servicios">Servicios</a></li>
+    <li class="nav-services-item">
+      <a href="index.html#servicios">Servicios</a>
+      <div class="nav-services-menu" aria-label="Servicios">
+        <a href="desarrollo-software.html">Desarrollo de software</a>
+        <a href="automatizaciones-ia.html">Automatizaciones con IA</a>
+        <a href="hosting.html">Alojamiento (hosting)</a>
+      </div>
+    </li>
     <li><a href="index.html#porque">Por qué Nyra Tech</a></li>
     <li><a href="index.html#contacto">Contacto</a></li>
   </ul>

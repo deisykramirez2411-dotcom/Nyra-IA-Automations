@@ -82,6 +82,11 @@
   .nav-links{display:flex;gap:32px;list-style:none}
   .nav-links a{color:#111827;text-decoration:none;font-size:0.92rem;font-weight:600;transition:color 0.3s;cursor:pointer}
   .nav-links a:hover{color:#A030FF}
+  .nav-services-item{position:relative}
+  .nav-services-menu{position:absolute;top:calc(100% + 4px);left:50%;width:250px;padding:8px;background:rgba(255,255,255,0.98);border:1px solid rgba(123,47,255,0.18);border-radius:12px;box-shadow:0 18px 36px rgba(15,23,42,0.16);opacity:0;visibility:hidden;pointer-events:none;transform:translate(-50%,8px);transition:opacity 0.2s ease,transform 0.2s ease,visibility 0.2s ease;z-index:5}
+  .nav-services-item:hover .nav-services-menu,.nav-services-item:focus-within .nav-services-menu{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,0)}
+  .nav-services-menu a{display:block;padding:11px 13px;border-radius:8px;color:#111827;font-size:0.84rem;text-decoration:none;white-space:nowrap}
+  .nav-services-menu a:hover{background:rgba(123,47,255,0.08);color:#7B2FFF}
   .nav-actions{display:flex;gap:12px;align-items:center}
   .lang-toggle{
     padding:8px 14px;
@@ -596,6 +601,8 @@
     .nav-links.is-open{position:absolute;top:100%;left:4%;right:4%;display:flex;flex-direction:column;gap:0;padding:10px 0;background:rgba(255,255,255,0.98);border:1px solid rgba(15,23,42,0.08);border-radius:0 0 14px 14px;box-shadow:0 14px 30px rgba(15,23,42,0.14)}
     .nav-links.is-open li{width:100%}
     .nav-links.is-open a{display:block;padding:12px 18px}
+    .nav-links.is-open .nav-services-menu{position:static;width:auto;margin:0 12px 8px;padding:0 0 0 10px;border:0;border-left:2px solid rgba(123,47,255,0.25);border-radius:0;box-shadow:none;opacity:1;visibility:visible;pointer-events:auto;transform:none;background:transparent}
+    .nav-links.is-open .nav-services-menu a{padding:9px 12px;font-size:0.82rem}
     .hero-grid,.problem-grid,.why-grid,.solution-grid,.contact-grid{grid-template-columns:1fr;gap:40px}
     .hero-visual{margin:0 auto}
     .solution-img{grid-column:1;grid-row:auto;min-height:300px}
@@ -632,16 +639,23 @@
     <img class="brand-logo" src="logo.png" alt="Nyra Tech logo" />
   </div>
   <ul class="nav-links" id="mainNavLinks">
-    <li><a onclick="scrollToSection('problema')" data-i18n="navProblem">Problema</a></li>
-    <li><a onclick="scrollToSection('solucion')" data-i18n="navSolution">Solución</a></li>
-    <li><a onclick="scrollToSection('servicios')" data-i18n="navServices">Servicios</a></li>
+    <!-- <li><a onclick="scrollToSection('problema')" data-i18n="navProblem">Problema</a></li> -->
+    <!-- <li><a onclick="scrollToSection('solucion')" data-i18n="navSolution">Solución</a></li> -->
+    <li class="nav-services-item">
+      <a onclick="scrollToSection('servicios')" data-i18n="navServices">Servicios</a>
+      <div class="nav-services-menu" aria-label="Servicios">
+        <a href="desarrollo-software.html">Desarrollo de software</a>
+        <a href="automatizaciones-ia.html">Automatizaciones con IA</a>
+        <a href="hosting.html">Alojamiento (hosting)</a>
+      </div>
+    </li>
     <li><a onclick="scrollToSection('porque')" data-i18n="navWhy">Por qué Nyra Tech</a></li>
     <li><a onclick="scrollToSection('contacto')" data-i18n="navContact">Contacto</a></li>
   </ul>
   <div class="nav-actions">
     <button class="lang-toggle" id="langToggle">🌐 <span id="langLabel">EN</span></button>
     <a class="nav-cta" onclick="scrollToSection('contacto')" data-i18n="navCta">Contactar</a>
-    <button class="menu-toggle" id="menuToggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mainNavLinks">☰</button>
+    <!-- <button class="menu-toggle" id="menuToggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mainNavLinks">☰</button> -->
   </div>
 </nav>
 
@@ -666,7 +680,7 @@
   </div>
 </section>
 
-<section class="problem" id="problema">
+<!-- <section class="problem" id="problema">
   <div class="container">
     <div class="section-head reveal">
       <span class="section-label" data-i18n="problemLabel">El problema</span>
@@ -712,51 +726,7 @@
       </div>
     </div>
   </div>
-</section>
-
-<section class="solution" id="solucion">
-  <div class="container">
-    <div class="section-head reveal">
-      <span class="section-label" data-i18n="solutionLabel">La solución</span>
-      <h2 class="section-title" data-i18n="solutionTitle">Automatización + IA + datos en tiempo real</h2>
-      <p class="section-subtitle" data-i18n="solutionSub">Identificamos los procesos manuales que más tiempo consumen y los convertimos en flujos inteligentes conectados a dashboards claros.</p>
-    </div>
-    <div class="solution-grid">
-      <div class="solution-img reveal">
-        <img src="FlujoInteligente.jpeg" alt="Flujo inteligente">
-      </div>
-      <div class="solution-card reveal">
-        <div class="solution-flow">
-          <div class="flow-step">
-            <div class="flow-num">01</div>
-            <h4 data-i18n="f1t">Diagnóstico</h4>
-            <p data-i18n="f1d">Mapeamos procesos y cuellos de botella manuales.</p>
-          </div>
-          <div class="flow-step">
-            <div class="flow-num">02</div>
-            <h4 data-i18n="f2t">Automatización</h4>
-            <p data-i18n="f2d">Flujos inteligentes que eliminan tareas repetitivas.</p>
-          </div>
-          <div class="flow-step">
-            <div class="flow-num">03</div>
-            <h4 data-i18n="f3t">Integración IA</h4>
-            <p data-i18n="f3d">Modelos y agentes conectados a los flujos ya automatizados.</p>
-          </div>
-          <div class="flow-step">
-            <div class="flow-num">04</div>
-            <h4 data-i18n="f4t">Dashboards</h4>
-            <p data-i18n="f4d">Power BI con información disponible al instante.</p>
-          </div>
-          <div class="flow-step">
-            <div class="flow-num">05</div>
-            <h4 data-i18n="f5t">Plataforma de seguimiento</h4>
-            <p data-i18n="f5d">Monitorea avances, métricas y alertas clave desde un panel centralizado.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+</section> -->
 
 <section class="services" id="servicios">
   <div class="container">
@@ -767,7 +737,7 @@
           <h2 class="section-title" data-i18n="servicesTitle">Lo que hacemos por tu empresa</h2>
           <p class="section-subtitle" data-i18n="servicesSub">Dos líneas de trabajo independientes que también funcionan muy bien juntas.</p>
         </div>
-        <div class="services-filter">
+       <!--<div class="services-filter">
           <label class="sr-only" for="serviceType" data-i18n="serviceTypeLabel">Selecciona un servicio</label>
           <select id="serviceType" aria-label="Selecciona un servicio" onchange="goToServicePage(this.value)">
             <option value="" disabled selected data-i18n="serviceTypePlaceholder">Selecciona un servicio</option>
@@ -775,25 +745,25 @@
             <option value="ai" data-i18n="serviceAi">Automatizaciones con IA</option>
             <option value="hosting" data-i18n="serviceHosting">Alojamiento (hosting)</option>
           </select>
-        </div>
+        </div>--> 
         <div class="services-signal"><span class="services-signal-dot"></span><span>03 soluciones activas</span></div>
       </div>
       <div class="services-matrix">
         <article class="service-card reveal">
-          <div class="service-card-top"><span class="service-index">01 / BUILD</span><div class="service-icon">💻</div></div>
-          <div class="service-card-kicker">Digital foundations</div>
-          <h3 data-i18n="pkgSoftT">Desarrollo de software</h3>
-          <p data-i18n="pkgSoftD">Convierte una idea o un proceso complicado en una herramienta digital clara, rápida y hecha para tu negocio.</p>
-          <div class="service-card-meta"><span>Web</span><span>Apps</span><span>APIs</span></div>
-          <a class="service-link" href="desarrollo-software.html" data-i18n="serviceMore">Ver servicio →</a>
-        </article>
-        <article class="service-card reveal">
-          <div class="service-card-top"><span class="service-index">02 / THINK</span><div class="service-icon">⚡</div></div>
+          <div class="service-card-top"><span class="service-index">01 / THINK</span><div class="service-icon">⚡</div></div>
           <div class="service-card-kicker">Intelligent operations</div>
           <h3 data-i18n="pkgAiT">Automatizaciones con IA</h3>
           <p data-i18n="pkgAiD">Libera a tu equipo de tareas repetitivas con flujos y asistentes inteligentes que trabajan por ti 24/7.</p>
           <div class="service-card-meta"><span>Flows</span><span>Agents</span><span>24/7</span></div>
           <a class="service-link" href="automatizaciones-ia.html" data-i18n="serviceMore">Ver servicio →</a>
+        </article>
+        <article class="service-card reveal">
+          <div class="service-card-top"><span class="service-index">02 / BUILD</span><div class="service-icon">💻</div></div>
+          <div class="service-card-kicker">Digital foundations</div>
+          <h3 data-i18n="pkgSoftT">Desarrollo de software</h3>
+          <p data-i18n="pkgSoftD">Convierte una idea o un proceso complicado en una herramienta digital clara, rápida y hecha para tu negocio.</p>
+          <div class="service-card-meta"><span>Web</span><span>Apps</span><span>APIs</span></div>
+          <a class="service-link" href="desarrollo-software.html" data-i18n="serviceMore">Ver servicio →</a>
         </article>
         <article class="service-card reveal">
           <div class="service-card-top"><span class="service-index">03 / RUN</span><div class="service-icon">☁️</div></div>
@@ -1301,32 +1271,37 @@ const menuToggle = document.getElementById('menuToggle');
 const mainNavLinks = document.getElementById('mainNavLinks');
 const problemSection = document.getElementById('problema');
 const servicesSection = document.getElementById('servicios');
-problemSection.parentNode.insertBefore(servicesSection, problemSection);
 
-menuToggle.addEventListener('click', ()=>{
-  const isOpen = mainNavLinks.classList.toggle('is-open');
-  menuToggle.setAttribute('aria-expanded', String(isOpen));
-  menuToggle.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
-  menuToggle.textContent = isOpen ? '×' : '☰';
-});
+if (problemSection && servicesSection) {
+  problemSection.parentNode.insertBefore(servicesSection, problemSection);
+}
 
-mainNavLinks.querySelectorAll('a').forEach((link)=>{
-  link.addEventListener('click', ()=>{
-    mainNavLinks.classList.remove('is-open');
-    menuToggle.setAttribute('aria-expanded', 'false');
-    menuToggle.setAttribute('aria-label', 'Abrir menú');
-    menuToggle.textContent = '☰';
+if (menuToggle && mainNavLinks) {
+  menuToggle.addEventListener('click', ()=>{
+    const isOpen = mainNavLinks.classList.toggle('is-open');
+    menuToggle.setAttribute('aria-expanded', String(isOpen));
+    menuToggle.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
+    menuToggle.textContent = isOpen ? '×' : '☰';
   });
-});
 
-document.addEventListener('click', (event)=>{
-  if(!event.target.closest('nav') && mainNavLinks.classList.contains('is-open')){
-    mainNavLinks.classList.remove('is-open');
-    menuToggle.setAttribute('aria-expanded', 'false');
-    menuToggle.setAttribute('aria-label', 'Abrir menú');
-    menuToggle.textContent = '☰';
-  }
-});
+  mainNavLinks.querySelectorAll('a').forEach((link)=>{
+    link.addEventListener('click', ()=>{
+      mainNavLinks.classList.remove('is-open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.setAttribute('aria-label', 'Abrir menú');
+      menuToggle.textContent = '☰';
+    });
+  });
+
+  document.addEventListener('click', (event)=>{
+    if(!event.target.closest('nav') && mainNavLinks.classList.contains('is-open')){
+      mainNavLinks.classList.remove('is-open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.setAttribute('aria-label', 'Abrir menú');
+      menuToggle.textContent = '☰';
+    }
+  });
+}
 
 langToggle.addEventListener('click', ()=>{
   currentLang = currentLang === 'es' ? 'en' : 'es';
