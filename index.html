@@ -156,6 +156,47 @@
   .problem-icon{flex-shrink:0;width:44px;height:44px;border-radius:10px;background:rgba(123,47,255,0.08);border:1px solid rgba(123,47,255,0.18);display:flex;align-items:center;justify-content:center;color:#7B2FFF;font-size:1.2rem}
   .problem-text h4{font-size:1.05rem;margin-bottom:4px;color:#111827}
   .problem-text p{color:#475467;font-size:0.92rem}
+  .problem{background:transparent;overflow:hidden;isolation:isolate}
+  .problem::before,.problem::after{display:none}
+  .problem > .container{position:relative;z-index:1}
+  .problem .section-head{max-width:850px;margin-left:auto;margin-right:auto}
+  .problem-grid{grid-template-columns:minmax(0,1.15fr) minmax(300px,0.85fr);gap:70px}
+  .problem-list{position:relative;gap:12px}
+  .problem-list::before{content:'';position:absolute;left:18px;top:20px;bottom:20px;width:1px;background:linear-gradient(180deg,rgba(0,184,212,0.1),rgba(123,47,255,0.5),rgba(255,46,159,0.15));z-index:0}
+  .problem-list li{position:relative;z-index:1;align-items:center;min-height:94px;padding:18px 22px 18px 20px;background:rgba(255,255,255,0.72);border:1px solid rgba(123,47,255,0.14);border-radius:12px;box-shadow:0 8px 22px rgba(15,23,42,0.04);transition:transform 0.3s,border-color 0.3s,box-shadow 0.3s}
+  .problem-list li::before{content:attr(data-step);display:flex;align-items:center;justify-content:center;flex:0 0 36px;height:36px;border-radius:50%;background:#fff;border:1px solid rgba(123,47,255,0.3);color:#7B2FFF;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;box-shadow:0 0 0 5px rgba(123,47,255,0.06)}
+  .problem-list li:hover{transform:translateX(8px);border-color:rgba(0,184,212,0.45);box-shadow:0 14px 28px rgba(0,184,212,0.1)}
+  .problem-list li:hover::before{background:#7B2FFF;color:#fff;border-color:#7B2FFF}
+  .problem-icon{width:40px;height:40px;margin-left:2px;background:linear-gradient(135deg,rgba(0,240,255,0.1),rgba(123,47,255,0.1));border-color:rgba(0,184,212,0.2);font-size:1.05rem}
+  .problem-text h4{font-size:1rem;margin-bottom:3px}
+  .problem-text p{font-size:0.86rem;line-height:1.45}
+  .problem-list li{background:linear-gradient(105deg,rgba(15,20,32,0.88),rgba(15,20,32,0.58));border-color:rgba(0,240,255,0.14);box-shadow:0 12px 28px rgba(0,0,0,0.18),inset 0 1px 0 rgba(255,255,255,0.04);backdrop-filter:blur(12px)}
+  .problem-list li::before{background:#111827;border-color:rgba(0,240,255,0.42);color:var(--cyan);box-shadow:0 0 0 5px rgba(0,240,255,0.06),0 0 18px rgba(0,240,255,0.12)}
+  .problem-list li:hover{border-color:rgba(0,240,255,0.42);box-shadow:0 16px 34px rgba(0,240,255,0.1),inset 0 1px 0 rgba(0,240,255,0.14)}
+  .problem-list li:hover::before{background:var(--cyan);color:var(--bg);border-color:var(--cyan);box-shadow:0 0 0 5px rgba(0,240,255,0.1),0 0 20px rgba(0,240,255,0.35)}
+  .problem-icon{background:linear-gradient(135deg,rgba(0,240,255,0.16),rgba(123,47,255,0.24));border-color:rgba(0,240,255,0.3);box-shadow:inset 0 0 18px rgba(0,240,255,0.05),0 6px 16px rgba(0,0,0,0.16)}
+  .problem .problem-text h4{color:#f4f7fb}
+  .problem .problem-text p{color:#aeb7c7}
+  .problem-list li{background:#f7f9fc;border-color:rgba(17,24,39,0.08);box-shadow:0 8px 22px rgba(15,23,42,0.04);backdrop-filter:none}
+  .problem-list li::before{background:#fff;color:#7B2FFF;border-color:rgba(123,47,255,0.3);box-shadow:0 0 0 5px rgba(123,47,255,0.06)}
+  .problem-list li:hover{border-color:rgba(123,47,255,0.35);box-shadow:0 10px 25px rgba(123,47,255,0.08)}
+  .problem-list li:hover::before{background:#7B2FFF;color:#fff;border-color:#7B2FFF;box-shadow:0 0 0 5px rgba(123,47,255,0.06)}
+  .problem .problem-text h4{color:#111827}
+  .problem .problem-text p{color:#475467}
+  .problem-visual{position:relative;padding:34px 30px;background:#0f1420;border:1px solid rgba(0,240,255,0.22);border-radius:22px;overflow:hidden;box-shadow:0 24px 55px rgba(15,23,42,0.2);text-align:center!important}
+  .problem-visual::before{content:'';position:absolute;inset:0;background:linear-gradient(145deg,rgba(0,240,255,0.1),transparent 42%,rgba(123,47,255,0.16));pointer-events:none}
+  .problem-visual::after{content:'';position:absolute;top:24px;right:24px;width:9px;height:9px;border-radius:50%;background:#25D366;box-shadow:0 0 0 6px rgba(37,211,102,0.12),0 0 20px rgba(37,211,102,0.55)}
+  .problem-metric-kicker,.problem-metric-label{position:relative;z-index:1;color:#9aa0ad;font-size:0.7rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase}
+  .problem-visual [data-i18n="problemBig"]{position:relative;z-index:1;display:block;margin-top:18px;font-family:'Space Grotesk',sans-serif!important;font-size:clamp(4rem,7vw,6.8rem)!important;line-height:0.9!important;background:none!important;color:#FF2E9F!important;text-shadow:0 0 35px rgba(255,46,159,0.28)!important}
+  .problem-visual [data-i18n="problemSmall"]{position:relative;z-index:1!important;margin-top:12px!important;color:#d7dce5!important;font-size:0.98rem!important}
+  .problem-meter{position:relative;z-index:1;display:grid;gap:9px;margin-top:28px;padding-top:20px;border-top:1px solid rgba(231,233,238,0.12)}
+  .problem-meter-row{display:flex;align-items:center;gap:12px;color:#9aa0ad;font-size:0.72rem}
+  .problem-meter-row i{display:block;height:5px;flex:1;border-radius:99px;background:linear-gradient(90deg,var(--cyan),var(--violet));transform-origin:left;animation:problemMeter 2.4s ease-out both}
+  .problem-meter-row:nth-child(2) i{transform:scaleX(0.72);opacity:0.75}
+  .problem-meter-row:nth-child(3) i{transform:scaleX(0.48);opacity:0.55}
+  @keyframes problemMeter{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @media(max-width:900px){.problem-grid{grid-template-columns:1fr;gap:34px}.problem-visual{max-width:520px;margin:0 auto;width:100%}}
+  @media(max-width:500px){.problem::before{right:6%;font-size:0.55rem}.problem-list li{padding-right:14px}.problem-text h4{font-size:0.94rem}.problem-text p{font-size:0.8rem}.problem-visual{padding:28px 22px}}
 
   .solution{background:linear-gradient(180deg,rgba(11,14,20,0.98),rgba(17,22,35,0.98),rgba(11,14,20,0.98));overflow:hidden;isolation:isolate}
   .solution::before{content:'';position:absolute;top:-38%;left:-16%;width:760px;height:760px;border-radius:50%;background:repeating-conic-gradient(from 20deg,rgba(0,240,255,0.16) 0deg,rgba(123,47,255,0.16) 18deg,rgba(255,46,159,0.1) 36deg,transparent 54deg);-webkit-mask:radial-gradient(circle,transparent 34%,#000 36%,#000 40%,transparent 42%,transparent 53%,#000 55%,#000 59%,transparent 61%);mask:radial-gradient(circle,transparent 34%,#000 36%,#000 40%,transparent 42%,transparent 53%,#000 55%,#000 59%,transparent 61%);filter:blur(3px);opacity:0.8;animation:contactSpiral 30s linear infinite;pointer-events:none;z-index:0}
@@ -165,7 +206,7 @@
   .solution .section-title{max-width:760px;margin-left:auto;margin-right:auto}
   .solution .section-subtitle{color:#b7bfce}
   .solution-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,0.85fr);gap:16px;align-items:stretch;margin-top:46px}
-  .solution-img{grid-column:1;grid-row:1;width:100%;min-width:0;border-radius:24px;overflow:hidden;position:relative;aspect-ratio:4/3;min-height:512px;border:1px solid rgba(0,240,255,0.25);box-shadow:0 24px 70px rgba(0,0,0,0.35),0 0 45px rgba(0,240,255,0.1);isolation:isolate;z-index:1}
+  .solution-img{grid-column:1;grid-row:1;width:100%;min-width:0;border-radius:24px;overflow:hidden;position:relative;aspect-ratio:4/3;min-height:512px;border:1px solid rgba(0,240,255,0.25);box-shadow:0 24px 70px rgba(0,0,0,0.35),0 0 45px rgba(0,240,255,0.45);isolation:isolate;z-index:1}
   .solution-img::before{content:'FLUJO INTELIGENTE';position:absolute;top:22px;left:22px;z-index:3;padding:8px 13px;border:1px solid rgba(0,240,255,0.35);border-radius:999px;background:rgba(11,14,20,0.72);backdrop-filter:blur(10px);color:var(--cyan);font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.12em}
   .solution-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s;filter:saturate(1.05) contrast(1.04)}
   .solution-img:hover img{transform:scale(1.05)}
@@ -248,6 +289,46 @@
   .service-card .service-link{display:inline-flex;align-items:center;gap:8px;margin-top:24px;color:#7B2FFF;font-size:0.9rem;font-weight:700;text-decoration:none;transition:gap 0.25s,color 0.25s}
   .service-card .service-link:hover{gap:12px;color:#A030FF}
   .service-card .service-link:focus-visible{outline:3px solid rgba(160,48,255,0.25);outline-offset:4px;border-radius:4px}
+
+  .services-command{display:grid;grid-template-columns:minmax(230px,0.65fr) minmax(0,1.7fr);gap:56px;align-items:start;margin-top:20px}
+  .services-intro{position:sticky;top:120px}
+  .services-intro .section-head{text-align:left;margin-bottom:30px}
+  .services-intro .section-title{font-size:clamp(2rem,3.5vw,3rem);margin-bottom:16px}
+  .services-intro .section-subtitle{margin:0;max-width:360px}
+  .services-signal{display:flex;align-items:center;gap:12px;margin-top:30px;padding-top:18px;border-top:1px solid rgba(123,47,255,0.2);color:#475467;font-size:0.78rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase}
+  .services-signal-dot{width:9px;height:9px;border-radius:50%;background:#25D366;box-shadow:0 0 0 5px rgba(37,211,102,0.12),0 0 16px rgba(37,211,102,0.5)}
+  .services-filter{justify-content:flex-start;margin:0;}
+  .services-filter select{min-width:100%;}
+  .services-matrix{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;position:relative}
+  .services-matrix::before{content:'';position:absolute;top:42px;left:7%;right:7%;height:1px;background:linear-gradient(90deg,transparent,rgba(123,47,255,0.45),rgba(0,184,212,0.45),transparent);z-index:0}
+  .services-matrix .service-card{display:flex;flex-direction:column;min-height:390px;padding:24px 22px;background:linear-gradient(155deg,rgba(255,255,255,0.96),rgba(247,244,255,0.92));border:1px solid rgba(123,47,255,0.18);border-radius:18px;z-index:1;box-shadow:0 14px 30px rgba(15,23,42,0.07)}
+  .services-matrix .service-card:nth-child(2){margin-top:34px}
+  .services-matrix .service-card:nth-child(3){margin-top:68px}
+  .services-matrix .service-card::before{height:3px;background:linear-gradient(90deg,#00B8D4,#7B2FFF,#FF2E9F)}
+  .services-matrix .service-card:hover{transform:translateY(-9px);border-color:rgba(123,47,255,0.48);box-shadow:0 24px 50px rgba(123,47,255,0.16)}
+  .service-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:30px}
+  .service-index{color:#7B2FFF;font-family:'Space Grotesk',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.14em}
+  .services-matrix .service-icon{width:52px;height:52px;margin:0;border-radius:15px;background:linear-gradient(135deg,#7B2FFF,#00B8D4);font-size:1.55rem;box-shadow:0 10px 22px rgba(123,47,255,0.2)}
+  .services-matrix .service-card:nth-child(2) .service-icon{background:linear-gradient(135deg,#00B8D4,#7B2FFF)}
+  .services-matrix .service-card:nth-child(3) .service-icon{background:linear-gradient(135deg,#FF2E9F,#7B2FFF)}
+  .service-card-kicker{margin-bottom:10px;color:#7B2FFF;font-size:0.7rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase}
+  .services-matrix .service-card h3{font-size:1.16rem;line-height:1.2;margin-bottom:12px}
+  .services-matrix .service-card p{font-size:0.9rem;line-height:1.6}
+  .service-card-meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:18px}
+  .service-card-meta span{padding:5px 8px;border:1px solid rgba(123,47,255,0.16);border-radius:6px;color:#667085;font-size:0.68rem;font-weight:700}
+  .services-matrix .service-link{margin-top:auto;padding-top:22px;font-weight:800}
+  @media(max-width:900px){
+    .services-command{grid-template-columns:1fr;gap:34px}
+    .services-intro{position:static}
+    .services-intro .section-head{margin-bottom:22px}
+    .services-intro .section-subtitle{max-width:620px}
+    .services-filter{max-width:360px}
+  }
+  @media(max-width:650px){
+    .services-matrix{grid-template-columns:1fr;gap:16px}
+    .services-matrix::before{display:none}
+    .services-matrix .service-card:nth-child(n){margin-top:0;min-height:0}
+  }
 
   .mt-wa-wrap{
     position:fixed;
@@ -349,6 +430,17 @@
   .why-check{flex-shrink:0;width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:flex;align-items:center;justify-content:center;color:var(--bg);font-weight:700;box-shadow:0 0 20px rgba(123,47,255,0.4)}
   .why-point h4{font-size:1.05rem;margin-bottom:4px}
   .why-point p{color:var(--muted);font-size:0.92rem}
+  .why-points{gap:14px}
+  .why-point{position:relative;align-items:flex-start;padding:22px 24px;background:linear-gradient(110deg,rgba(15,20,32,0.9),rgba(15,20,32,0.58));border:1px solid rgba(0,240,255,0.14);border-radius:14px;box-shadow:0 12px 28px rgba(0,0,0,0.16),inset 0 1px 0 rgba(255,255,255,0.04);backdrop-filter:blur(12px);transition:transform 0.3s,border-color 0.3s,box-shadow 0.3s}
+  .why-point::after{content:'';position:absolute;left:0;top:18px;bottom:18px;width:2px;background:linear-gradient(180deg,var(--cyan),var(--violet));border-radius:2px;opacity:0.8}
+  .why-point:hover{transform:translateX(7px);border-color:rgba(0,240,255,0.42);box-shadow:0 16px 34px rgba(0,240,255,0.1),inset 0 1px 0 rgba(0,240,255,0.12)}
+  .why-point h4{color:#f4f7fb;font-size:1.04rem;line-height:1.25;margin-bottom:6px}
+  .why-point p{color:#aeb7c7;font-size:0.88rem;line-height:1.5}
+  .why-check{width:42px;height:42px;background:linear-gradient(135deg,var(--cyan),var(--violet));color:var(--bg);box-shadow:0 0 22px rgba(0,240,255,0.2);border-radius:12px}
+  .stats-grid{gap:14px}
+  .stat{padding:24px 18px;background:linear-gradient(145deg,rgba(15,20,32,0.9),rgba(15,20,32,0.56));border:1px solid rgba(123,47,255,0.2);border-radius:14px;box-shadow:0 12px 28px rgba(0,0,0,0.16);transition:transform 0.3s,border-color 0.3s,box-shadow 0.3s}
+  .stat:hover{transform:translateY(-5px);border-color:rgba(123,47,255,0.5);box-shadow:0 18px 34px rgba(123,47,255,0.12)}
+  .stat-num{font-size:2.4rem}
 
   .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
   .stat{padding:28px;background:rgba(15,20,32,0.6);border:1px solid var(--border);border-radius:16px;text-align:center;position:relative;overflow:hidden}
@@ -583,28 +675,28 @@
     </div>
     <div class="problem-grid">
       <ul class="problem-list reveal">
-        <li>
+        <li data-step="01">
           <div class="problem-icon">⏱</div>
           <div class="problem-text">
             <h4 data-i18n="p1t">Reportes armados a mano</h4>
             <p data-i18n="p1d">Horas copiando datos entre hojas y sistemas cada semana.</p>
           </div>
         </li>
-        <li>
+        <li data-step="02">
           <div class="problem-icon">📊</div>
           <div class="problem-text">
             <h4 data-i18n="p2t">Conciliaciones en Excel</h4>
             <p data-i18n="p2d">Procesos frágiles, propensos a errores y difíciles de auditar.</p>
           </div>
         </li>
-        <li>
+        <li data-step="03">
           <div class="problem-icon">📞</div>
           <div class="problem-text">
             <h4 data-i18n="p3t">Seguimiento manual de ventas</h4>
             <p data-i18n="p3d">Oportunidades que se pierden por falta de visibilidad en tiempo real.</p>
           </div>
         </li>
-        <li>
+        <li data-step="04">
           <div class="problem-icon">🧩</div>
           <div class="problem-text">
             <h4 data-i18n="p4t">Decisiones por suposición</h4>
@@ -612,9 +704,11 @@
           </div>
         </li>
       </ul>
-      <div class="problem-visual reveal" style="text-align:center">
+      <div class="problem-visual reveal">
+        <div class="problem-metric-kicker">Tiempo recuperable / mes</div>
         <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(4rem,8vw,7rem);font-weight:700;background:linear-gradient(135deg,var(--magenta),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 60px rgba(255,46,159,0.4);line-height:1" data-i18n="problemBig">-40h</div>
         <div style="color:var(--muted);font-size:1.1rem;margin-top:16px" data-i18n="problemSmall">semanales en promedio</div>
+        <div class="problem-meter" aria-hidden="true"><div class="problem-meter-row"><span>Reportes</span><i></i></div><div class="problem-meter-row"><span>Operación</span><i></i></div><div class="problem-meter-row"><span>Seguimiento</span><i></i></div></div>
       </div>
     </div>
   </div>
@@ -666,40 +760,50 @@
 
 <section class="services" id="servicios">
   <div class="container">
-    <div class="section-head reveal">
-      <span class="section-label" data-i18n="servicesLabel">Servicios</span>
-      <h2 class="section-title" data-i18n="servicesTitle">Lo que hacemos por tu empresa</h2>
-      <p class="section-subtitle" data-i18n="servicesSub">Dos líneas de trabajo independientes que también funcionan muy bien juntas.</p>
-    </div>
-    <div class="services-filter reveal">
-      <label class="sr-only" for="serviceType" data-i18n="serviceTypeLabel">Selecciona un servicio</label>
-      <select id="serviceType" aria-label="Selecciona un servicio" onchange="goToServicePage(this.value)">
-        <option value="" disabled selected data-i18n="serviceTypePlaceholder">Selecciona un servicio</option>
-        <option value="software" data-i18n="serviceSoftware">Desarrollo de software</option>
-        <option value="ai" data-i18n="serviceAi">Automatizaciones con IA</option>
-        <option value="hosting" data-i18n="serviceHosting">Alojamiento (hosting)</option>
-      </select>
-    </div>
-
-    <div class="services-grid">
-      <article class="service-card reveal">
-        <div class="service-icon">💻</div>
-        <h3 data-i18n="pkgSoftT">Desarrollo de software</h3>
-        <p data-i18n="pkgSoftD">Convierte una idea o un proceso complicado en una herramienta digital clara, rápida y hecha para tu negocio.</p>
-        <a class="service-link" href="desarrollo-software.html" data-i18n="serviceMore">Ver servicio →</a>
-      </article>
-      <article class="service-card reveal">
-        <div class="service-icon">⚡</div>
-        <h3 data-i18n="pkgAiT">Automatizaciones con IA</h3>
-        <p data-i18n="pkgAiD">Libera a tu equipo de tareas repetitivas con flujos y asistentes inteligentes que trabajan por ti 24/7.</p>
-        <a class="service-link" href="automatizaciones-ia.html" data-i18n="serviceMore">Ver servicio →</a>
-      </article>
-      <article class="service-card reveal">
-        <div class="service-icon">☁️</div>
-        <h3 data-i18n="pkgHostT">Alojamiento seguro</h3>
-        <p data-i18n="pkgHostD">Mantén tu sitio o sistema disponible, protegido y con buen rendimiento sin cargar a tu equipo con la parte técnica.</p>
-        <a class="service-link" href="hosting.html" data-i18n="serviceMore">Ver servicio →</a>
-      </article>
+    <div class="services-command">
+      <div class="services-intro reveal">
+        <div class="section-head">
+          <span class="section-label" data-i18n="servicesLabel">Servicios</span>
+          <h2 class="section-title" data-i18n="servicesTitle">Lo que hacemos por tu empresa</h2>
+          <p class="section-subtitle" data-i18n="servicesSub">Dos líneas de trabajo independientes que también funcionan muy bien juntas.</p>
+        </div>
+        <div class="services-filter">
+          <label class="sr-only" for="serviceType" data-i18n="serviceTypeLabel">Selecciona un servicio</label>
+          <select id="serviceType" aria-label="Selecciona un servicio" onchange="goToServicePage(this.value)">
+            <option value="" disabled selected data-i18n="serviceTypePlaceholder">Selecciona un servicio</option>
+            <option value="software" data-i18n="serviceSoftware">Desarrollo de software</option>
+            <option value="ai" data-i18n="serviceAi">Automatizaciones con IA</option>
+            <option value="hosting" data-i18n="serviceHosting">Alojamiento (hosting)</option>
+          </select>
+        </div>
+        <div class="services-signal"><span class="services-signal-dot"></span><span>03 soluciones activas</span></div>
+      </div>
+      <div class="services-matrix">
+        <article class="service-card reveal">
+          <div class="service-card-top"><span class="service-index">01 / BUILD</span><div class="service-icon">💻</div></div>
+          <div class="service-card-kicker">Digital foundations</div>
+          <h3 data-i18n="pkgSoftT">Desarrollo de software</h3>
+          <p data-i18n="pkgSoftD">Convierte una idea o un proceso complicado en una herramienta digital clara, rápida y hecha para tu negocio.</p>
+          <div class="service-card-meta"><span>Web</span><span>Apps</span><span>APIs</span></div>
+          <a class="service-link" href="desarrollo-software.html" data-i18n="serviceMore">Ver servicio →</a>
+        </article>
+        <article class="service-card reveal">
+          <div class="service-card-top"><span class="service-index">02 / THINK</span><div class="service-icon">⚡</div></div>
+          <div class="service-card-kicker">Intelligent operations</div>
+          <h3 data-i18n="pkgAiT">Automatizaciones con IA</h3>
+          <p data-i18n="pkgAiD">Libera a tu equipo de tareas repetitivas con flujos y asistentes inteligentes que trabajan por ti 24/7.</p>
+          <div class="service-card-meta"><span>Flows</span><span>Agents</span><span>24/7</span></div>
+          <a class="service-link" href="automatizaciones-ia.html" data-i18n="serviceMore">Ver servicio →</a>
+        </article>
+        <article class="service-card reveal">
+          <div class="service-card-top"><span class="service-index">03 / RUN</span><div class="service-icon">☁️</div></div>
+          <div class="service-card-kicker">Always available</div>
+          <h3 data-i18n="pkgHostT">Alojamiento seguro</h3>
+          <p data-i18n="pkgHostD">Mantén tu sitio o sistema disponible, protegido y con buen rendimiento sin cargar a tu equipo con la parte técnica.</p>
+          <div class="service-card-meta"><span>Deploy</span><span>SSL</span><span>Uptime</span></div>
+          <a class="service-link" href="hosting.html" data-i18n="serviceMore">Ver servicio →</a>
+        </article>
+      </div>
     </div>
   </div>
 </section>
@@ -841,6 +945,7 @@
 
         <div class="form-group">
           <label data-i18n="formInterest">¿Cuál es tu interés?</label>
+          <!--
           <select name="interes" id="interestSelect" required>
             <option value="" disabled selected data-i18n="formInterestPlaceholder">Selecciona una opción</option>
             <option value="Diagnóstico de procesos" data-i18n="interestOpt1">Diagnóstico de procesos</option>
@@ -849,6 +954,7 @@
             <option value="Agentes y asistentes IA" data-i18n="interestOpt4">Agentes y asistentes IA</option>
             <option value="Otro" data-i18n="interestOpt5">Otro</option>
           </select>
+          -->
           <div class="other-field" id="otherField">
             <input type="text" name="interes_otro" id="otherInput" placeholder="Especifica tu interés">
           </div>
@@ -1248,16 +1354,18 @@ const interestSelect = document.getElementById('interestSelect');
 const otherField = document.getElementById('otherField');
 const otherInput = document.getElementById('otherInput');
 
-interestSelect.addEventListener('change', ()=>{
-  if(interestSelect.value === 'Otro' || interestSelect.value === 'Other'){
-    otherField.classList.add('show');
-    otherInput.required = true;
-  } else {
-    otherField.classList.remove('show');
-    otherInput.required = false;
-    otherInput.value = '';
-  }
-});
+if(interestSelect){
+  interestSelect.addEventListener('change', ()=>{
+    if(interestSelect.value === 'Otro' || interestSelect.value === 'Other'){
+      otherField.classList.add('show');
+      otherInput.required = true;
+    } else {
+      otherField.classList.remove('show');
+      otherInput.required = false;
+      otherInput.value = '';
+    }
+  });
+}
 
 function scrollToSection(id){
   const el = document.getElementById(id);
