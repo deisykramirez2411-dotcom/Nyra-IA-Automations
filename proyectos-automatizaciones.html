@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Conoce proyectos innovadores de inteligencia artificial y automatización creados por Nyra Tech.">
+  <title>Innovación en acción · Nyra Tech</title>
+  <link rel="icon" type="image/png" href="LogoFavicon.png">
+  <style>
+    :root {
+      --bg: #0b0e14;
+      --bg-2: #0f1420;
+      --cyan: #00f0ff;
+      --violet: #7b2fff;
+      --text: #e7e9ee;
+      --muted: #9aa0ad;
+      --border: rgba(231, 233, 238, 0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, sans-serif;
+      line-height: 1.6;
+    }
+    h1, h2, h3 { font-family: "Space Grotesk", Inter, sans-serif; letter-spacing: -0.02em; }
+    a { color: inherit; }
+
+    nav {
+      position: fixed;
+      z-index: 10;
+      inset: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 6%;
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+      box-shadow: 0 1px 0 rgba(15, 23, 42, 0.04);
+      backdrop-filter: blur(14px);
+    }
+    .brand-logo { display: block; width: auto; max-width: 200px; height: 52px; object-fit: contain; }
+    .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+    .nav-links a { color: #111827; font-size: 0.9rem; font-weight: 600; text-decoration: none; }
+    .nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--violet); }
+    .nav-cta {
+      padding: 10px 20px;
+      border-radius: 999px;
+      background: var(--violet);
+      color: #fff;
+      font-size: 0.86rem;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 0 18px rgba(123, 47, 255, 0.25);
+    }
+    .menu-toggle {
+      display: none;
+      padding: 7px 9px;
+      border: 1px solid rgba(17, 24, 39, 0.15);
+      border-radius: 8px;
+      background: transparent;
+      color: #111827;
+      font-size: 1.35rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    main { padding: 150px 6% 100px; }
+    .container { width: min(100%, 1100px); margin: 0 auto; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 18px;
+      padding: 7px 13px;
+      border: 1px solid rgba(0, 240, 255, 0.32);
+      border-radius: 999px;
+      background: rgba(0, 240, 255, 0.08);
+      color: var(--cyan);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); content: ""; }
+    .page-heading { max-width: 760px; margin-bottom: 46px; }
+    .page-heading h1 { margin-bottom: 16px; font-size: clamp(2.3rem, 5vw, 4rem); line-height: 1.08; }
+    .page-heading p { max-width: 640px; color: var(--muted); font-size: 1.08rem; }
+
+    .projects-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; gap: 24px; }
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: linear-gradient(145deg, rgba(20, 27, 41, 0.96), rgba(12, 16, 25, 0.96));
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+    }
+    .project-image-wrap { position: relative; overflow: hidden; background: #f4f2fa; }
+    .project-image {
+      display: block;
+      width: 100%;
+      aspect-ratio: 3 / 1;
+      object-fit: cover;
+    }
+    .project-content { display: flex; flex: 1; flex-direction: column; align-items: flex-start; padding: clamp(22px, 3vw, 34px); }
+    .project-category {
+      display: inline-block;
+      margin-bottom: 12px;
+      color: var(--cyan);
+      font-size: 0.77rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .project-content h2 { margin-bottom: 12px; font-size: clamp(1.4rem, 2.5vw, 1.85rem); line-height: 1.2; }
+    .project-description { color: #c0c6d2; font-size: 0.94rem; }
+    .project-features { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 22px; list-style: none; }
+    .project-features li {
+      padding: 7px 11px;
+      border: 1px solid rgba(231, 233, 238, 0.13);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.035);
+      color: #c6cbd5;
+      font-size: 0.82rem;
+    }
+    .project-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: auto; padding-top: 24px; }
+    .button {
+      display: inline-flex;
+      min-height: 46px;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 11px 20px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      font: 600 0.9rem Inter, sans-serif;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { background: var(--cyan); color: var(--bg); box-shadow: 0 0 24px rgba(0, 240, 255, 0.2); }
+    .button-secondary { border-color: rgba(231, 233, 238, 0.2); background: transparent; color: var(--text); }
+    .button-secondary:hover { border-color: var(--cyan); color: var(--cyan); }
+    :focus-visible { outline: 3px solid rgba(0, 240, 255, 0.7); outline-offset: 3px; }
+
+    footer { padding: 28px 6%; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.86rem; text-align: center; }
+    .document-dialog {
+      width: min(100% - 32px, 1000px);
+      max-width: none;
+      height: min(88vh, 850px);
+      max-height: none;
+      margin: auto;
+      overflow: hidden;
+      border: 1px solid rgba(0, 240, 255, 0.24);
+      border-radius: 18px;
+      background: #101520;
+      color: var(--text);
+      box-shadow: 0 30px 100px rgba(0, 0, 0, 0.65);
+    }
+    .document-dialog::backdrop { background: rgba(3, 6, 12, 0.82); backdrop-filter: blur(8px); }
+    .dialog-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 18px; border-bottom: 1px solid var(--border); }
+    .dialog-header h2 { font-size: 1.05rem; }
+    .dialog-controls { display: flex; align-items: center; gap: 10px; }
+    .dialog-download { color: var(--cyan); font-size: 0.85rem; font-weight: 600; text-decoration: none; }
+    .dialog-close { width: 38px; height: 38px; border: 1px solid var(--border); border-radius: 50%; background: transparent; color: var(--text); font-size: 1.35rem; cursor: pointer; }
+    .document-frame { display: block; width: 100%; height: calc(100% - 67px); border: 0; background: #fff; }
+    .wa-float { position: fixed; right: 24px; bottom: 24px; z-index: 9; display: inline-flex; width: 72px; height: 72px; align-items: center; justify-content: center; border: 6px solid #6050ff; border-radius: 50%; background: linear-gradient(135deg, #fff, #20c9ff); box-shadow: 0 0 0 4px rgba(96, 80, 255, 0.2), 0 14px 30px rgba(37, 211, 102, 0.35); transition: transform 0.25s ease, box-shadow 0.25s ease; }
+    .wa-float:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 18px 36px rgba(37, 211, 102, 0.45); }
+    .wa-float img { display: block; width: 68px; height: 68px; object-fit: contain; }
+    .wa-tooltip { position: absolute; right: 0; bottom: 82px; width: max-content; max-width: min(280px, calc(100vw - 40px)); padding: 10px 14px; border: 1px solid rgba(123, 47, 255, 0.22); border-left: 4px solid var(--violet); border-radius: 12px; background: #fff; color: #111827; font-size: 0.82rem; font-weight: 700; opacity: 0; visibility: hidden; transform: translateY(8px); box-shadow: 0 12px 28px rgba(15, 23, 42, 0.18); transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease; }
+    .wa-float:hover .wa-tooltip, .wa-float:focus-visible .wa-tooltip { opacity: 1; visibility: visible; transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      .projects-grid { gap: 18px; }
+      .project-content { padding: 22px; }
+    }
+    @media (max-width: 760px) {
+      nav { padding: 10px 5%; }
+      .brand-logo { height: 44px; max-width: 155px; }
+      .menu-toggle { display: block; }
+      .nav-cta { margin-left: auto; margin-right: 10px; padding: 9px 13px; font-size: 0.78rem; }
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        right: 4%;
+        left: 4%;
+        display: none;
+        align-items: stretch;
+        gap: 0;
+        padding: 8px 0;
+        border: 1px solid rgba(15, 23, 42, 0.1);
+        border-radius: 0 0 14px 14px;
+        background: rgba(255, 255, 255, 0.98);
+        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.14);
+      }
+      .nav-links.is-open { display: flex; flex-direction: column; }
+      .nav-links a { display: block; padding: 12px 18px; }
+      main { padding: 125px 5% 70px; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .document-dialog { width: calc(100% - 20px); height: 92vh; }
+      .dialog-header { padding: 12px; }
+      .dialog-header h2 { font-size: 0.9rem; }
+      .dialog-download { font-size: 0.77rem; }
+      .wa-float { right: 16px; bottom: 16px; width: 64px; height: 64px; }
+      .wa-float img { width: 60px; height: 60px; }
+      .wa-tooltip { bottom: 72px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <nav aria-label="Navegación principal">
+    <a class="logo" href="index.html" aria-label="Nyra Tech, inicio">
+      <img class="brand-logo" src="logo.png" alt="Nyra Tech">
+    </a>
+    <ul class="nav-links" id="mainNavLinks">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="index.html#servicios">Servicios</a></li>
+      <li><a href="proyectos-automatizaciones.html" aria-current="page">Proyectos</a></li>
+      <li><a href="index.html#contacto">Contacto</a></li>
+    </ul>
+    <a class="nav-cta" href="https://wa.me/573043704576?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20sus%20proyectos%20de%20inteligencia%20artificial." target="_blank" rel="noopener noreferrer">Consultar proyecto</a>
+    <button class="menu-toggle" id="menuToggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mainNavLinks">☰</button>
+  </nav>
+
+  <main>
+    <div class="container">
+      <header class="page-heading">
+        <span class="eyebrow">Soluciones de inteligencia artificial</span>
+        <h1>Innovación en acción</h1>
+        <p>Proyectos creados para transformar la forma en que las empresas atienden, automatizan y crecen.</p>
+      </header>
+
+      <div class="projects-grid" aria-label="Catálogo de proyectos">
+        <article class="project-card">
+          <div class="project-image-wrap">
+            <img class="project-image" src="workflow-agente-whatsapp.png" alt="Flujo de automatización del agente de IA para WhatsApp y carga de documentos">
+          </div>
+          <div class="project-content">
+            <span class="project-category">WhatsApp · Inteligencia artificial</span>
+            <h2>Agente de IA para WhatsApp</h2>
+            <p class="project-description">Atención automática a clientes con respuestas basadas en tus propios documentos, y un panel para supervisar, medir y mejorar al agente.</p>
+            <ul class="project-features" aria-label="Componentes de la solución">
+              <li>Respuestas basadas en documentos</li>
+              <li>Panel de control</li>
+              <li>Autoentrenamiento</li>
+              <li>Preguntas frecuentes</li>
+            </ul>
+            <div class="project-actions">
+              <button class="button button-primary" id="openDocument" type="button">Ver documentación <span aria-hidden="true">↗</span></button>
+              <a class="button button-secondary" href="documentacion-agente-ia-whatsapp.pdf" download="documentacion-agente-ia-whatsapp.pdf">Descargar documentación <span aria-hidden="true">↓</span></a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <a class="wa-float" href="https://wa.me/573043704576?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20el%20Agente%20de%20IA%20para%20WhatsApp." target="_blank" rel="noopener noreferrer" aria-label="Consultar por WhatsApp">
+    <span class="wa-tooltip" aria-hidden="true">Hola 👋, ¿en qué podemos ayudarte?</span>
+    <img src="BotonWhat.png" alt="">
+  </a>
+
+  <footer>© 2026 Nyra Tech · Automatización con IA y soluciones digitales</footer>
+
+  <dialog class="document-dialog" id="documentDialog" aria-labelledby="dialogTitle">
+    <div class="dialog-header">
+      <h2 id="dialogTitle">Documentación · Agente de IA para WhatsApp</h2>
+      <div class="dialog-controls">
+        <a class="dialog-download" href="documentacion-agente-ia-whatsapp.pdf" download="documentacion-agente-ia-whatsapp.pdf">Descargar PDF</a>
+        <button class="dialog-close" id="closeDocument" type="button" aria-label="Cerrar documentación">×</button>
+      </div>
+    </div>
+    <iframe class="document-frame" src="documentacion-agente-ia-whatsapp.pdf" title="Documentación del Agente de IA para WhatsApp"></iframe>
+  </dialog>
+
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const mainNavLinks = document.getElementById("mainNavLinks");
+    const documentDialog = document.getElementById("documentDialog");
+    const openDocument = document.getElementById("openDocument");
+    const closeDocument = document.getElementById("closeDocument");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = mainNavLinks.classList.toggle("is-open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Cerrar menú" : "Abrir menú");
+      menuToggle.textContent = isOpen ? "×" : "☰";
+    });
+
+    mainNavLinks.addEventListener("click", (event) => {
+      if (event.target.closest("a")) {
+        mainNavLinks.classList.remove("is-open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Abrir menú");
+        menuToggle.textContent = "☰";
+      }
+    });
+
+    openDocument.addEventListener("click", () => documentDialog.showModal());
+    closeDocument.addEventListener("click", () => documentDialog.close());
+    documentDialog.addEventListener("click", (event) => {
+      if (event.target === documentDialog) documentDialog.close();
+    });
+  </script>
+</body>
+</html>

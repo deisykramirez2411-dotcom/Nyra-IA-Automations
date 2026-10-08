@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Libreto de Producción Digital - ElExperimento</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@400;600;700&display=swap');
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #0f172a; /* Slate 900 - Dark theme for theater vibe */
+            color: #f8fafc;
+            background-image: radial-gradient(circle at top center, #1e293b 0%, #0f172a 100%);
+        }
+
+        h1, h2, .title-font {
+            font-family: 'Cinzel', serif;
+        }
+
+        .card-meta {
+            background: linear-gradient(135deg, #331236 0%, #170d24 100%);
+            border-left: 4px solid #e1306c; /* Instagram/Meta pinkish */
+        }
+
+        .card-linkedin {
+            background: linear-gradient(135deg, #0b2239 0%, #081424 100%);
+            border-left: 4px solid #0077b5; /* LinkedIn blue */
+        }
+
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .tag-venta { background-color: #ef4444; color: white; } /* Red */
+        .tag-valor { background-color: #10b981; color: white; } /* Green */
+        .tag-info { background-color: #f59e0b; color: white; } /* Yellow */
+
+        @page {
+            size: A4 portrait;
+            margin: 3mm;
+        }
+
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 3mm;
+                background: #0f172a !important;
+            }
+
+            html, body {
+                background: #0f172a !important;
+                color: #f8fafc !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            body {
+                padding: 0 !important;
+                margin: 0 !important;
+                width: 100% !important;
+                min-width: 0 !important;
+            }
+
+            .max-w-7xl {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+            }
+
+            .rounded-xl {
+                border-radius: 0.5rem !important;
+            }
+
+            .p-6 {
+                padding: 1rem !important;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .card-meta {
+                background: linear-gradient(135deg, #331236 0%, #170d24 100%) !important;
+                border-left: 4px solid #e1306c !important;
+                color: #f8fafc !important;
+                box-shadow: none !important;
+                page-break-inside: avoid;
+            }
+
+            .card-linkedin {
+                background: linear-gradient(135deg, #0b2239 0%, #081424 100%) !important;
+                border-left: 4px solid #0077b5 !important;
+                color: #f8fafc !important;
+                box-shadow: none !important;
+                page-break-inside: avoid;
+            }
+
+            .text-gray-300, .text-gray-400 {
+                color: #e2e8f0 !important;
+            }
+
+            .shadow-xl, .shadow-2xl {
+                box-shadow: none !important;
+            }
+
+            h1, h2, h3 {
+                color: #f8fafc !important;
+            }
+
+            .print-bg-dark {
+                background-color: #1e293b !important;
+                color: white !important;
+            }
+
+            .tag-venta, .tag-valor, .tag-info {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .act-divider {
+                page-break-before: auto;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen pb-12 p-4 md:p-8">
+
+    <div class="max-w-7xl mx-auto">
+        
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row justify-between items-center mb-10 no-print gap-6 bg-slate-800/50 p-6 rounded-2xl border border-slate-700 backdrop-blur-sm">
+            <div class="flex items-center gap-4">
+                <div class="bg-amber-500 text-slate-900 p-4 rounded-full">
+                    <span class="text-3xl">🎭</span>
+                </div>
+                <div>
+                    <h1 class="text-2xl md:text-4xl font-bold text-amber-400 tracking-wider">LIBRETO DE PRODUCCIÓN REDES</h1>
+                    <p class="text-gray-300 uppercase tracking-widest text-sm mt-1">Estrategia Digital • LinkedIn + Anuncios en Meta</p>
+                    <p class="text-gray-400 text-xs mt-1">ElExperimento Productora • 13 de octubre al 13 de noviembre 2026</p>
+                    <p class="text-gray-300 text-sm md:text-base font-semibold mt-3">NOTA: Las piezas publicitarias podrán ajustarse según las necesidades de comunicación y aprobación.</p>
+                </div>
+            </div>
+           
+                
+        </div>
+
+        <!-- Print only header -->
+        <div class="hidden print:block text-center mb-8 border-b-2 border-slate-800 pb-4">
+            <h1 class="text-4xl font-bold uppercase tracking-widest">ElExperimento Productora</h1>
+            <p class="text-xl mt-2">Libreto de Producción Digital (13 Oct - 13 Nov 2026)</p>
+        </div>
+
+        <!-- ANUNCIOS -->
+        <div class="mb-12 act-divider">
+            <div class="flex items-center gap-4 mb-6">
+                <h2 class="text-2xl md:text-3xl font-bold text-amber-500 title-font border-b-2 border-amber-500/30 pb-2 w-full">
+                    📢 PUBLICACIÓN ANUNCIO <span class="text-lg text-gray-400 font-sans font-normal ml-2">(Todo el mes · 13 de Octubre al 13 de Noviembre)</span>
+                    <span class="block text-xs text-gray-400 font-sans font-normal mt-1 tracking-widest uppercase">2 anuncios en Meta: Facebook e Instagram</span>
+                </h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="card-meta rounded-xl p-6 shadow-xl hover-lift relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-gradient-to-r from-[#833ab4] to-[#fd1d1d] text-white text-xs font-bold px-3 py-1 rounded-bl-lg">META • FACEBOOK + INSTAGRAM</div>
+                    <span class="text-xs font-bold text-[#e1306c] uppercase tracking-wider block mb-1">Anuncio 1 • Todo el mes (13 de Octubre al 13 de Noviembre)</span>
+                    <h3 class="text-xl font-bold text-white mb-2">Liderazgo Empresarial</h3>
+                    <span class="text-[10px] font-bold px-2 py-1 rounded-full tag-venta uppercase">Anuncio fijo / Venta</span>
+                    <p class="text-gray-300 text-sm leading-relaxed mt-4"><strong>Guion:</strong> Anuncio de entrenamiento a la medida para gerentes, RRHH y equipos comerciales: oratoria, comunicación asertiva, manejo de conflictos y dirección de equipos con herramientas escénicas. Incluye la experiencia outdoor "Cruzada de Valientes". CTA: WhatsApp 322 2529759 y asesorcomercial@elexperimentoteatro.org.</p>
+                </div>
+                <div class="card-meta rounded-xl p-6 shadow-xl hover-lift relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-gradient-to-r from-[#833ab4] to-[#fd1d1d] text-white text-xs font-bold px-3 py-1 rounded-bl-lg">META • FACEBOOK + INSTAGRAM</div>
+                    <span class="text-xs font-bold text-[#e1306c] uppercase tracking-wider block mb-1">Anuncio 2 • Todo el mes (13 de Octubre al 13 de Noviembre)</span>
+                    <h3 class="text-xl font-bold text-white mb-2">Campamentos Artísticos</h3>
+                    <span class="text-[10px] font-bold px-2 py-1 rounded-full tag-venta uppercase">Anuncio fijo / Venta</span>
+                    <p class="text-gray-300 text-sm leading-relaxed mt-4"><strong>Guion:</strong> Anuncio de campamentos para colegios: 4 estaciones rotativas (Happening, Drama Camp, Cine, Radio Teatro y Podcast) en español o inglés, dentro o fuera de Bogotá, con talleristas especializados. CTA: WhatsApp 322 2529759 y asesorcomercial@elexperimentoteatro.org.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- IDEAS -->
+        <div class="mb-12 act-divider no-print">
+            <h2 class="text-2xl font-bold text-amber-500 title-font border-b-2 border-amber-500/30 pb-2 mb-4">💡 Ideas de tipos de publicación (referencia opcional)</h2>
+            <p class="text-sm text-gray-400 mb-4">Lista de formatos para variar el contenido y sumar publicaciones nuevas cuando se necesite. No forma parte del calendario.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm text-gray-300">
+                <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700"><strong>Encuesta (poll):</strong> ¿Qué habilidad blanda necesita más tu equipo?</div>
+                <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700"><strong>Documento / carrusel PDF:</strong> guía descargable por tema.</div>
+                <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700"><strong>Mito vs. realidad:</strong> "El teatro es solo para artistas".</div>
+                <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700"><strong>Testimonio / caso de éxito:</strong> voz de un colegio o empresa aliada.</div>
+                <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700"><strong>Detrás de cámaras (video corto):</strong> talleristas y logística en acción.</div>
+                <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700"><strong>Pregunta de la semana:</strong> abre conversación en comentarios.</div>
+                <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700"><strong>Checklist:</strong> "5 señales de que tu equipo necesita un reset".</div>
+                <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700"><strong>Antes y después:</strong> clima de grupo antes/después de una convivencia.</div>
+                <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700"><strong>Entrevista corta:</strong> psicopedagogo, coach o tallerista.</div>
+                <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700"><strong>Dato + insight:</strong> una cifra y su lectura para RRHH o rectores.</div>
+                <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700"><strong>Frase + reflexión:</strong> cita de liderazgo aplicada al día a día.</div>
+                <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700"><strong>Evento / invitación:</strong> sesión demo o webinar gratuito.</div>
+            </div>
+        </div>
+
+        <div class="mb-12 act-divider">
+            <div class="flex items-center gap-4 mb-6">
+                <h2 class="text-2xl md:text-3xl font-bold text-amber-500 title-font border-b-2 border-amber-500/30 pb-2 w-full">
+                    🎬 ACTO 1: Arranca campaña <span class="text-lg text-gray-400 font-sans font-normal ml-2">(13 de Octubre)</span>
+                    <span class="block text-xs text-gray-400 font-sans font-normal mt-1 tracking-widest uppercase">Patrón Lunes · Miércoles · Viernes</span>
+                </h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="card-linkedin rounded-xl p-6 shadow-xl hover-lift relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-[#0077b5] text-white text-xs font-bold px-3 py-1 rounded-bl-lg">LINKEDIN</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="text-xs font-bold text-[#0077b5] uppercase tracking-wider block mb-1">Escena 1 • Viernes 02</span>
+                            <h3 class="text-xl font-bold text-white mb-2">¿Mentalidad fija o de crecimiento?</h3>
+                            <span class="text-[10px] font-bold px-2 py-1 rounded-full tag-valor uppercase">Artículo</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed"><strong>Guion:</strong> Carol Dweck distingue dos formas de ver las habilidades: estáticas o desarrollables con esfuerzo. El líder con mentalidad de crecimiento asume los errores como oportunidades y crea entornos donde aprender pesa más que el miedo a fallar. Cierre con 3 acciones: cuestionar creencias limitantes, permitir equivocarse sin miedo, celebrar procesos y no solo resultados. CTA al entrenamiento de Liderazgo Empresarial.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-12 act-divider">
+            <div class="flex items-center gap-4 mb-6">
+                <h2 class="text-2xl md:text-3xl font-bold text-amber-500 title-font border-b-2 border-amber-500/30 pb-2 w-full">
+                    ❤️ ACTO 2: Emociones y Convivencia <span class="text-lg text-gray-400 font-sans font-normal ml-2">(15 al 19 de Octubre)</span>
+                    <span class="block text-xs text-gray-400 font-sans font-normal mt-1 tracking-widest uppercase">Patrón Lunes · Martes · Jueves</span>
+                </h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="card-linkedin rounded-xl p-6 shadow-xl hover-lift relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-[#0077b5] text-white text-xs font-bold px-3 py-1 rounded-bl-lg">LINKEDIN</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="text-xs font-bold text-[#0077b5] uppercase tracking-wider block mb-1">Escena 1 • Lunes 05</span>
+                            <h3 class="text-xl font-bold text-white mb-2">Convivencias emocionARTE</h3>
+                            <span class="text-[10px] font-bold px-2 py-1 rounded-full tag-venta uppercase">Venta 1 a 1</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed"><strong>Guion:</strong> Dirigido a rectores y coordinadores. Experiencias fuera del aula que fortalecen vínculos entre estudiantes y docentes: Super Match, Biodanza, Emocionarte, Relajación y Clown, adaptadas de preescolar a bachillerato (sesiones de 1 hora). En el colegio, Tabio, Usme o Tenjo, con materiales y equipo incluidos.</p>
+                </div>
+                <div class="card-linkedin rounded-xl p-6 shadow-xl hover-lift relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-[#0077b5] text-white text-xs font-bold px-3 py-1 rounded-bl-lg">LINKEDIN</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="text-xs font-bold text-[#0077b5] uppercase tracking-wider block mb-1">Escena 2 • Martes 06</span>
+                            <h3 class="text-xl font-bold text-white mb-2">Hábitos del líder consciente</h3>
+                            <span class="text-[10px] font-bold px-2 py-1 rounded-full tag-info uppercase">Tips / Carrusel</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed"><strong>Guion:</strong> 4 hábitos para sostener el liderazgo: rutina acorde con tu propósito, límites entre trabajo y descanso, gratitud diaria y revisión semanal de decisiones y emociones. Idea de Covey: el hábito nace donde se cruzan conocimiento, habilidad y deseo.</p>
+                </div>
+                <div class="card-linkedin rounded-xl p-6 shadow-xl hover-lift relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-[#0077b5] text-white text-xs font-bold px-3 py-1 rounded-bl-lg">LINKEDIN</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="text-xs font-bold text-[#0077b5] uppercase tracking-wider block mb-1">Escena 3 • Jueves 08</span>
+                            <h3 class="text-xl font-bold text-white mb-2">El pañuelo rojo: aprender a pedir perdón</h3>
+                            <span class="text-[10px] font-bold px-2 py-1 rounded-full tag-valor uppercase">Caso / Reflexión</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed"><strong>Guion:</strong> Historia de una dinámica de convivencia para grados 3° a 5°: nombrar un conflicto, escribir una carta de perdón y cerrar con un acto de reconciliación y cumplidos entre compañeros. Mostrar cómo el juego abre conversaciones que el aula no logra. Pregunta final para comentarios.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-12 act-divider">
+            <div class="flex items-center gap-4 mb-6">
+                <h2 class="text-2xl md:text-3xl font-bold text-amber-500 title-font border-b-2 border-amber-500/30 pb-2 w-full">
+                    🧠 ACTO 3: Mente, Voz y Saber 11 <span class="text-lg text-gray-400 font-sans font-normal ml-2">(20 al 23 de Octubre)</span>
+                    <span class="block text-xs text-gray-400 font-sans font-normal mt-1 tracking-widest uppercase">Patrón Martes · Miércoles · Viernes</span>
+                </h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="card-linkedin rounded-xl p-6 shadow-xl hover-lift relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-[#0077b5] text-white text-xs font-bold px-3 py-1 rounded-bl-lg">LINKEDIN</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="text-xs font-bold text-[#0077b5] uppercase tracking-wider block mb-1">Escena 1 • Martes 13</span>
+                            <h3 class="text-xl font-bold text-white mb-2">Emociones que guían o sabotean</h3>
+                            <span class="text-[10px] font-bold px-2 py-1 rounded-full tag-info uppercase">Infografía</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed"><strong>Guion:</strong> Las emociones orientan decisiones y el entorno las afecta. Compartir la técnica "STOP" para identificar lo que se siente y las señales de escalada emocional (ritmo cardíaco, tensión muscular). Goleman: autoconciencia + autorregulación = respuestas más adaptativas.</p>
+                </div>
+                <div class="card-linkedin rounded-xl p-6 shadow-xl hover-lift relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-[#0077b5] text-white text-xs font-bold px-3 py-1 rounded-bl-lg">LINKEDIN</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="text-xs font-bold text-[#0077b5] uppercase tracking-wider block mb-1">Escena 2 • Miércoles 14</span>
+                            <h3 class="text-xl font-bold text-white mb-2">Preparar el Saber 11 sin aburrir</h3>
+                            <span class="text-[10px] font-bold px-2 py-1 rounded-full tag-valor uppercase">Artículo / Infografía</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed"><strong>Guion:</strong> Inmersiones en inglés para grado 11: 4 estaciones rotativas, grupos de máximo 35 estudiantes, jornada de 8:30 a.m. a 12:30 p.m., todo en inglés (Speaking, Reading, Listening, Writing) y cierre con aprendizajes por grupo. CTA para coordinadores de inglés.</p>
+                </div>
+                <div class="card-linkedin rounded-xl p-6 shadow-xl hover-lift relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-[#0077b5] text-white text-xs font-bold px-3 py-1 rounded-bl-lg">LINKEDIN</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="text-xs font-bold text-[#0077b5] uppercase tracking-wider block mb-1">Escena 3 • Viernes 16</span>
+                            <h3 class="text-xl font-bold text-white mb-2">Autoconfianza real: se construye con evidencia</h3>
+                            <span class="text-[10px] font-bold px-2 py-1 rounded-full tag-valor uppercase">Reflexión</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed"><strong>Guion:</strong> La confianza sostenible se apoya en competencias, experiencia y pequeñas victorias. Técnica "preparación por prueba": simular la situación antes de vivirla, igual que se ensaya en escena. Mensaje: confianza basada en aprendizaje y esfuerzo, no en poder absoluto.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-12 act-divider">
+            <div class="flex items-center gap-4 mb-6">
+                <h2 class="text-2xl md:text-3xl font-bold text-amber-500 title-font border-b-2 border-amber-500/30 pb-2 w-full">
+                    👥 ACTO 4: Equipos y Mundo Bilingüe <span class="text-lg text-gray-400 font-sans font-normal ml-2">(26 al 30 de Octubre)</span>
+                    <span class="block text-xs text-gray-400 font-sans font-normal mt-1 tracking-widest uppercase">Patrón Lunes · Martes · Jueves</span>
+                </h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="card-linkedin rounded-xl p-6 shadow-xl hover-lift relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-[#0077b5] text-white text-xs font-bold px-3 py-1 rounded-bl-lg">LINKEDIN</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="text-xs font-bold text-[#0077b5] uppercase tracking-wider block mb-1">Escena 1 • Lunes 19</span>
+                            <h3 class="text-xl font-bold text-white mb-2">Liderazgo Empresarial a la medida</h3>
+                            <span class="text-[10px] font-bold px-2 py-1 rounded-full tag-venta uppercase">Venta 1 a 1</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed"><strong>Guion:</strong> Dirigido a gerentes, RRHH y equipos comerciales. Diagnóstico de necesidades y plan de trabajo con entrenamiento corporal, vocal y actoral, simulaciones y ejercicios de oratoria. Modalidad itinerante: coaches y actores llegan a tu oficina. Resultado: comunicación asertiva y equipos más comprometidos.</p>
+                </div>
+                <div class="card-linkedin rounded-xl p-6 shadow-xl hover-lift relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-[#0077b5] text-white text-xs font-bold px-3 py-1 rounded-bl-lg">LINKEDIN</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="text-xs font-bold text-[#0077b5] uppercase tracking-wider block mb-1">Escena 2 • Martes 20</span>
+                            <h3 class="text-xl font-bold text-white mb-2">4 proyectos de inmersión en inglés</h3>
+                            <span class="text-[10px] font-bold px-2 py-1 rounded-full tag-info uppercase">Catálogo / Carrusel</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed"><strong>Guion:</strong> Una lámina por proyecto: Happening (Stomp, Act It Out, Team Building, Poetry), Show and Tell "Where Am I From?", Sharing Our Countries y Let's Go On a Trip!. Adaptados a preescolar, primaria y bachillerato.</p>
+                </div>
+                <div class="card-linkedin rounded-xl p-6 shadow-xl hover-lift relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-[#0077b5] text-white text-xs font-bold px-3 py-1 rounded-bl-lg">LINKEDIN</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="text-xs font-bold text-[#0077b5] uppercase tracking-wider block mb-1">Escena 3 • Jueves 22</span>
+                            <h3 class="text-xl font-bold text-white mb-2">Resiliencia: el poder de volver a empezar</h3>
+                            <span class="text-[10px] font-bold px-2 py-1 rounded-full tag-info uppercase">Tips</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed"><strong>Guion:</strong> Viktor Frankl: un propósito claro es factor central de la resiliencia. Tres prácticas: reencuadre cognitivo (buscar la lección en cada dificultad), registro de aprendizajes tras cada revés y redes de apoyo para compartir la carga emocional.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-12 act-divider">
+            <div class="flex items-center gap-4 mb-6">
+                <h2 class="text-2xl md:text-3xl font-bold text-amber-500 title-font border-b-2 border-amber-500/30 pb-2 w-full">
+                    🏁 ACTO 5: Cierre de campaña <span class="text-lg text-gray-400 font-sans font-normal ml-2">(2 al 13 de Noviembre)</span>
+                    <span class="block text-xs text-gray-400 font-sans font-normal mt-1 tracking-widest uppercase">Patrón Lunes · Miércoles · Viernes</span>
+                </h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="card-linkedin rounded-xl p-6 shadow-xl hover-lift relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-[#0077b5] text-white text-xs font-bold px-3 py-1 rounded-bl-lg">LINKEDIN</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="text-xs font-bold text-[#0077b5] uppercase tracking-wider block mb-1">Escena 1 • Lunes 26</span>
+                            <h3 class="text-xl font-bold text-white mb-2">Campamentos fuera de Bogotá</h3>
+                            <span class="text-[10px] font-bold px-2 py-1 rounded-full tag-venta uppercase">Venta 1 a 1</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed"><strong>Guion:</strong> Un día distinto para el colegio: Finca Media Luna (Tabio), Granja Temática La Dorada (Usme) y Conviventia (Tenjo). Estaciones rotativas, habilidades sociales como liderazgo, trabajo en equipo y resiliencia al cambio, personal especializado y brigadista en finca. Invitar a cotizar.</p>
+                </div>
+                <div class="card-linkedin rounded-xl p-6 shadow-xl hover-lift relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-[#0077b5] text-white text-xs font-bold px-3 py-1 rounded-bl-lg">LINKEDIN</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="text-xs font-bold text-[#0077b5] uppercase tracking-wider block mb-1">Escena 2 • Miércoles 28</span>
+                            <h3 class="text-xl font-bold text-white mb-2">Equilibrio y bienestar: gestiona tu energía</h3>
+                            <span class="text-[10px] font-bold px-2 py-1 rounded-full tag-info uppercase">Tip</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed"><strong>Guion:</strong> Covey y las 4 dimensiones de renovación: física, mental, emocional y espiritual. Gestionar energía importa tanto como el tiempo: desconexión digital, micro-descansos (Pomodoro), actividades restauradoras y revisión semanal de prioridades.</p>
+                </div>
+                <div class="card-linkedin rounded-xl p-6 shadow-xl hover-lift relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-[#0077b5] text-white text-xs font-bold px-3 py-1 rounded-bl-lg">LINKEDIN</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="text-xs font-bold text-[#0077b5] uppercase tracking-wider block mb-1">Escena 3 • Viernes 30</span>
+                            <h3 class="text-xl font-bold text-white mb-2">Liderazgo personal en 8 claves</h3>
+                            <span class="text-[10px] font-bold px-2 py-1 rounded-full tag-valor uppercase">Documento PDF / Resumen</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed"><strong>Guion:</strong> Carrusel de cierre del Módulo 1: autoconocimiento, valores y propósito, creencias y mentalidad, hábitos del líder, emociones, autoconfianza, resiliencia y bienestar. Cierre del mes con CTA a Liderazgo Empresarial.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Observaciones / Notas 
+        <div class="mb-12 act-divider">
+            <div class="flex items-center gap-4 mb-6">
+                <h2 class="text-2xl md:text-3xl font-bold text-amber-500 title-font border-b-2 border-amber-500/30 pb-2 w-full">
+                    <i class="fas fa-pen-fancy mr-2"></i> Observaciones Generales
+                </h2>
+            </div>
+            
+            <div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700 shadow-xl print-bg-dark print:border-slate-400">
+                <p class="text-sm text-gray-400 mb-4 print:hidden">Escribe aquí los ajustes</p>
+                <textarea 
+                    class="w-full h-48 bg-slate-900/80 border border-slate-600 rounded-lg p-4 text-gray-200 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 resize-y print:bg-transparent print:border-2 print:border-slate-400 print:text-black print:resize-none placeholder-slate-500" 
+                    placeholder="Escribe tus observaciones, comentarios o notas aquí..."></textarea>
+            </div>
+        </div> --> 
+
+        <!-- Footer -->
+        <div class="text-center pt-8 border-t border-slate-800 text-slate-500 text-sm">
+            <p>NYRA TECH - &copy; 2026</p>
+        </div>
+
+    </div>
+
+</body>
+</html>
